@@ -37,14 +37,14 @@
 	|/*vide*/
 	;
 
-	headerpart
+	headerpart //il faut vérifier qu'on a bien la version du xml
 	: pi
 	| commentaire
 	| DOCTYPE
 	;
 
 	pi
-	:INFSPECIAL NOM attribut attributs SUPSPECIAL
+	:INFSPECIAL NOM attributs SUPSPECIAL
 	;
 
 	element
