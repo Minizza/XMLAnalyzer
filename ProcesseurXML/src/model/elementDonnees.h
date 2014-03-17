@@ -1,36 +1,36 @@
 /* 
- * Fichier: elementCastre.h
+ * Fichier: elementDonnees.h
  * Auteur: nbuisson
  */
 
-#ifndef ELEMENT_CASTRE_H
-#define ELEMENT_CASTRE_H
+#ifndef ELEMENT_DONNEES_H
+#define ELEMENT_DONNEES_H
 
 //Liste des includes système/libs
 #include <string>
 
-#include "abstractElement.h"
+#include "elementCastre.h"
 
 
 //Liste des espaces de noms utilises 
 
 
 /*
- *      La classe ElementCastre blablabla.
+ *      La classe ElementDonnees blablabla.
  * 
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementCastre: public AbstractElement{
+class ElementDonnees: public ElementCastre{
 	
 public:
 	
-	//Methodes de base de la classe ElementCastre
-	ElementCastre(){};
+	//Methodes de base de la classe ElementDonnees
+	ElementDonnees();
 	
-	ElementCastre(const ElementCastre& orig){};
+	ElementDonnees(const ElementDonnees& orig);
 	
-	virtual ~ElementCastre();
+	virtual ~ElementDonnees();
 
 	/*
 	 *  Redéfinition du constructeur
@@ -42,9 +42,12 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	virtual ElementCastre(string aNom) = 0;
+	ElementDonnees(string aNom);
 
+private:
+
+	string texte;
 };
 
 
-#endif  /* ELEMENT_CASTRE_H */
+#endif  /* ELEMENT_DONNEES_H */

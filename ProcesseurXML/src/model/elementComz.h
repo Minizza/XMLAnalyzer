@@ -1,36 +1,36 @@
 /* 
- * Fichier: elementCastre.h
+ * Fichier: elementComz.h
  * Auteur: nbuisson
  */
 
-#ifndef ELEMENT_CASTRE_H
-#define ELEMENT_CASTRE_H
+#ifndef ELEMENT_COMZ_H
+#define ELEMENT_COMZ_H
 
 //Liste des includes système/libs
 #include <string>
 
-#include "abstractElement.h"
+#include "elementCastre.h"
 
 
 //Liste des espaces de noms utilises 
 
 
 /*
- *      La classe ElementCastre blablabla.
+ *      La classe ElementComz blablabla.
  * 
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementCastre: public AbstractElement{
+class ElementComz: public ElementCastre{
 	
 public:
 	
-	//Methodes de base de la classe ElementCastre
-	ElementCastre(){};
+	//Methodes de base de la classe ElementComz
+	ElementComz();
 	
-	ElementCastre(const ElementCastre& orig){};
+	ElementComz(const ElementComz& orig);
 	
-	virtual ~ElementCastre();
+	virtual ~ElementComz();
 
 	/*
 	 *  Redéfinition du constructeur
@@ -42,9 +42,12 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	virtual ElementCastre(string aNom) = 0;
+	ElementComz(string aNom);
 
+private:
+
+	string texte;
 };
 
 
-#endif  /* ELEMENT_CASTRE_H */
+#endif  /* ELEMENT_COMZ_H */
