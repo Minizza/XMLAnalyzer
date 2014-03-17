@@ -55,7 +55,7 @@ public:
      */
      int Ololol(int pouet, char crottin);
 
-
+};
 
 
 #endif  /* DOCUMENT_H */
