@@ -30,16 +30,20 @@
 
 	document
 	: header element
-	: header COMMENT element
 	;
 
 	header
-	: xmlversion
-	| xmlversion DOCTYPE
-	| xmlversion COMMENT DOCTYPE
+	: header headerpart
+	|/*vide*/
 	;
 
-	xmlversion
+	headerpart
+	: pi
+	| commentaire
+	| DOCTYPE
+	;
+
+	pi
 	:INFSPECIAL NOM attribut attributs SUPSPECIAL
 	;
 
@@ -55,7 +59,7 @@
 	content
 	: content element
 	| content DONNEES
-	| content COMMENT
+	| content commentaire
 	| CDATABEGIN CDATAEND
 	| /* vide */
 	;
@@ -68,3 +72,8 @@
 	attribut
 	: NOM EGAL VALEUR
 	;
+
+	commentaire
+	: COMMENT
+	;
+%%
