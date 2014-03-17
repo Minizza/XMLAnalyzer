@@ -1,12 +1,14 @@
 /* 
- * Fichier: fichier
- * Auteur: auteur
+ * Fichier: document.h
+ * Auteur: nbuisson
  */
 
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
 //Liste des includes système/libs
+ #include elementNoeud.h
+ #include enTete.h
 
 
 //Liste des espaces de noms utilises 
@@ -33,13 +35,11 @@ public:
      *  Redéfinition du constructeur
      *          
      *    Paramètres : 
-     *          -Golum* pouet : passage du device servant à gérer
-     *                  l'affichage de la fenêtre
-     *          -Prout* crottin : passage du driver servant à importer 
-     *                  les textures et les modèles
+     *          -EnTete aEnTete : passage de l'entete du document xml
+     *          -ElementNoeud aElementNoeud : passage de l'element racine du document xml
      * 
      */
-     Document(int pouet, char crottin);
+     Document(EnTete aEnTete, ElementNoeud aElementNoeud);
 
     /*
      *  Ololol : Méthode de poutpout
@@ -55,7 +55,11 @@ public:
      */
      int Ololol(int pouet, char crottin);
 
+private:
+    EnTete enTete;
+    ElementNoeud elementNoeud;
 
+};
 
 
 #endif  /* DOCUMENT_H */
