@@ -1,43 +1,58 @@
 %{
 
-#include <stack>
-#include <list>
-#include <cstring>
-#include <cstdio>
-#include <cstdlib>
-using namespace std;
-#include "commun.h"
+	#include <stack>
+	#include <list>
+	#include <cstring>
+	#include <cstdio>
+	#include <cstdlib>
+	using namespace std;
+	#include "commun.h"
 
-extern char xmltext[];
+	extern char xmltext[];
 
-int xmllex(void);  
+	int xmllex(void);  
 
-void xmlerror(const char * msg)
-{
-   fprintf(stderr,"%s\n",msg);
-}
+	void xmlerror(const char * msg)
+	{
+		fprintf(stderr,"%s\n",msg);
+	}
 
-%}
+	%}
 
-%union {
-   char * s;
-}
+	%union {
+		char * s;
+	}
 
-%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
-%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
+	%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
+	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
 
-%%
+	%%
 
-document
- : element 
- ;
+	document
+	: element 
+	;
 
-element
- : INF NOM SUP content
-   INF SLASH NOM SUP               
- ;
+	element
+	: INF NOM SUP content
+	INF SLASH NOM SUP
+	| emptytag
+	;
 
-content
- : content element          
- | /* vide */              
- ;
+	emptytag
+	: INF NOM attributs SLASH SUP
+	;
+
+	content
+	: content element
+	| content DONNEES
+	| /* vide */
+	;
+
+	attributs
+	: attributs attribut
+	| /* vide */
+	;
+
+	attribut
+	: NOM EGAL VALEUR
+	;
