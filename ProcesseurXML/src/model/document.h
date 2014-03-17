@@ -1,12 +1,14 @@
 /* 
- * Fichier: fichier
- * Auteur: auteur
+ * Fichier: document.h
+ * Auteur: nbuisson
  */
 
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
 //Liste des includes système/libs
+ #include elementNoeud.h
+ #include enTete.h
 
 
 //Liste des espaces de noms utilises 
