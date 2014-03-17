@@ -29,12 +29,22 @@
 	%%
 
 	document
-	: element 
+	: header element
+	: header COMMENT element
+	;
+
+	header
+	: xmlversion
+	| xmlversion DOCTYPE
+	| xmlversion COMMENT DOCTYPE
+	;
+
+	xmlversion
+	:INFSPECIAL NOM attribut attributs SUPSPECIAL
 	;
 
 	element
-	: INF NOM SUP content
-	INF SLASH NOM SUP
+	: INF NOM SUP content INF SLASH NOM SUP
 	| emptytag
 	;
 
@@ -45,6 +55,8 @@
 	content
 	: content element
 	| content DONNEES
+	| content COMMENT
+	| CDATABEGIN CDATAEND
 	| /* vide */
 	;
 
