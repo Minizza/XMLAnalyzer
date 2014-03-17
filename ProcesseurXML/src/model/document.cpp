@@ -19,13 +19,13 @@ Document::~Document() {
 
 
 ///// Redéfinition du contructeur /////
-Document::Document(int pouet, char crottin) {
+Document::Document(EnTete aEnTete, ElementNoeud aElementNoeud) {
 
 }
 
 
 ///// Définition de la méthode Ololol /////
-int Ololol (int pouet, char crottin) {
+int Document::Ololol (int pouet, char crottin) {
 
     return 0;
 }
