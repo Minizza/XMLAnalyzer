@@ -1,10 +1,10 @@
 /* 
- * Fichier: fichier
+ * Fichier: document.cpp
  * Auteur: auteur
  */
 
 
- #include "Document.h"
+ #include "document.h"
 
 
 //Methodes par defaut de la classe Document
@@ -19,8 +19,9 @@ Document::~Document() {
 
 
 ///// Redéfinition du contructeur /////
-Document::Document(EnTete aEnTete, ElementNoeud aElementNoeud) {
-
+Document::Document(EnTete& aEnTete, ElementNoeud& aElementNoeud) {
+    enTete = aEntete;
+    racine = aElementNoeud;
 }
 
 
