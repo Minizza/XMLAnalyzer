@@ -11,37 +11,35 @@
 using namespace std;
 //Liste des espaces de noms utilises 
 
-
-/*
- *      La classe AbstractElement blablabla.
- * 
- *      Cette classe appartient à la partie bloblo de notre application.
- *
- */
-class AbstractElement {
-	
-public:
-	
-	//Methodes de base de la classe AbstractElement
-	AbstractElement(){};
-	
-	AbstractElement(const AbstractElement& orig){};
-	
-	virtual ~AbstractElement();
-
+namespace daxml
+{
 	/*
-	 *  Redéfinition du constructeur
-	 *          
-	 *    Paramètres : 
-	 *          -String name : le nom de l'élément
+	 *      La classe AbstractElement blablabla.
 	 * 
+	 *      Cette classe appartient à la partie bloblo de notre application.
+	 *
 	 */
-	virtual AbstractElement(string aNom) = 0;
+	class AbstractElement {
+		
+	public:
+		
+		/*
+		 *  Constructeur abstrait
+		 *          
+		 *    Paramètres : 
+		 *          -String name : le nom de l'élément
+		 * 
+		 */
+		virtual AbstractElement(string& aNom) = 0;
 
-protected:
+		virtual ~AbstractElement();
 
-	string nom;
-};
+		
 
+	protected:
+		string nom;
+	};
+
+}
 
 #endif  /* ABSTRACT_ELEMENT_H */

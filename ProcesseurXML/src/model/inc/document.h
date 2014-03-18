@@ -39,7 +39,7 @@ public:
 	 *          -ElementNoeud aElementNoeud : passage de l'element racine du document xml
 	 * 
 	 */
-	 Document(EnTete aEnTete, ElementNoeud aElementNoeud);
+	 Document(EnTete& aEnTete, ElementNoeud& aElementNoeud);
 
 	/*
 	 *  Ololol : Méthode de poutpout
@@ -56,8 +56,9 @@ public:
 	 int Ololol(int pouet, char crottin);
 
 private:
-	EnTete enTete;
-	ElementNoeud elementNoeud;
+	EnTete* enTete;
+    ElementNoeud* racine;
+    bool estXSD;
 
 };
 

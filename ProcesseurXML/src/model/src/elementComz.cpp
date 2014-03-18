@@ -1,16 +1,19 @@
 /* 
  * Fichier: elementComz.cpp
- * Auteur: auteur
+ * Auteur: julien
  */
 
 
- #include "elementComz.h"
+ #include "ElementComz.h"
 
 
 //Methodes par defaut de la classe ElementComz
 ElementComz::ElementComz() {
 }
 
+ElementComz::ElementComz(const ElementComz& orig) {
+	orig.nom = nom;
+}
 
 ElementComz::~ElementComz() {
 }
