@@ -21,15 +21,15 @@
  *
  */
  class Document {
-	
-public:
-	
+ 	
+ public:
+ 	
 	//Methodes de base de la classe Document
-	Document();
-	
-	Document(const Document& orig);
-	
-	virtual ~Document();
+ 	Document();
+ 	
+ 	Document(const Document& orig);
+ 	
+ 	virtual ~Document();
 
 	/*
 	 *  Redéfinition du constructeur
@@ -55,12 +55,12 @@ public:
 	 */
 	 int Ololol(int pouet, char crottin);
 
-private:
-	EnTete* enTete;
-    ElementNoeud* racine;
-    bool estXSD;
+	private:
+		EnTete* enTete;
+		ElementNoeud* racine;
+		bool estXSD;
 
-};
+	};
 
 
 #endif  /* DOCUMENT_H */

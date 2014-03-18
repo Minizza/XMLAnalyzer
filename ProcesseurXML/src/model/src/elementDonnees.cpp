@@ -4,11 +4,8 @@
  */
 
 
-<<<<<<< HEAD
  #include "elementDonnees.h"
-=======
- #include "../inc/elementDonnees.h"
->>>>>>> c53701b77d9fa58f68bbe55c0acde0efc0463c42
+
 
 
 //Methodes par defaut de la classe ElementDonnees

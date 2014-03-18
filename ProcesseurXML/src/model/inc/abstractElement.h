@@ -30,9 +30,9 @@ namespace daxml
 		 *          -String name : le nom de l'élément
 		 * 
 		 */
-		virtual AbstractElement(string& aNom) = 0;
+		// virtual AbstractElement(string& aNom) = 0;
 
-		virtual ~AbstractElement();
+		virtual ~AbstractElement()=0;
 
 		
 

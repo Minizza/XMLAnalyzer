@@ -4,7 +4,7 @@
  */
 
 
- #include "ElementComz.h"
+ #include "elementComz.h"
 
 
 //Methodes par defaut de la classe ElementComz
