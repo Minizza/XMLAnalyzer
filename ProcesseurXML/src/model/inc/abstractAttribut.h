@@ -8,6 +8,7 @@
 
 //Liste des includes système/libs
 #include <string>
+ using namespace std;
 
 //Liste des espaces de noms utilises 
 
@@ -30,7 +31,7 @@ namespace daxml
          *          -String name : le nom de l'élément
          * 
          */
-        virtual AbstractAttribut(string& aNom) = 0;
+        virtual AbstractAttribut(string& aNom);
 
         virtual ~AbstractAttribut();
 

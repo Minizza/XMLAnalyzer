@@ -42,7 +42,7 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	virtual ElementCastre(string aNom) = 0;
+	ElementCastre(string aNom);
 
 };
 

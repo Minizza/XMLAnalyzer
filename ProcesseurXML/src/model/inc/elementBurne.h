@@ -43,7 +43,7 @@ public:
      *                  les textures et les modèles
      * 
      */
-    virtual ElementBurne(string& aNom, deque<AbstractAttribut>& aAttributs) = 0;
+    virtual ElementBurne(string& aNom, deque<AbstractAttribut>& aAttributs);
 
 };
 

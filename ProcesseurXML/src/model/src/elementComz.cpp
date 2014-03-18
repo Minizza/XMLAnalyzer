@@ -11,9 +11,6 @@
 ElementComz::ElementComz() {
 }
 
-ElementComz::ElementComz(const ElementComz& orig) {
-	orig.nom = nom;
-}
 
 ElementComz::~ElementComz() {
 }
