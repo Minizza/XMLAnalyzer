@@ -4,7 +4,7 @@
  */
 
 
- #include "Document.h"
+ #include "document.h"
 
 
 //Methodes par defaut de la classe Document

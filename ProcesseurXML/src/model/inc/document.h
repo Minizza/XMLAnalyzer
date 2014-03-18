@@ -7,8 +7,8 @@
 #define DOCUMENT_H
 
 //Liste des includes système/libs
- #include elementNoeud.h
- #include enTete.h
+ #include "elementNoeud.h"
+ #include "enTete.h"
 
 
 //Liste des espaces de noms utilises 

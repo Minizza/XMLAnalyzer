@@ -10,8 +10,8 @@
 #include <string>
 
 #include "abstractElement.h"
-
-
+#include <string>
+using namespace std;
 //Liste des espaces de noms utilises 
 
 

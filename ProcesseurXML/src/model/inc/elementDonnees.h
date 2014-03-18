@@ -10,7 +10,7 @@
 #include <string>
 
 #include "elementCastre.h"
-
+using namespace std;
 
 //Liste des espaces de noms utilises 
 
@@ -28,7 +28,6 @@ public:
 	//Methodes de base de la classe ElementDonnees
 	ElementDonnees();
 	
-	ElementDonnees(const ElementDonnees& orig);
 	
 	virtual ~ElementDonnees();
 

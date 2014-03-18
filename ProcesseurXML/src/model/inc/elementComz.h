@@ -28,7 +28,6 @@ public:
 	//Methodes de base de la classe ElementComz
 	ElementComz();
 	
-	ElementComz(const ElementComz& orig);
 	
 	virtual ~ElementComz();
 
