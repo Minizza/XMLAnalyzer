@@ -4,7 +4,7 @@
  */
 
 
- #include "elementNoeud.h"
+ #include "../inc/elementNoeud.h"
 
 
 //Methodes par defaut de la classe ElementNoeud
