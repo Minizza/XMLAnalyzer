@@ -48,7 +48,7 @@ public:
 
 private:
 
-    string texte;
+    string nom;
     deque<AbstractAttribut> attributs;
 };
 
