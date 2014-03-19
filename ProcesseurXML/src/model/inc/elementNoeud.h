@@ -24,7 +24,7 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
- class ElementNoeud: public ElementBurne{
+ class ElementNoeud : public ElementBurne{
     
 public:
     

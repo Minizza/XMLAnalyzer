@@ -23,14 +23,14 @@ using namespace std;
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementBurne: public AbstractElement{
+class ElementBurne : public AbstractElement{
     
 public:
     
     //Methodes de base de la classe ElementBurne
-    ElementBurne(){};
+    ElementBurne();
     
-    ElementBurne(const ElementBurne& orig){};
+    ElementBurne(const ElementBurne& orig);
     
     virtual ~ElementBurne();
 
@@ -44,7 +44,7 @@ public:
      *                  les textures et les modèles
      * 
      */
-    ElementBurne(string& aNom, deque<AbstractAttribut*>& aAtts) : AbstractElement(aNom){atts = aAtts;};
+    ElementBurne(string& aNom, deque<AbstractAttribut*>& aAtts);
 
 private:
 
