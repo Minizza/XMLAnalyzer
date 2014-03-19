@@ -6,7 +6,7 @@
  #include "xmlDecl.h"
 
 
- XmlDecl::XmlDecl(string& aNom, string& aExternalId, string& aIntSubSet){
+ XmlDecl::XmlDecl(string* aNom, string* aExternalId, string* aIntSubSet){
     nom = aNom;
     externalId = aExternalId;
     intSubSet = aIntSubSet;

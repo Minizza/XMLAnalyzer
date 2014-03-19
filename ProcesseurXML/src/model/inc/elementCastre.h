@@ -27,7 +27,7 @@ public:
 	//Methodes de base de la classe ElementCastre
 	ElementCastre();
 	
-	ElementCastre(const ElementCastre& orig);
+	ElementCastre(ElementCastre* orig);
 	
 	virtual ~ElementCastre();
 
@@ -41,7 +41,7 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	ElementCastre(string& aNom);
+	ElementCastre(string* aNom);
 
 };
 

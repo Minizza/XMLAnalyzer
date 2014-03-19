@@ -29,7 +29,7 @@ public:
     //Methodes de base de la classe AttributString
     AttributString(){};
     
-    AttributString(const AttributString& orig);
+    AttributString(AttributString* orig);
     
     virtual ~AttributString();
 

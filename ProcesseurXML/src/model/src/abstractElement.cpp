@@ -7,8 +7,8 @@
 
 AbstractElement::AbstractElement(){}
 
-AbstractElement::AbstractElement(const AbstractElement& orig){}
+AbstractElement::AbstractElement(AbstractElement* orig){}
 
-AbstractElement::AbstractElement(string& aNom){nom = aNom;}
+AbstractElement::AbstractElement(string* aNom){nom = aNom;}
 
 AbstractElement::~AbstractElement(){}

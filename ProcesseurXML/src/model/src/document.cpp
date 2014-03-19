@@ -11,7 +11,7 @@
 Document::Document() {
 }
 
-Document::Document(const Document& orig) {
+Document::Document(Document* orig) {
 }
 
 Document::~Document() {
@@ -19,9 +19,9 @@ Document::~Document() {
 
 
 ///// Redéfinition du contructeur /////
-Document::Document(EnTete& aEnTete, ElementNoeud& aElementNoeud) {
-    enTete = &aEnTete;
-    racine = &aElementNoeud;
+Document::Document(EnTete* aEnTete, ElementNoeud* aElementNoeud) {
+    enTete = aEnTete;
+    racine = aElementNoeud;
 }
 
 

@@ -34,7 +34,7 @@ public:
      *                  les textures et les modèles
      * 
      */
-     XmlDecl(string& aNom, string& aExternalId, string& aIntSubSet);
+     XmlDecl(string* aNom, string* aExternalId, string* aIntSubSet);
 
 private:
 
