@@ -12,35 +12,31 @@
 //Liste des espaces de noms utilises 
  using namespace std;
  
-namespace daxml
-{
     /*
      *      La classe AbstractAttribut blablabla.
      * 
      *      Cette classe appartient à la partie bloblo de notre application.
      *
      */
-    class AbstractAttribut {
-        
-    public:
-        
-        /*
-         *  Constructeur abstrait
-         *          
-         *    Paramètres : 
-         *          -String name : le nom de l'élément
-         * 
-         */
-        virtual AbstractAttribut(string& aNom);
+class AbstractAttribut {
+    
+public:
+    
+    /*
+     *  Constructeur abstrait
+     *          
+     *    Paramètres : 
+     *          -String name : le nom de l'élément
+     * 
+     */
+    virtual AbstractAttribut(string& aNom);
 
-        virtual ~AbstractAttribut();
+    virtual ~AbstractAttribut();
 
-        
+    
 
-    protected:
-        string nom;
-    };
-
-}
+protected:
+    string nom;
+};
 
 #endif  /* ABSTRACT_ATTRIBUT_H */

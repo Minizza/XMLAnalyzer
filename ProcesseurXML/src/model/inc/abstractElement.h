@@ -8,8 +8,9 @@
 
 //Liste des includes système/libs
 #include <string>
-using namespace std;
+
 //Liste des espaces de noms utilises 
+using namespace std;
 
 /*
  *      La classe AbstractElement blablabla.
@@ -38,4 +39,10 @@ protected:
 	string nom;
 };
 
+<<<<<<< HEAD
 #endif  /* ABSTRACT_ELEMENT_H */
+=======
+
+
+#endif  /* ABSTRACT_ELEMENT_H */
+>>>>>>> aabc5f9b1603ea03dff376617fab18a45457918f
