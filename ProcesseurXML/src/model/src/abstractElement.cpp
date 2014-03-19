@@ -17,4 +17,5 @@ AbstractElement::AbstractElement(string* aNom)
 	nom = aNom;
 }
 
+
 AbstractElement::~AbstractElement(){}

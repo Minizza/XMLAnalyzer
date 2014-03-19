@@ -17,7 +17,7 @@ ElementPI::ElementPI(string* aNom, deque<AbstractAttribut>* aAttributs) : Elemen
 		#ifdef DEBUG
 			std::cout << "Construction de <ElementPI>" << std::endl;
 		#endif
-    nom = aNom;
+    nom = *aNom;
     attributs = *aAttributs; 
 
 }

@@ -10,11 +10,11 @@
 ElementNoeud::ElementNoeud() : ElementBurne() {
 }
 
-ElementNoeud::ElementNoeud(const ElementNoeud& orig) {
-	nom = orig.nom;
-	estXSD = orig.estXSD;
-	*enfants = *(orig.enfants);
-	regexFils = new ConstructeurRegex(*(orig.regexFils));
+ElementNoeud::ElementNoeud(ElementNoeud* orig) {
+	nom = orig->nom;
+	estXSD = orig->estXSD;
+	enfants = orig->enfants;
+	regexFils = new ConstructeurRegex(orig->regexFils);
 }
 
 ElementNoeud::~ElementNoeud() {
@@ -27,7 +27,8 @@ ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<
 	#ifdef DEBUG
 		std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif
-	enfants = aEnfants;
+	ElementBurne(aNom, aAtts);
+	enfants = *aEnfants;
 }
 
 /*ConstructeurRegex* ElementNoeud::getRegex() {

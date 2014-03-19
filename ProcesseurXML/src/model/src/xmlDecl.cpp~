@@ -7,12 +7,16 @@
 #include <iostream>
 
  XmlDecl::XmlDecl(string* aNom, string* aExternalId, string* aIntSubSet){
+<<<<<<< HEAD
  #ifdef DEBUG
 		std::cout << "Construction de <XmlDecl>" << std::endl;
 	#endif
     nom = aNom;
     externalId = aExternalId;
     intSubSet = aIntSubSet;
+=======
+
+>>>>>>> 8f8ecced604993f39f57681649427287554be91f
  }
 
 

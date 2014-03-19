@@ -21,6 +21,7 @@
 #Temporary files
 *.c~
 *.h~
+*.orig
 <<<<<<< HEAD
 =======
 *.fuse_hidden*

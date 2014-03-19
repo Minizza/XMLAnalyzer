@@ -10,7 +10,6 @@ AbstractAttribut::AbstractAttribut(){}
 
 AbstractAttribut::AbstractAttribut(AbstractAttribut* orig){}
 
-
 AbstractAttribut::AbstractAttribut(string* aNom)
 {
 	#ifdef DEBUG
