@@ -21,10 +21,12 @@
 
 	%union {
 		char * s;
+		ElementComz* comz;
 	}
 
 	%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
 	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
+	%type <comz> commentaire
 
 	%%
 
@@ -39,7 +41,7 @@
 
 	headerpart //il faut vérifier qu'on a bien la version du xml
 	: pi
-	| commentaire
+	| commentaires
 	| DOCTYPE
 	;
 
@@ -59,7 +61,7 @@
 	content
 	: content element
 	| content DONNEES
-	| content commentaire
+	| content commentaires
 	| CDATABEGIN CDATAEND
 	| /* vide */
 	;
@@ -79,6 +81,6 @@
 	;
 
 	commentaire
-	: COMMENT {/* $$ = new ElementComz("commentaire", COMMENT); */}
+	: COMMENT {$$ = new ElementComz(string("commentaire"), string($1));}
 	;
 %%
