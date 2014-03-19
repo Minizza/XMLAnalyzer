@@ -15,11 +15,10 @@
  *
  */
 
-typedef enum EnumChoiceSeqEtc EnumChoiceSeqEtc;
-enum EnumChoiceSeqEtc {
+typedef enum EnumChoiceSeqEtc {
 	CHOICE,
 	SEQUENCE
-}
+}EnumChoiceSeqEtc;
 
 
 #endif  /* ENUM_CHOICE_SEQ_ETC_H */
