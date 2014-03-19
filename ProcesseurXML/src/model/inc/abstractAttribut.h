@@ -23,7 +23,7 @@ class AbstractAttribut {
 public:
     
     AbstractAttribut();
-    AbstractAttribut(const AbstractAttribut& orig);
+    AbstractAttribut(AbstractAttribut* orig);
     /*
      *  Constructeur abstrait
      *          

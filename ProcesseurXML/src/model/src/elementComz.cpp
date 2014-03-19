@@ -18,7 +18,7 @@ ElementComz::~ElementComz() {
 
 
 ///// Redéfinition du contructeur /////
-ElementComz::ElementComz(const string* aNom, const string* aTexte) {
-	nom = aNom;
-	texte = aTexte;
+ElementComz::ElementComz(string* aNom, string* aTexte) {
+	nom = *aNom;
+	texte = *aTexte;
 }

@@ -13,8 +13,8 @@ ElementPI::~ElementPI() {
 
 
 ///// Redéfinition du contructeur /////
-ElementPI::ElementPI(string* aNom, deque<AbstractAttribut> aAttributs) {
-    nom = aNom;
+ElementPI::ElementPI(string* aNom, deque<AbstractAttribut>* aAttributs) {
+    nom = *aNom;
     attributs = *aAttributs; 
 
 }

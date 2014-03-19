@@ -7,7 +7,7 @@
 
  ElementCastre::ElementCastre() : AbstractElement() {}
 
- ElementCastre::ElementCastre(const ElementCastre& orig){}
+ ElementCastre::ElementCastre(ElementCastre* orig){}
 
  ElementCastre::~ElementCastre(){}
 

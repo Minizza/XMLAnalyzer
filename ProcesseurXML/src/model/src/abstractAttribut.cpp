@@ -9,6 +9,6 @@ AbstractAttribut::AbstractAttribut(){}
 
 AbstractAttribut::AbstractAttribut(AbstractAttribut* orig){}
 
-AbstractAttribut::AbstractAttribut(string* aNom){nom = aNom;}
+AbstractAttribut::AbstractAttribut(string* aNom){nom = *aNom;}
 
 AbstractAttribut::~AbstractAttribut(){}

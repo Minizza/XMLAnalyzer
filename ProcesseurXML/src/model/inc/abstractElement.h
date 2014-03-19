@@ -23,7 +23,7 @@ class AbstractElement {
 public:
 
 	AbstractElement();
-    AbstractElement(const AbstractElement& orig);
+    AbstractElement(AbstractElement* orig);
 	
 	/*
 	 *  Constructeur abstrait

@@ -17,5 +17,5 @@ ElementDonnees::~ElementDonnees() {
 
 ///// Redéfinition du contructeur /////
 ElementDonnees::ElementDonnees(string* aNom) {
-	nom = aNom;
+	nom = *aNom;
 }
