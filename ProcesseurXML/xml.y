@@ -22,11 +22,15 @@
 	%union {
 		char * s;
 		ElementComz* comz;
+		ElementNoeud* noeud;
+		deque<AbstractAttribut*>* abstrAttrs;
 	}
 
 	%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
 	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
 	%type <comz> commentaire
+	%type <noeud> emptytag
+	%type <abstrAttrs> attributs
 
 	%%
 
@@ -55,7 +59,7 @@
 	;
 
 	emptytag
-	: INF NOM attributs SLASH SUP
+	: INF NOM attributs SLASH SUP {$$ = new ElementNoeud((string*) $2, $3, 0);}
 	;
 
 	content
@@ -81,6 +85,6 @@
 	;
 
 	commentaire
-	: COMMENT {$$ = new ElementComz(string("commentaire"), string($1));}
+	: COMMENT {$$ = new ElementComz((string*) "commentaire", (string*) $1);}
 	;
 %%
