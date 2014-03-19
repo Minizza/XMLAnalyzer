@@ -39,7 +39,7 @@ public:
      *          -ElementNoeud aElementNoeud : passage de l'element racine du document xml
      * 
      */
-     ElementNoeud(EnTete aEnTete, ElementNoeud aElementNoeud);
+     ElementNoeud(EnTete& aEnTete, ElementNoeud& aElementNoeud);
 
 private:
 
