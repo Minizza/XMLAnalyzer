@@ -10,9 +10,10 @@
 #include <string>
 
 #include "elementCastre.h"
-using namespace std;
+
 
 //Liste des espaces de noms utilises 
+ using namespace std;
 
 
 /*
