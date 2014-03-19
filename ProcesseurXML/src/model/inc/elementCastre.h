@@ -20,14 +20,14 @@ using namespace std;
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementCastre: public AbstractElement{
+class ElementCastre : public AbstractElement{
 	
 public:
 	
 	//Methodes de base de la classe ElementCastre
-	ElementCastre(){};
+	ElementCastre();
 	
-	ElementCastre(const ElementCastre& orig){};
+	ElementCastre(ElementCastre* orig);
 	
 	virtual ~ElementCastre();
 
@@ -41,7 +41,7 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	virtual ElementCastre(string aNom) = 0;
+	ElementCastre(string* aNom);
 
 };
 

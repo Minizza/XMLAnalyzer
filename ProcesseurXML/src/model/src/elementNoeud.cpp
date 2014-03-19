@@ -1,24 +1,33 @@
 /* 
  * Fichier: elementNoeud.cpp
- * Auteur: auteur
+ * Auteur: julien
  */
 
-
- #include "../inc/elementNoeud.h"
+ #include "elementNoeud.h"
 
 
 //Methodes par defaut de la classe ElementNoeud
-ElementNoeud::ElementNoeud() {
+ElementNoeud::ElementNoeud() : ElementBurne() {
 }
 
 ElementNoeud::ElementNoeud(const ElementNoeud& orig) {
+	nom = orig.nom;
+	estXSD = orig.estXSD;
+	*enfants = *(orig.enfants);
+	regexFils = new ConstructeurRegex(*(orig.regexFils));
 }
 
 ElementNoeud::~ElementNoeud() {
+	delete(regexFils);
 }
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(EnTete& aEnTete, ElementNoeud& aElementNoeud) {
-
+ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants) {
+	ElementBurne(aNom, aAtts);
+	enfants = aEnfants;
 }
+
+/*ConstructeurRegex* ElementNoeud::getRegex() {
+	return regexFils;
+}*/

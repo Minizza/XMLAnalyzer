@@ -1,34 +1,28 @@
 /* 
- * Fichier: elementPI.h
+ * Fichier: xmlDecl.h
  * Auteur: julien
  */
-
-#ifndef ELEMENT_PI_H
-#define ELEMENT_PI_H
+#ifndef XML_DECL_H
+#define XML_DECL_H
 
 //Liste des includes système/libs
 #include <string>
-#include <deque>
 
-#include "elementBurne.h"
-#include "abstractAttribut.h"
-
-
-//Liste des espaces de noms utilises 
-
+//Liste des espaces de noms utilises
+using namespace std;
 
 /*
- *      La classe ElementPI blablabla.
+ *      La classe doctype blablabla.
  * 
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementPI: public ElementBurne{
-    
+class XmlDecl {
+
 public:
-    
-    //Methodes de base de la classe ElementPI
-    virtual ~ElementPI();
+
+   //Methodes de base de la classe XmlDecl
+    virtual ~XmlDecl();
 
     /*
      *  Redéfinition du constructeur
@@ -40,13 +34,15 @@ public:
      *                  les textures et les modèles
      * 
      */
-    ElementPI(string* aNom, deque<AbstractAttribut> aAttributs);
+     XmlDecl(string* aNom, string* aExternalId, string* aIntSubSet);
 
 private:
 
     string nom;
-    deque<AbstractAttribut> attributs;
+    string externalId;
+    string intSubSet;
+
 };
 
+#endif /* XML_DECL_H */
 
-#endif  /* ELEMENT_PI_H */

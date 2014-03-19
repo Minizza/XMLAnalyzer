@@ -8,38 +8,36 @@
 
 //Liste des includes système/libs
 #include <string>
-using namespace std;
+
 //Liste des espaces de noms utilises 
+using namespace std;
 
-namespace daxml
-{
+/*
+ *      La classe AbstractElement blablabla.
+ * 
+ *      Cette classe appartient à la partie bloblo de notre application.
+ *
+ */
+class AbstractElement {
+	
+public:
+
+	AbstractElement();
+    AbstractElement(const AbstractElement& orig);
+	
 	/*
-	 *      La classe AbstractElement blablabla.
+	 *  Constructeur abstrait
+	 *          
+	 *    Paramètres : 
+	 *          -String name : le nom de l'élément
 	 * 
-	 *      Cette classe appartient à la partie bloblo de notre application.
-	 *
 	 */
-	class AbstractElement {
-		
-	public:
-		
-		/*
-		 *  Constructeur abstrait
-		 *          
-		 *    Paramètres : 
-		 *          -String name : le nom de l'élément
-		 * 
-		 */
-		// virtual AbstractElement(string& aNom) = 0;
+	AbstractElement(string* aNom);
 
-		virtual ~AbstractElement()=0;
+	virtual ~AbstractElement();
 
-		
-
-	protected:
-		string nom;
-	};
-
-}
+protected:
+	string nom;
+};
 
 #endif  /* ABSTRACT_ELEMENT_H */

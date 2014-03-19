@@ -13,7 +13,7 @@
 
 
 //Liste des espaces de noms utilises 
-
+using namespace std;
 
 /*
  *      La classe ElementComz blablabla.
@@ -21,7 +21,7 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementComz: public ElementCastre{
+class ElementComz : public ElementCastre{
 	
 public:
 	
@@ -41,7 +41,7 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	ElementComz(string aNom);
+	ElementComz(string* aNom, string* aTexte);
 
 private:
 

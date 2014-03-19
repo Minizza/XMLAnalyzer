@@ -12,5 +12,8 @@
 ConstructeurRegex::ConstructeurRegex() {
 }
 
+ConstructeurRegex::ConstructeurRegex(ConstructeurRegex* other) {
+}
+
 ConstructeurRegex::~ConstructeurRegex() {
 }

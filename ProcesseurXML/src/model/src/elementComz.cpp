@@ -7,8 +7,9 @@
  #include "elementComz.h"
 
 
+
 //Methodes par defaut de la classe ElementComz
-ElementComz::ElementComz() {
+ElementComz::ElementComz() : ElementCastre() {
 }
 
 
@@ -17,6 +18,7 @@ ElementComz::~ElementComz() {
 
 
 ///// Redéfinition du contructeur /////
-ElementComz::ElementComz(string aNom) {
+ElementComz::ElementComz(const string* aNom, const string* aTexte) {
 	nom = aNom;
+	texte = aTexte;
 }

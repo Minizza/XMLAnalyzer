@@ -1,34 +1,28 @@
 /* 
- * Fichier: elementPI.h
+ * Fichier: doctype.h
  * Auteur: julien
  */
-
-#ifndef ELEMENT_PI_H
-#define ELEMENT_PI_H
+#ifndef DOCTYPE_H
+#define DOCTYPE_H
 
 //Liste des includes système/libs
 #include <string>
-#include <deque>
 
-#include "elementBurne.h"
-#include "abstractAttribut.h"
-
-
-//Liste des espaces de noms utilises 
-
+//Liste des espaces de noms utilises
+using namespace std;
 
 /*
- *      La classe ElementPI blablabla.
+ *      La classe doctype blablabla.
  * 
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementPI: public ElementBurne{
-    
+class Doctype {
+
 public:
-    
-    //Methodes de base de la classe ElementPI
-    virtual ~ElementPI();
+
+   //Methodes de base de la classe Doctype
+    virtual ~Doctype();
 
     /*
      *  Redéfinition du constructeur
@@ -40,13 +34,15 @@ public:
      *                  les textures et les modèles
      * 
      */
-    ElementPI(string* aNom, deque<AbstractAttribut> aAttributs);
+     Doctype(string* aNom, string* aExternalId, string* aIntSubSet);
 
 private:
 
     string nom;
-    deque<AbstractAttribut> attributs;
+    string externalId;
+    string intSubSet;
+
 };
 
+#endif /* DOCTYPE_H */
 
-#endif  /* ELEMENT_PI_H */

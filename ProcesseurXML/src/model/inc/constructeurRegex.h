@@ -28,7 +28,7 @@ public:
 	//Methodes de base de la classe ConstructeurRegex
 	ConstructeurRegex();
 	
-	ConstructeurRegex(const ConstructeurRegex& orig);
+	ConstructeurRegex(ConstructeurRegex* orig);
 	
 	virtual ~ConstructeurRegex();
 
