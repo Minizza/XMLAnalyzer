@@ -4,6 +4,8 @@
 #include <string>
 using namespace std;
 
+#include "elementComz.h"
+
 //#define DEBUG
 #ifdef DEBUG
 #define debug(x) (x)
