@@ -31,7 +31,7 @@ public:
      *          -String name : le nom de l'élément
      * 
      */
-    AbstractAttribut(string& aNom);
+    AbstractAttribut(string* aNom);
 
 
     virtual ~AbstractAttribut();

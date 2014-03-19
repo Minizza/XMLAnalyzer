@@ -13,11 +13,11 @@ ElementPI::~ElementPI() {
 
 
 ///// Redéfinition du contructeur /////
-ElementPI::ElementPI(string& aNom, deque<AbstractAttribut>& aAttributs) {
+ElementPI::ElementPI(string* aNom, deque<AbstractAttribut>* aAttributs) : ElementBurne(aNom, aAttributs) {
 		#ifdef DEBUG
 			std::cout << "Construction de <ElementPI>" << std::endl;
 		#endif
     nom = aNom;
-    attributs = aAttributs; 
+    attributs = *aAttributs; 
 
 }

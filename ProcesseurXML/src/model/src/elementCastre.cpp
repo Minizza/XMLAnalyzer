@@ -12,8 +12,9 @@
 
  ElementCastre::~ElementCastre(){}
 
+
  ElementCastre::ElementCastre(string* aNom) : AbstractElement(aNom){
  #ifdef DEBUG
 		std::cout << "Construction de <ElementCastre>" << std::endl;
 	#endif
- };
+ }

@@ -7,8 +7,18 @@
 
 AbstractElement::AbstractElement(){}
 
-AbstractElement::AbstractElement(const AbstractElement& orig){}
+AbstractElement::AbstractElement(AbstractElement* orig){}
 
-AbstractElement::AbstractElement(string& aNom){nom = aNom;}
+<<<<<<< HEAD
+AbstractElement::AbstractElement(string& aNom)
+{
+#ifdef DEBUG
+		std::cout << "Construction de <AbstractElement>" << std::endl;
+#endif
+	nom = aNom;
+}
+=======
+AbstractElement::AbstractElement(string* aNom){nom = aNom;}
+>>>>>>> cb752b3c62130dc9c4a0fa6b9563d3e525f8de55
 
 AbstractElement::~AbstractElement(){}

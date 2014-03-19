@@ -6,6 +6,7 @@
  #include "doctype.h"
 #include <iostream>
 
+<<<<<<< HEAD
 Doctype::Doctype(string& aNom, string& aExternalId, string& aIntSubSet){
 #ifdef DEBUG
 		std::cout << "Construction de <Doctype>" << std::endl;
@@ -13,5 +14,12 @@ Doctype::Doctype(string& aNom, string& aExternalId, string& aIntSubSet){
     nom = aNom;
     externalId = aExternalId;
     intSubSet = aIntSubSet;
+=======
+
+ Doctype::Doctype(string* aNom, string* aExternalId, string* aIntSubSet){
+    nom = *aNom;
+    externalId = *aExternalId;
+    intSubSet = *aIntSubSet;
+>>>>>>> cb752b3c62130dc9c4a0fa6b9563d3e525f8de55
  }
  Doctype::~Doctype(){}

@@ -7,9 +7,9 @@
 
 AbstractElement::AbstractElement(){}
 
-AbstractElement::AbstractElement(const AbstractElement& orig){}
+AbstractElement::AbstractElement(AbstractElement* orig){}
 
-AbstractElement::AbstractElement(string& aNom)
+AbstractElement::AbstractElement(string* aNom)
 {
 #ifdef DEBUG
 		std::cout << "Construction de <AbstractElement>" << std::endl;

@@ -27,7 +27,7 @@
 	//Methodes de base de la classe Document
  	Document();
  	
- 	Document(const Document& orig);
+ 	Document(Document* orig);
  	
  	virtual ~Document();
 
@@ -39,7 +39,7 @@
 	 *          -ElementNoeud aElementNoeud : passage de l'element racine du document xml
 	 * 
 	 */
-	 Document(EnTete& aEnTete, ElementNoeud& aElementNoeud);
+	 Document(EnTete* aEnTete, ElementNoeud* aElementNoeud);
 
 	/*
 	 *  Ololol : Méthode de poutpout

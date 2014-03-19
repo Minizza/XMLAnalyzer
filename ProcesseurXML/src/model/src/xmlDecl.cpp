@@ -6,7 +6,7 @@
  #include "xmlDecl.h"
 #include <iostream>
 
- XmlDecl::XmlDecl(string& aNom, string& aExternalId, string& aIntSubSet){
+ XmlDecl::XmlDecl(string* aNom, string* aExternalId, string* aIntSubSet){
  #ifdef DEBUG
 		std::cout << "Construction de <XmlDecl>" << std::endl;
 	#endif

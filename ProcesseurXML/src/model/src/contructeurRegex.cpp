@@ -12,7 +12,7 @@
 ConstructeurRegex::ConstructeurRegex() {
 }
 
-ConstructeurRegex::ConstructeurRegex(const ConstructeurRegex& other) {
+ConstructeurRegex::ConstructeurRegex(ConstructeurRegex* other) {
 }
 
 ConstructeurRegex::~ConstructeurRegex() {

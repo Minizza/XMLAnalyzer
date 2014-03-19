@@ -27,7 +27,7 @@ public:
 	//Methodes de base de la classe ElementCastre
 	ElementCastre();
 	
-	ElementCastre(const ElementCastre& orig);
+	ElementCastre(ElementCastre* orig);
 	
 	virtual ~ElementCastre();
 

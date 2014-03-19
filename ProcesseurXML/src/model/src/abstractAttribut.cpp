@@ -8,9 +8,10 @@
 
 AbstractAttribut::AbstractAttribut(){}
 
-AbstractAttribut::AbstractAttribut(const AbstractAttribut& orig){}
+AbstractAttribut::AbstractAttribut(AbstractAttribut* orig){}
 
-AbstractAttribut::AbstractAttribut(string& aNom)
+
+AbstractAttribut::AbstractAttribut(string* aNom)
 {
 	#ifdef DEBUG
 		std::cout << "Construction de <AbstractAttribut>" << std::endl;
