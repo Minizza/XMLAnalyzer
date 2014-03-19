@@ -8,9 +8,10 @@
 
 //Liste des includes système/libs
 #include <string>
- using namespace std;
+ 
 
 //Liste des espaces de noms utilises 
+ using namespace std;
 
 namespace daxml
 {
