@@ -39,10 +39,4 @@ protected:
 	string nom;
 };
 
-<<<<<<< HEAD
 #endif  /* ABSTRACT_ELEMENT_H */
-=======
-
-
-#endif  /* ABSTRACT_ELEMENT_H */
->>>>>>> aabc5f9b1603ea03dff376617fab18a45457918f
