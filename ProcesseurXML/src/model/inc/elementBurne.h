@@ -48,7 +48,6 @@ public:
 
 private:
 
-    string nom;
     deque<AbstractAttribut*> atts;
 };
 
