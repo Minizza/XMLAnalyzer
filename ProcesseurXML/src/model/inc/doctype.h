@@ -34,7 +34,7 @@ public:
      *                  les textures et les modèles
      * 
      */
-     Doctype(string& aNom, string& aExternalId, string& aIntSubSet);
+     Doctype(string* aNom, string* aExternalId, string* aIntSubSet);
 
 private:
 

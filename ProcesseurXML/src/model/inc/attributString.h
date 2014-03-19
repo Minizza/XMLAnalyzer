@@ -43,7 +43,7 @@ public:
      *                  les textures et les modèles
      * 
      */
-    AttributString(string& aValue){value = aValue;};
+    AttributString(string* aValue){value = *aValue;};
 
 private:
 

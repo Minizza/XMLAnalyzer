@@ -32,7 +32,7 @@ public:
 	 *          -String name : le nom de l'élément
 	 * 
 	 */
-	AbstractElement(string& aNom);
+	AbstractElement(string* aNom);
 
 	virtual ~AbstractElement();
 
