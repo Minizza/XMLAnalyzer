@@ -25,9 +25,9 @@ class ElementCastre: public AbstractElement{
 public:
 	
 	//Methodes de base de la classe ElementCastre
-	ElementCastre(){};
+	ElementCastre();
 	
-	ElementCastre(const ElementCastre& orig){};
+	ElementCastre(const ElementCastre& orig);
 	
 	virtual ~ElementCastre();
 
@@ -41,7 +41,7 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	ElementCastre(string& aNom) : AbstractElement(aNom){};
+	ElementCastre(string& aNom);
 
 };
 

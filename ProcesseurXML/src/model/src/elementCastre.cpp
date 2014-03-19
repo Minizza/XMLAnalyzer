@@ -11,4 +11,6 @@
 
  ElementCastre::~ElementCastre(){};
 
- ElementCastre::ElementCastre(string& aNom){};
+ ElementCastre::ElementCastre(string& aNom){
+ 	AbstractElement(aNom);
+ };

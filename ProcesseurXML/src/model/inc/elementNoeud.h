@@ -55,7 +55,9 @@ protected:
 
 private:
 
-
+   bool estXSD;
+   deque<AbstractElement*> enfants;
+   ConstructeurRegex* regexFils;
 };
 
 
