@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 
+#include "elementNoeud.h"
 #include "elementComz.h"
 
 //#define DEBUG
