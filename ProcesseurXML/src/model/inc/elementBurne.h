@@ -30,7 +30,7 @@ public:
     //Methodes de base de la classe ElementBurne
     ElementBurne();
     
-    ElementBurne(const ElementBurne& orig);
+    ElementBurne(ElementBurne* orig);
     
     virtual ~ElementBurne();
 

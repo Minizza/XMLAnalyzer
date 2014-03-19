@@ -10,9 +10,9 @@
  #ifdef DEBUG
 		std::cout << "Construction de <XmlDecl>" << std::endl;
 	#endif
-    nom = aNom;
-    externalId = aExternalId;
-    intSubSet = aIntSubSet;
+    nom = *aNom;
+    externalId = *aExternalId;
+    intSubSet = *aIntSubSet;
  }
 
 

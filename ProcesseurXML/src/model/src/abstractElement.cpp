@@ -14,7 +14,7 @@ AbstractElement::AbstractElement(string* aNom)
 #ifdef DEBUG
 		std::cout << "Construction de <AbstractElement>" << std::endl;
 #endif
-	nom = aNom;
+	nom = *aNom;
 }
 
 

@@ -40,12 +40,12 @@ public:
      *                  les textures et les modèles
      * 
      */
-    ElementPI(string* aNom, deque<AbstractAttribut>* aAttributs);
+    ElementPI(string* aNom, deque<AbstractAttribut*>* aAttributs);
 
 private:
 
     string nom;
-    deque<AbstractAttribut> attributs;
+    deque<AbstractAttribut*> attributs;
 };
 
 

@@ -10,8 +10,8 @@
 #ifdef DEBUG
 		std::cout << "Construction de <Doctype>" << std::endl;
 #endif
-    nom = aNom;
-    externalId = aExternalId;
-    intSubSet = aIntSubSet;
+    nom = *aNom;
+    externalId = *aExternalId;
+    intSubSet = *aIntSubSet;
  }
  Doctype::~Doctype(){}

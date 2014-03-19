@@ -10,7 +10,7 @@
 ElementBurne::ElementBurne() : AbstractElement() {
 }
 
-ElementBurne::ElementBurne(const ElementBurne& orig) {
+ElementBurne::ElementBurne(ElementBurne* orig) {
 
 }
 
