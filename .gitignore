@@ -14,3 +14,6 @@
 
 # Compiled directory content
 ./ProcesseurXML/build/*
+
+#test results
+./ProcesseurXML/Tests/results.csv
