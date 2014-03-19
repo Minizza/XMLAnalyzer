@@ -15,10 +15,9 @@
  *
  */
 
-typedef enum EnumTypeXSD EnumTypeXSD;
-enum EnumTypeXSD {
+typedef enum EnumTypeXSD {
 	COMPLEX_TYPE
-}
+}EnumTypeXSD;
 
 
 #endif  /* ENUM_TYPE_XSD_H */
