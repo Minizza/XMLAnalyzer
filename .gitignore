@@ -11,3 +11,14 @@
 *.lai
 *.la
 *.a
+
+# Compiled directory content
+/ProcesseurXML/build/*
+
+#test results
+/ProcesseurXML/Tests/results.csv
+
+#Temporary files
+*.c~
+*.h~
+
