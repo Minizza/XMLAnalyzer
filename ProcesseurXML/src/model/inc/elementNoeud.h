@@ -3,8 +3,8 @@
  * Auteur: nbuisson
  */
 
-#ifndef DOCUMENT_H
-#define DOCUMENT_H
+#ifndef ELEMENT_NOEUD_H
+#define ELEMENT_NOEUD_H
 
 //Liste des includes système/libs
  #include <boost/lockfree/queue.hpp>
@@ -47,4 +47,4 @@ private:
 };
 
 
-#endif  /* DOCUMENT_H */
+#endif  /* XML_DECL_H */
