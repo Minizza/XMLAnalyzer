@@ -10,11 +10,12 @@
 #include <string>
 #include <deque>
 
+#include "abstractElement.h"
 #include "abstractAttribut.h"
 
 
 //Liste des espaces de noms utilises 
-
+using namespace std;
 
 /*
  *      La classe ElementBurne blablabla.
@@ -22,7 +23,7 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementBurne{
+class ElementBurne: public AbstractElement{
     
 public:
     
@@ -43,8 +44,12 @@ public:
      *                  les textures et les modèles
      * 
      */
-    virtual ElementBurne(string aNom, deque<AbstractAttribut>& aAttributs) = 0;
+    ElementBurne(string& aNom, deque<AbstractAttribut*>& aAtts) : AbstractElement(aNom){atts = aAtts;};
 
+private:
+
+    string nom;
+    deque<AbstractAttribut*> atts;
 };
 
 
