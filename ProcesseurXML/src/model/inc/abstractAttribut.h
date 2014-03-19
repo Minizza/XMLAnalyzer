@@ -8,11 +8,18 @@
 
 //Liste des includes système/libs
 #include <string>
+<<<<<<< HEAD
  
 
 //Liste des espaces de noms utilises 
  using namespace std;
+=======
 
+>>>>>>> 4afec1f152d935f926b4c845f6d6b23f7fe5b177
+
+//Liste des espaces de noms utilises 
+ using namespace std;
+ 
 namespace daxml
 {
     /*
