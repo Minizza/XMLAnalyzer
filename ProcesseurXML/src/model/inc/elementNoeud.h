@@ -9,6 +9,7 @@
 //Liste des includes système/libs
  #include <boost/lockfree/queue.hpp>
  #include "elementBurne.h"
+ #include "enTete.h"
 
 
 //Liste des espaces de noms utilises 
@@ -20,7 +21,7 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
- class ElementNoeud public: ElementBurne{
+ class ElementNoeud :public ElementBurne{
     
 public:
     
