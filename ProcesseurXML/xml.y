@@ -73,6 +73,11 @@
 	: NOM EGAL VALEUR
 	;
 
+	commentaires
+	: commentaires commentaire
+	| /* vide */
+	;
+
 	commentaire
 	: COMMENT {/* $$ = new ElementComz("commentaire", COMMENT); */}
 	;
