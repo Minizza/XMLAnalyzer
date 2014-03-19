@@ -21,7 +21,7 @@ using namespace std;
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementComz: public ElementCastre{
+class ElementComz : public ElementCastre{
 	
 public:
 	

@@ -5,10 +5,10 @@
 
  #include "elementCastre.h"
 
- ElementCastre::ElementCastre(){};
+ ElementCastre::ElementCastre() : AbstractElement() {}
 
- ElementCastre::ElementCastre(const ElementCastre& orig);
+ ElementCastre::ElementCastre(const ElementCastre& orig){}
 
- ElementCastre::~ElementCastre(){};
+ ElementCastre::~ElementCastre(){}
 
- ElementCastre::ElementCastre(string& aNom){};
+ ElementCastre::ElementCastre(string& aNom){}

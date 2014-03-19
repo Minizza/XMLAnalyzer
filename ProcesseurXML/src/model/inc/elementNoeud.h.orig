@@ -1,0 +1,74 @@
+/* 
+ * Fichier: elementNoeud.h
+ * Auteur: nbuisson
+ */
+
+#ifndef ELEMENT_NOEUD_H
+#define ELEMENT_NOEUD_H
+
+//Liste des includes système/libs
+ #include <string>
+ #include <deque>
+
+ #include "abstractElement.h"
+ #include "elementBurne.h"
+<<<<<<< HEAD
+ #include "enTete.h"
+=======
+ #include "constructeurRegex.h"
+>>>>>>> e2f0b90e211937aa0286f09f9309129f0698fffd
+
+
+//Liste des espaces de noms utilises 
+ using namespace std;
+
+
+/*
+ *      La classe ElementNoeud blablabla.
+ * 
+ *      Cette classe appartient à la partie bloblo de notre application.
+ *
+ */
+<<<<<<< HEAD
+ class ElementNoeud :public ElementBurne{
+=======
+ class ElementNoeud: public ElementBurne{
+>>>>>>> e2f0b90e211937aa0286f09f9309129f0698fffd
+    
+public:
+    
+    //Methodes de base de la classe ElementNoeud
+    ElementNoeud();
+    
+    ElementNoeud(const ElementNoeud& orig);
+    
+    virtual ~ElementNoeud();
+
+    /*
+     *  Redéfinition du constructeur
+     *          
+     *    Paramètres : 
+     *          -EnTete aEnTete : passage de l'entete du document xml
+     *          -ElementNoeud aElementNoeud : passage de l'element racine du document xml
+     * 
+     */
+     ElementNoeud(string& aNom, deque<AbstractAttribut*>& aAtts, deque<AbstractElement*>& aEnfants);
+
+
+     //ConstructeurRegex getRegex();
+
+
+protected:
+
+    //void construireRegex(ConstructeurRegex& regex);
+
+private:
+
+    bool estXSD;
+    deque<AbstractElement*> enfants;
+    ConstructeurRegex* regexFils;
+
+};
+
+
+#endif  /* XML_DECL_H */

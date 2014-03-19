@@ -22,7 +22,7 @@ class AbstractElement {
 	
 public:
 
-	AbstractElement(){};
+	AbstractElement();
 	
 	/*
 	 *  Constructeur abstrait
@@ -31,9 +31,9 @@ public:
 	 *          -String name : le nom de l'élément
 	 * 
 	 */
-	AbstractElement(string& aNom){nom = aNom;};
+	AbstractElement(string& aNom);
 
-	virtual ~AbstractElement()=0;
+	virtual ~AbstractElement();
 
 protected:
 	string nom;
