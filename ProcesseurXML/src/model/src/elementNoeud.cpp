@@ -23,7 +23,7 @@ ElementNoeud::~ElementNoeud() {
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(string& aNom, deque<AbstractAttribut*>& aAtts, deque<AbstractElement*>& aEnfants) {
+ElementNoeud::ElementNoeud(const string& aNom, deque<AbstractAttribut*>& aAtts, deque<AbstractElement*>& aEnfants) {
 	ElementBurne(aNom, aAtts);
 	enfants = aEnfants;
 }
