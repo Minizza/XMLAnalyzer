@@ -21,4 +21,5 @@
 #Temporary files
 *.c~
 *.h~
+*.fuse_hidden*
 
