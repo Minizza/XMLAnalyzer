@@ -5,7 +5,7 @@
 
 
  #include "document.h"
-#include <iostream>
+
 
 //Methodes par defaut de la classe Document
 Document::Document() {
@@ -20,9 +20,6 @@ Document::~Document() {
 
 ///// Redéfinition du contructeur /////
 Document::Document(EnTete& aEnTete, ElementNoeud& aElementNoeud) {
-#ifdef DEBUG
-		std::cout << "Construction de <Document>" << std::endl;
-#endif
     enTete = &aEnTete;
     racine = &aElementNoeud;
 }

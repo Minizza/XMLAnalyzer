@@ -3,8 +3,8 @@
  * Auteur: julien
  */
 
-#include "elementNoeud.h"
-#include <iostream>
+ #include "elementNoeud.h"
+
 
 //Methodes par defaut de la classe ElementNoeud
 ElementNoeud::ElementNoeud() : ElementBurne() {
@@ -23,10 +23,8 @@ ElementNoeud::~ElementNoeud() {
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants): ElementBurne(aNom, aAtts) {
-	#ifdef DEBUG
-		std::cout << "Construction de <ElementNoeud>" << std::endl;
-	#endif
+ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants) {
+	ElementBurne(aNom, aAtts);
 	enfants = aEnfants;
 }
 

@@ -4,11 +4,18 @@
  */
 
 #include "abstractAttribut.h"
+#include <iostream>
 
 AbstractAttribut::AbstractAttribut(){}
 
 AbstractAttribut::AbstractAttribut(const AbstractAttribut& orig){}
 
-AbstractAttribut::AbstractAttribut(string& aNom){nom = aNom;}
+AbstractAttribut::AbstractAttribut(string& aNom)
+{
+	#ifdef DEBUG
+		std::cout << "Construction de <AbstractAttribut>" << std::endl;
+	#endif
+	nom = aNom;
+}
 
 AbstractAttribut::~AbstractAttribut(){}

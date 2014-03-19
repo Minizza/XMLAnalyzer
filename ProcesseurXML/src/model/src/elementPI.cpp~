@@ -4,8 +4,8 @@
  */
 
 
-#include "elementPI.h"
-#include <iostream>
+ #include "elementPI.h"
+
 
 //Methodes par defaut de la classe ElementPI
 ElementPI::~ElementPI() {
@@ -14,9 +14,6 @@ ElementPI::~ElementPI() {
 
 ///// Redéfinition du contructeur /////
 ElementPI::ElementPI(string& aNom, deque<AbstractAttribut>& aAttributs) {
-		#ifdef DEBUG
-			std::cout << "Construction de <ElementPI>" << std::endl;
-		#endif
     nom = aNom;
     attributs = aAttributs; 
 
