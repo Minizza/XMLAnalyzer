@@ -13,7 +13,7 @@
 
 
 //Liste des espaces de noms utilises 
-
+using namespace std;
 
 /*
  *      La classe ElementComz blablabla.

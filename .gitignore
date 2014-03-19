@@ -17,3 +17,7 @@
 
 #test results
 /ProcesseurXML/Tests/results.csv
+
+#Temporary files
+*.c~
+*.h~
