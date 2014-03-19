@@ -13,7 +13,7 @@
 *.a
 
 # Compiled directory content
-./ProcesseurXML/build/*
+/ProcesseurXML/build/*
 
 #test results
-./ProcesseurXML/Tests/results.csv
+/ProcesseurXML/Tests/results.csv
