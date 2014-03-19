@@ -19,6 +19,6 @@ ElementNoeud::~ElementNoeud() {
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(EnTete aEnTete, ElementNoeud aElementNoeud) {
+ElementNoeud::ElementNoeud(EnTete& aEnTete, ElementNoeud& aElementNoeud) {
 
 }
