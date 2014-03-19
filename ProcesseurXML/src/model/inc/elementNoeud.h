@@ -24,7 +24,7 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
- class ElementNoeud: public ElementBurne{
+ class ElementNoeud : public ElementBurne{
     
 public:
     
@@ -43,7 +43,7 @@ public:
      *          -ElementNoeud aElementNoeud : passage de l'element racine du document xml
      * 
      */
-     ElementNoeud(string& aNom, deque<AbstractAttribut*>& aAtts, deque<AbstractElement*>& aEnfants);
+     ElementNoeud(const string& aNom, deque<AbstractAttribut*>& aAtts, deque<AbstractElement*>& aEnfants);
 
 
      //ConstructeurRegex getRegex();

@@ -7,14 +7,14 @@
 
 
 //Methodes par defaut de la classe ElementNoeud
-ElementNoeud::ElementNoeud() {
+ElementNoeud::ElementNoeud() : ElementBurne() {
 }
 
 ElementNoeud::ElementNoeud(const ElementNoeud& orig) {
 	nom = orig.nom;
 	estXSD = orig.estXSD;
 	enfants = orig.enfants;
-	*regexFils = *(orig.regexFils);
+	regexFils = new ConstructeurRegex(*(orig.regexFils));
 }
 
 ElementNoeud::~ElementNoeud() {
@@ -23,7 +23,7 @@ ElementNoeud::~ElementNoeud() {
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(string& aNom, deque<AbstractAttribut*>& aAtts, deque<AbstractElement*>& aEnfants) {
+ElementNoeud::ElementNoeud(const string& aNom, deque<AbstractAttribut*>& aAtts, deque<AbstractElement*>& aEnfants) {
 	ElementBurne(aNom, aAtts);
 	enfants = aEnfants;
 }

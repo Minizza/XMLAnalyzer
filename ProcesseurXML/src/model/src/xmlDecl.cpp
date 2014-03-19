@@ -11,3 +11,9 @@
     externalId = aExternalId;
     intSubSet = aIntSubSet;
  }
+
+
+ XmlDecl::~XmlDecl()
+ {
+    
+ }

@@ -21,3 +21,8 @@
 #Temporary files
 *.c~
 *.h~
+<<<<<<< HEAD
+=======
+*.fuse_hidden*
+
+>>>>>>> master
