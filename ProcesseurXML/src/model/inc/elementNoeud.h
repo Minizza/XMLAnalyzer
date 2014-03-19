@@ -12,11 +12,10 @@
 
  #include "abstractElement.h"
  #include "elementBurne.h"
+ #include "enTete.h"
  #include "constructeurRegex.h"
 
-
 //Liste des espaces de noms utilises 
- using namespace std;
 
 
 /*
@@ -56,9 +55,6 @@ protected:
 
 private:
 
-    bool estXSD;
-    deque<AbstractElement*> enfants;
-    ConstructeurRegex* regexFils;
 
 };
 
