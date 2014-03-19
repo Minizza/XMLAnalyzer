@@ -41,7 +41,7 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	ElementCastre(string& aNom);
+	ElementCastre(string* aNom);
 
 };
 
