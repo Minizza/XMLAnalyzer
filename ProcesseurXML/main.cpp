@@ -1,4 +1,5 @@
 #include "commun.h"
+#include "enTete.h"
 #include <iostream>
 #include <cstring>
 

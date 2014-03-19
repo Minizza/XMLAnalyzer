@@ -11,3 +11,4 @@
     externalId = aExternalId;
     intSubSet = aIntSubSet;
  }
+ Doctype::~Doctype(){}

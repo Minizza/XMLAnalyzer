@@ -20,8 +20,8 @@ Document::~Document() {
 
 ///// Redéfinition du contructeur /////
 Document::Document(EnTete& aEnTete, ElementNoeud& aElementNoeud) {
-    enTete = aEntete;
-    racine = aElementNoeud;
+    enTete = &aEnTete;
+    racine = &aElementNoeud;
 }
 
 
