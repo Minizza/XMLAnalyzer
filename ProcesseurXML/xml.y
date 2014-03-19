@@ -74,6 +74,6 @@
 	;
 
 	commentaire
-	: COMMENT
+	: COMMENT {/* $$ = new ElementComz("commentaire", COMMENT); */}
 	;
 %%
