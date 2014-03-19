@@ -4,16 +4,10 @@
  */
 
 
- #include "../inc/elementPI.h"
+ #include "elementPI.h"
 
 
 //Methodes par defaut de la classe ElementPI
-ElementPI::ElementPI() {
-}
-
-ElementPI::ElementPI(const ElementPI& orig) {
-}
-
 ElementPI::~ElementPI() {
 }
 

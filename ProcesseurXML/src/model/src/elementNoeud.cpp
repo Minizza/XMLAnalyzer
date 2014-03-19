@@ -1,6 +1,6 @@
 /* 
  * Fichier: elementNoeud.cpp
- * Auteur: auteur
+ * Auteur: julien
  */
 
 
