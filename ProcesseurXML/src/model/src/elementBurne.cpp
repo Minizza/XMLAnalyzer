@@ -19,8 +19,8 @@ ElementBurne::~ElementBurne() {
 
 
 ///// Redéfinition du contructeur /////
-ElementBurne::ElementBurne(string& aNom, deque<AbstractAttribut*>& aAtts) : AbstractElement(nom) {
-    atts = aAtts;
+ElementBurne::ElementBurne(string* aNom, deque<AbstractAttribut*>* aAtts) : AbstractElement(aNom) {
+    atts = *aAtts;
 }
 
 /*ConstructeurRegex* ElementBurne::getRegex() {
