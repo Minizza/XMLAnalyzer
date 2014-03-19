@@ -1,0 +1,44 @@
+Algorithme de transformation (XSL)
+
+#### INITXSL
+
+Définition des objets pour l'algorithme
+XSL -> Document XSL parsé via le parseur
+XML -> Document XML parsé via le parseur
+OUT -> fichier ou flux de sortie
+
+Récupération de l'entête depuis XML et recopie sur la sortie
+XML.Document.EnTete.blabla -> OUT
+
+Rechercher le template racine à partir du XSL
+racineXSL = XSL.Document.racine.enfants.rechercher(match = "/")
+si racine existe alors
+    TraiterXSL (racineXSL, XML.Document.racine)
+sinon
+    XML.Document.racine.innerHTML -> OUT
+
+#### FIN INITXSL
+
+#### TraiterXML (elmtXML : ElementNoeud)
+pour enfant
+
+#### FIN TraiterXML
+
+
+#### TraiterXSL (elmtXSL : ElementNoeud, elmtXML : ElementNoeud, OUT)
+pour enfantXSL dans elmtXSL faire
+    si enfantXSL.nom = "xsl:apply-templates" et enfant.attributs vide alors
+        pour elmtFils dans elmtXML.enfants() faire
+            TraiterXSL (enfant, elmtFils)
+    sinon si enfantXSL.nom = "xsl:apply-templates" et enfant.attributs non vide alors
+
+    sinon si enfantXSL.nom = "xsl:value-of" alors
+
+    sinon si enfantXSL.nom = "xsl:for-each"
+
+    sinon si enfantXSL.enfants() pas vide
+        TraiterXSL (enfantXSL, )
+    sinon si enfantXML.enfants() vide
+        OUT += <enfantXSL.nom>enfant.texte</enfant.nom>
+
+#### FIN TraiterXSL
