@@ -14,11 +14,13 @@
 
 # Compiled directory content
 /ProcesseurXML/build/*
+/ProcesseurXML/xmltool
 
 #test results
 /ProcesseurXML/Tests/results.csv
 
 #Temporary files
+*.cpp~
 *.c~
 *.h~
 *.orig
