@@ -22,6 +22,7 @@ class AbstractAttribut {
     
 public:
     
+    AbstractAttribut(){};
     /*
      *  Constructeur abstrait
      *          
@@ -29,7 +30,7 @@ public:
      *          -String name : le nom de l'élément
      * 
      */
-    virtual AbstractAttribut(string& aNom);
+    AbstractAttribut(string& aNom){nom = aNom;};
 
     virtual ~AbstractAttribut();
 
