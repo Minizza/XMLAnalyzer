@@ -6,6 +6,8 @@ BUILDDIR= ./build
 CFLAGS=-std=c++11 -g -DYYDEBUG
 CFLAGS+=-Isrc/model/inc -I./ -I./build
 
+#Library boost
+LIBRARY=lib/libboost_program_options.so.1.54.0
 
 vpath %.cpp src/model/src build/
 #what to build
@@ -24,7 +26,6 @@ SRC=main.cpp
 	# src/model/src/elementPI.cpp
 	#Our project
 SRC+=${wildcard src/model/src/*.cpp}
-SRC+=${wildcard build/*.cpp}
 
 #target file name
 OBJ= $(addprefix $(BUILDDIR)/,$(SRC:.cpp=.o))
@@ -39,7 +40,7 @@ commun: $(SRC) xml.l xml.y
 	@echo "--------------------------"
 	flex -P xml --outfile=$(BUILDDIR)/lex.xml.cpp xml.l 
 	bison -p xml --debug --verbose --defines=$(BUILDDIR)/xml.tab.h --output=$(BUILDDIR)/xml.tab.cpp xml.y
-	g++ $(CFLAGS)  -o xmltool $(SRC) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp
+	g++ $(CFLAGS)  -o xmltool $(SRC) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp $(LIBRARY)
 	touch commun
 
 $(BUILDDIR)/%.o: %.cpp

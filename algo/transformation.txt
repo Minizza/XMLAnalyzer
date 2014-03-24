@@ -1,82 +1,48 @@
-Algorithme de transformation (XSL)
+#############################################################
+#               ALGORITHME de TRANSFORMATION                #
+#############################################################
 
-#### INITXSL
+String TransformationXSL(noeudXSL, noeudXML, sortie)
+    pour filsXSL de noeudXSL faire
+        1) si value-of
+        2) si fore-each
+        3) si rien
+        4) si apply-template avec atrtibut
+        5) si apply-template sans attribut
+    retour sortie
 
-Définition des objets pour l'algorithme
-XSL -> Document XSL parsé via le parseur
-XML -> Document XML parsé via le parseur
-OUT -> fichier ou flux de sortie
+Dans l'algorithme, on utilisera la fonction get_sans_balises qui
+retournera le contenu d'un noeud sans interpreter les balises.
+L'algorithme utilise aussi la fonction get_content qui retourne simplement
+le code xml d'un noeud.
 
-Récupération de l'entête depuis XML et recopie sur la sortie
-XML.Document.EnTete.blabla -> OUT
+Appel initial de la fonction
+sortie = TransformationXSL(template_match_racine, racineXML, "")
 
-Rechercher le template racine à partir du XSL
-racineXSL = XSL.Document.racine.enfants.rechercher(match = "/")
-si racine existe alors
-    TraiterXSL (racineXSL, XML.Document.racine)
+1) value-of
+si select est "." alors
+    sortie += get_sans_balises(noeudXML)
 sinon
-    XML.Document.racine.innerHTML -> OUT
+    enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
+    pour enfantXML de enfantsXML faire
+        sortie += get_sans_balises(enfantXML)
 
-#### FIN INITXSL
+2) fore-each
+enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
+pour enfantXML de enfantsXML faire
+    sortie += TransformationXSL(noeud_foreach, enfantXML, sortie)
 
-#### TraiterXML (elmtXML : ElementNoeud)
-pour enfant
+3) Rien (pas de balises xsl spéciale)
+sortie += get_content(noeudXSL)
 
-#### FIN TraiterXML
+4) apply-templates select="something"
+templateXSL = noeudXSL template tel que noeudXSL.match = select
+enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
+pour enfantXML de enfantsXML faire
+    sortie += TransformationXSL(templateXSL, enfantXML, sortie)
 
-
-#### TraiterXSL (elmtXSL : ElementNoeud, elmtXML : ElementNoeud, OUT)
-pour enfantXSL dans elmtXSL faire
-    si enfantXSL.nom = "xsl:apply-templates" et enfant.attributs vide alors
-	
-	
-
-        pour elmtFils dans elmtXML.enfants() faire
-            TraiterXSL (enfant, elmtFils)
-    sinon si enfantXSL.nom = "xsl:apply-templates" et enfant.attributs non vide alors
-
-    sinon si enfantXSL.nom = "xsl:value-of" alors
-
-    sinon si enfantXSL.nom = "xsl:for-each"
-
-    sinon si enfantXSL.enfants() pas vide
-        TraiterXSL (enfantXSL, )
-    sinon si enfantXML.enfants() vide
-        OUT += <enfantXSL.nom>enfant.texte</enfant.nom>
-
-#### FIN TraiterXSL
-		________________________________________________________________
-
-//Récupération de l'entête depuis XML et recopie sur la sortie
-XML.Document.EnTete.blabla -> OUT
-
-//Partir de la racine du XML
-racine = XML.document.racine
-noeud = racine
-racineXSL = XSL.Document.racine.enfants.rechercher(match = "/")
-
-si racineXSL existe
-	pour chaque enfant de racineXSL
-		si enfantXSL.name = "xsl:apply-templates" et enfantXSL.attributs vide alors
-			noeud = racine.enfant
-			noeudXSL = XSL.Document.racine.enfants.rechercher(match = noeud.name)
-			//on recommence le traitement pour chaque enfant de noeudXSL
-		
-		sinon si enfantXSL.name = "xsl:apply-templates" et enfantXSL.attributs non vide alors
-			pour chaque enfant de noeud
-				si enfant.noeud.name = enfantXSL.select.name alors
-					noeud = noeud.enfant
-					noeudXSL = XSL.Document.racine.enfants.rechercher(match = noeud.name)
-					//on recommence le traitement pour chaque enfant de noeudXSL
-				fin si
-			fin pour
-			
-		sinon si sinon si enfantXSL.nom = "xsl:value-of" alors
-
-		sinon si enfantXSL.nom = "xsl:for-each" alors
-		
-		sinon
-			//on écrit le texte brut/avec ses balises
-		fin si
-	fin pour
-fin si
+5) apply-templates sans attribut
+enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
+pour enfantXML de enfantsXML faire
+    templateXSL = noeudXSL tel que noeudXSL.match = enfantXML.nom
+    sortie += TransformationXSL(templateXSL, enfantXML, sortie)
