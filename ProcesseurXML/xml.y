@@ -79,11 +79,6 @@
 	: NOM EGAL VALEUR
 	;
 
-	commentaires
-	: commentaires commentaire
-	| commentaire
-	;
-
 	commentaire
 	: COMMENT {$$ = new ElementComz((string*) "commentaire", (string*) $1);}
 	;
