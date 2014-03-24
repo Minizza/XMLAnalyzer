@@ -48,6 +48,8 @@ public:
 
      //ConstructeurRegex getRegex();
 
+     void ajouterFils(AbstractElement* aFils);
+
 
 protected:
 

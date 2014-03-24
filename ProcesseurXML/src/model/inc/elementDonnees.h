@@ -42,7 +42,7 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	ElementDonnees(string* aNom);
+	ElementDonnees(string* aNom, string* aTexte);
 
 private:
 

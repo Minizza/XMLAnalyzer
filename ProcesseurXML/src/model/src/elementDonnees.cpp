@@ -16,8 +16,10 @@ ElementDonnees::~ElementDonnees() {
 }
 
 ///// Redéfinition du contructeur /////
-ElementDonnees::ElementDonnees(string* aNom)  : ElementCastre(aNom) {
+ElementDonnees::ElementDonnees(string* aNom, string* aTexte)  : ElementCastre(aNom) {
 	#ifdef DEBUG
 		std::cout << "Construction de <ElementDonnees>" << std::endl;
 	#endif
+
+	texte = *aTexte;
 }
