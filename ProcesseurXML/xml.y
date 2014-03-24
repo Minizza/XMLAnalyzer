@@ -44,8 +44,7 @@
 	%type <head> header
 	%type <doctype> headerdoc
 
-	%type <abstrElements> content
-	%type <abstrEle> headerpart
+	%type <abstrElements> content headerpart
 	%type <comz> commentaire
 	%type <noeud> element emptytag
 	%type <pi> pi
@@ -60,14 +59,13 @@
 	;
 
 	header
-	: header headerpart
-	| header headerdoc
+	: headerpart headerdoc
 	|/*vide*/
 	;
 
 	headerpart //il faut vérifier qu'on a bien la version du xml
-	: pi {$$ = $1;}
-	| commentaire {$$ = $1;}
+	: headerpart pi {$$ = $1; $$->push_back($2);}
+	| headerpart commentaire {$$ = $1; $$->push_back($2);}
 	;
 
 	headerdoc
