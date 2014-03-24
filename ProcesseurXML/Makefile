@@ -10,8 +10,7 @@ CFLAGS+=-Isrc/model/inc -I./ -I./build
 vpath %.cpp src/model/src build/
 #what to build
 	#essential
-SRC=main.cpp $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp \
-
+SRC=main.cpp 
 	# src/model/src/enTete.cpp \
 	# src/model/src/contructeurRegex.cpp \
 	# src/model/src/doctype.cpp \
@@ -33,19 +32,21 @@ OBJ= $(addprefix $(BUILDDIR)/,$(SRC:.cpp=.o))
 .PHONY: clean
 
 all: commun
-commun: 
+commun: $(SRC) xml.l xml.y
 	@echo $(SRC)
 	@echo "--------------------------"
 	@echo $(OBJ)
 	@echo "--------------------------"
 	flex -P xml --outfile=$(BUILDDIR)/lex.xml.cpp xml.l 
 	bison -p xml --debug --verbose --defines=$(BUILDDIR)/xml.tab.h --output=$(BUILDDIR)/xml.tab.cpp xml.y
-	g++ $(CFLAGS)  -o xmltool $(SRC)
+	g++ $(CFLAGS)  -o xmltool $(SRC) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp
 	touch commun
 
 $(BUILDDIR)/%.o: %.cpp
 	@echo "coucou !!"
 	g++ $(CFLAGS) -c $(CFLAGS) -o $@ $<
+
+
 
 tempo:
 	g++ $(CFLAGS)  -o ksjdfkjshdufhlsfdg src/model/src/enTete.cpp
