@@ -103,6 +103,6 @@
 	;
 
 	commentaire
-	: COMMENT {$$ = new ElementComz((string*) "commentaire", (string*) $1);}
+	: COMMENT {$$ = new ElementComz((string*) $1);}
 	;
 %%
