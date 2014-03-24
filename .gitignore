@@ -16,7 +16,7 @@
 /ProcesseurXML/build/*
 /ProcesseurXML/xmltool
 
-#test results
+#Test results
 /ProcesseurXML/Tests/results.csv
 
 #Temporary files
@@ -24,8 +24,7 @@
 *.c~
 *.h~
 *.orig
-<<<<<<< HEAD
-=======
 *.fuse_hidden*
 
->>>>>>> master
+#Project files
+common
