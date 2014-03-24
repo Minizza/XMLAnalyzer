@@ -16,8 +16,14 @@ ElementDonnees::~ElementDonnees() {
 }
 
 ///// Redéfinition du contructeur /////
-ElementDonnees::ElementDonnees(string* aNom)  : ElementCastre(aNom) {
+ElementDonnees::ElementDonnees(string* aTexte)  : ElementCastre(new string("")) {
 	#ifdef DEBUG
 		std::cout << "Construction de <ElementDonnees>" << std::endl;
 	#endif
+	texte = *aTexte;
+}
+
+std::ostream& ElementDonnees::versFlux(std::ostream& os) const
+{
+	os << texte;
 }

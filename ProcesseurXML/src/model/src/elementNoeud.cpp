@@ -27,10 +27,20 @@ ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<
 	#ifdef DEBUG
 		std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif
-	ElementBurne(aNom, aAtts);
 	enfants = *aEnfants;
 }
 
 /*ConstructeurRegex* ElementNoeud::getRegex() {
 	return regexFils;
 }*/
+
+std::ostream& ElementNoeud::versFlux(std::ostream& os) const
+{
+	os << "<" << nom << ">\n";
+	for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+	{
+		AbstractElement* elt = *it;
+		os << elt;
+	}
+	os << "</" << nom << ">\n";
+}
