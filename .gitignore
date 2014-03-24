@@ -15,11 +15,14 @@
 # Compiled directory content
 /ProcesseurXML/build/*
 
-#test results
+#Test results
 /ProcesseurXML/Tests/results.csv
 
 #Temporary files
 *.c~
 *.h~
 *.fuse_hidden*
+
+#Project files
+common
 
