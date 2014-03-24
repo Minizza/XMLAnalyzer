@@ -75,7 +75,7 @@
 
 	content
 	: content element {$$ = $1; $$->push_back($2);}
-	| content DONNEES {$$ = $1; $$->push_back(new ElementDonnees((string*) "Données", (string*) $2));}	
+	| content DONNEES {$$ = $1; $$->push_back(new ElementDonnees((string*) $2));}	
 	| content commentaire {$$ = $1; $$->push_back($2);}
 	| CDATABEGIN CDATAEND
 	| /* vide */

@@ -26,3 +26,7 @@ ElementComz::ElementComz(string* aNom,string* aTexte) : ElementCastre(aNom) {
 	texte = *aTexte;
 }
 
+std::ostream& ElementComz::versFlux(std::ostream& os) const
+{
+	os << "<!--" << texte << "-->\n";
+}

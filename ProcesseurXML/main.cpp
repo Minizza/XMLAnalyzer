@@ -6,7 +6,7 @@
 
 using namespace std;
 
-extern FILE* yyin;
+extern FILE* xmlin;
 int xmlparse(void);
 
 int main(int argc, char** argv)
@@ -16,12 +16,16 @@ int main(int argc, char** argv)
     // Handling of options 
     po::options_description desc("Available commands are");
     desc.add_options()
-    ("help,h","Give you da help")
-    ("input-files,i", po::value<std::vector<std::string>>(), "Input files")
-    ("add,a",po::value<int>(),"Add something to da b*tch");
+    ("parse,p",po::value<std::vector<std::string>>(),"parse and display the xml file")
+    ("validate,v", po::value<std::vector<std::string>>(), "parse both xml and xsd files and display the validation result")
+    ("transforme,t",po::value<std::vector<std::string>>(),"parse both xml and xsl files and display de transformation result of file.xml by the stylesheet file.xsl")
+    ("help,h","displays this help");
+
 
     po::positional_options_description p;
-    p.add("input-files", -1);
+    p.add("parse", -1);
+    p.add("validate", 2);
+    p.add("trasnform", 2);
 // parse the options
     po::variables_map vm;
     po::store(po::command_line_parser(argc, argv).options(desc).positional(p).run(), vm);
@@ -30,17 +34,32 @@ int main(int argc, char** argv)
 
     if(vm.count("help"))
     {
-        std::cerr <<argv[0] <<desc;
+        std::cerr <<argv[0]<<" "<<desc;
     }
-    if(vm.count("add"))
-    {
-        cerr << vm["add"].as<int>()<<" We get that number"<<endl;
-    }
-    if(vm.count("input-files")){
-        std::vector<std::string> files = vm["input-files"].as<std::vector<std::string>>();
+    else if(vm.count("parse")){
+        std::vector<std::string> files = vm["parse"].as<std::vector<std::string>>();
+        #ifdef DEBUG
         for(std::string file : files){
             std::cout << "Input file " << file << std::endl;
         }
+        cout<<"First argument : "<<files[0]<<endl;
+        #endif
+        FILE * fid;
+        fid=fopen(files[0].c_str() ,"r");
+        #ifdef DEBUG
+        int temp;
+        if (fid) {
+            while ((temp = getc(fid)) != EOF)
+                putchar(temp);
+        }
+        #endif
+        xmlin=fid;
+    }
+    else
+    {
+        cerr<<"No argument given"<<endl;
+        std::cerr <<argv[0]<<" "<<desc;
+        return 0;
     }
    // int retour = xmlparse();
    // if (!retour)
@@ -51,6 +70,5 @@ int main(int argc, char** argv)
    // {
    //    cout<<"Entrée standard non reconnue"<<endl;
    // }
-    cout << argv[0] << endl ;
     return 1;
 }

@@ -27,7 +27,6 @@ ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<
 	#ifdef DEBUG
 		std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif
-	ElementBurne(aNom, aAtts);
 	enfants = *aEnfants;
 }
 
@@ -40,4 +39,16 @@ void ElementNoeud::ajouterFils(AbstractElement* aFils) {
 			std::cout << "Ajout d'un fils" << std::endl;
 	#endif
 	enfants.push_back(aFils);
+}
+
+
+std::ostream& ElementNoeud::versFlux(std::ostream& os) const
+{
+	os << "<" << nom << ">\n";
+	for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+	{
+		AbstractElement* elt = *it;
+		os << elt;
+	}
+	os << "</" << nom << ">\n";
 }
