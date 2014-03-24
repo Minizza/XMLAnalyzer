@@ -40,12 +40,12 @@
 
 	header
 	: header headerpart
-	|/*vide*/
+	| headerpart
 	;
 
 	headerpart //il faut vérifier qu'on a bien la version du xml
 	: pi
-	| commentaires
+	| commentaire
 	| DOCTYPE
 	;
 
@@ -65,7 +65,7 @@
 	content
 	: content element
 	| content DONNEES
-	| content commentaires
+	| content commentaire
 	| CDATABEGIN CDATAEND
 	| /* vide */
 	;
@@ -81,7 +81,7 @@
 
 	commentaires
 	: commentaires commentaire
-	| /* vide */
+	| commentaire
 	;
 
 	commentaire
