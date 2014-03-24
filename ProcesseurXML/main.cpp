@@ -58,7 +58,7 @@ int main(int argc, char** argv)
     else
     {
         cerr<<"No argument given"<<endl;
-        std::cerr <<argv[0]<<" "<<desc;
+        std::cerr <<argv[0]<<" "<<desc<<endl;
         return 0;
     }
    // int retour = xmlparse();
