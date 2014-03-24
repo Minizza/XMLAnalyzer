@@ -14,11 +14,11 @@ ElementNoeud::ElementNoeud(ElementNoeud* orig) {
 	nom = orig->nom;
 	estXSD = orig->estXSD;
 	enfants = orig->enfants;
-	regexFils = new ConstructeurRegex(orig->regexFils);
+	//regexFils = new ConstructeurRegex(orig->regexFils);
 }
 
 ElementNoeud::~ElementNoeud() {
-	delete(regexFils);
+	//delete(regexFils);
 }
 
 
@@ -40,7 +40,7 @@ std::ostream& ElementNoeud::versFlux(std::ostream& os) const
 	for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 	{
 		AbstractElement* elt = *it;
-		os << elt;
+		elt->versFlux(os);
 	}
 	os << "</" << nom << ">\n";
 }

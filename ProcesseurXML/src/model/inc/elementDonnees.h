@@ -46,7 +46,7 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	ElementDonnees(string* aNom);
+	ElementDonnees(string* aTexte);
 
 	virtual std::ostream& versFlux(std::ostream& os) const;
 	

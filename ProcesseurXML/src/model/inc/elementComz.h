@@ -47,7 +47,7 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	ElementComz(string* aNom, string* aTexte);
+	ElementComz(string* aTexte);
 
 private:
 

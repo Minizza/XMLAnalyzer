@@ -61,17 +61,17 @@ public:
 					return copie;
 				}
 				
-				bool operator==(const iterator& autre)
+				bool operator==(const iterator& autre) const
 				{
 					return this->it == autre.it;
 				}
 				
-				bool operator!=(const iterator& autre)
+				bool operator!=(const iterator& autre) const
 				{
 					return !operator==(autre);
 				}
 				
-				AbstractElement* operator*()
+				AbstractElement* operator*() const
 				{
 					return *it;
 				}

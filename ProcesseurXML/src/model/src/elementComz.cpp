@@ -18,11 +18,11 @@ ElementComz::~ElementComz() {
 
 
 ///// Redéfinition du contructeur /////
-ElementComz::ElementComz(string* aNom,string* aTexte) : ElementCastre(aNom) {
+ElementComz::ElementComz(string* aTexte) : ElementCastre(new string("")) {
 #ifdef DEBUG
 		std::cout << "Construction de <ElementComz>" << std::endl;
 #endif
-	nom = *aNom;
+
 	texte = *aTexte;
 }
 
