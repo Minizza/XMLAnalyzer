@@ -45,7 +45,7 @@
 
 	headerpart //il faut vérifier qu'on a bien la version du xml
 	: pi
-	| commentaires
+	| commentaire
 	| DOCTYPE
 	;
 
@@ -65,7 +65,7 @@
 	content
 	: content element
 	| content DONNEES
-	| content commentaires
+	| content commentaire
 	| CDATABEGIN CDATAEND
 	| /* vide */
 	;
@@ -79,10 +79,7 @@
 	: NOM EGAL VALEUR
 	;
 
-	commentaires
-	: commentaires commentaire
-	| /* vide */
-	;
+
 
 	commentaire
 	: COMMENT {$$ = new ElementComz((string*) "commentaire", (string*) $1);}
