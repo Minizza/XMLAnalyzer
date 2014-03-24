@@ -5,8 +5,10 @@
 #include <string>
 using namespace std;
 
+#include "abstractElement.h"
 #include "elementNoeud.h"
 #include "elementComz.h"
+#include "elementDonnees.h"
 
 #include "abstractAttribut.h"
 #include "attributString.h"
