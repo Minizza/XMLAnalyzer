@@ -27,9 +27,13 @@ SRC=main.cpp
 	#Our project
 SRC+=${wildcard src/model/src/*.cpp}
 
+DEFINE=DEBUG
+###################### Formatage
 #target file name
 OBJ= $(addprefix $(BUILDDIR)/,$(SRC:.cpp=.o))
+DEFINE_F = $(addprefix -D,$(DEFINE))
 
+######################
 .PHONY: clean
 
 all: commun
@@ -40,7 +44,7 @@ commun: $(SRC) xml.l xml.y
 	@echo "--------------------------"
 	flex -P xml --outfile=$(BUILDDIR)/lex.xml.cpp xml.l 
 	bison -p xml --debug --verbose --defines=$(BUILDDIR)/xml.tab.h --output=$(BUILDDIR)/xml.tab.cpp xml.y
-	g++ $(CFLAGS)  -o xmltool $(SRC) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp $(LIBRARY)
+	g++ $(CFLAGS)  -o xmltool $(SRC) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp $(LIBRARY) $(DEFINE_F)
 	touch commun
 
 $(BUILDDIR)/%.o: %.cpp

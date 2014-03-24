@@ -45,18 +45,20 @@ int main(int argc, char** argv)
         cout<<"First argument : "<<files[0]<<endl;
         #endif
         FILE * fid;
-        int temp;
         fid=fopen(files[0].c_str() ,"r");
+        #ifdef DEBUG
+        int temp;
         if (fid) {
             while ((temp = getc(fid)) != EOF)
                 putchar(temp);
         }
-        fclose(fid);
+        #endif
+        xmlin=fid;
     }
     else
     {
         cerr<<"No argument given"<<endl;
-        std::cerr <<argv[0]<<" "<<desc;
+        std::cerr <<argv[0]<<" "<<desc<<endl;
         return 0;
     }
    // int retour = xmlparse();
