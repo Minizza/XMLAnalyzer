@@ -9,6 +9,9 @@ using namespace std;
 #include "elementComz.h"
 
 #include "abstractAttribut.h"
+#include "attributString.h"
+
+#include "doctype.h"
 
 //#define DEBUG
 #ifdef DEBUG
