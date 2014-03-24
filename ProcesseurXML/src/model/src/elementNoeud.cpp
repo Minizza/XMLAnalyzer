@@ -34,6 +34,14 @@ ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<
 	return regexFils;
 }*/
 
+void ElementNoeud::ajouterFils(AbstractElement* aFils) {
+	#ifdef DEBUG
+			std::cout << "Ajout d'un fils" << std::endl;
+	#endif
+	enfants.push_back(aFils);
+}
+
+
 std::ostream& ElementNoeud::versFlux(std::ostream& os) const
 {
 	os << "<" << nom << ">\n";

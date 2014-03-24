@@ -5,13 +5,18 @@
 #include <string>
 using namespace std;
 
+#include "document.h"
+#include "enTete.h"
+#include "doctype.h"
+
+#include "abstractElement.h"
 #include "elementNoeud.h"
 #include "elementComz.h"
+#include "elementDonnees.h"
+#include "elementPI.h"
 
 #include "abstractAttribut.h"
 #include "attributString.h"
-
-#include "doctype.h"
 
 //#define DEBUG
 #ifdef DEBUG
