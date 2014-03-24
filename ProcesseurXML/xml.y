@@ -21,6 +21,8 @@
 
 	%union {
 		char * s;
+		deque<AbstractElement*>* abstrElements;
+		ElementBurne* elementBurne;
 		ElementComz* comz;
 		ElementNoeud* noeud;
 		deque<AbstractAttribut*>* abstrAttr;
@@ -30,8 +32,9 @@
 
 	%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
 	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
+	%type <abstrElements> content
 	%type <comz> commentaire
-	%type <noeud> emptytag
+	%type <noeud> element emptytag
 	%type <abstrAttr> attributs
 	%type <attrString> attribut
 	%type <doctype> headerdoc
@@ -62,7 +65,7 @@
 	;
 
 	element
-	: INF NOM SUP content INF SLASH NOM SUP
+	: INF NOM SUP content INF SLASH NOM SUP {}
 	| emptytag
 	;
 
@@ -71,9 +74,9 @@
 	;
 
 	content
-	: content element
-	| content DONNEES
-	| content commentaire
+	: content element {$$ = $1; $$->push_back($2);}
+	| content DONNEES {$$ = $1; $$->push_back(new ElementDonnees((string*) "Données", (string*) $2));}	
+	| content commentaire {$$ = $1; $$->push_back($2);}
 	| CDATABEGIN CDATAEND
 	| /* vide */
 	;
