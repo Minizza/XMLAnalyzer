@@ -5,6 +5,10 @@
 #include <string>
 using namespace std;
 
+#include "document.h"
+
+#include "enTete.h"
+
 #include "abstractElement.h"
 #include "elementNoeud.h"
 #include "elementComz.h"

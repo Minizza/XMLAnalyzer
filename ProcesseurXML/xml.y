@@ -21,6 +21,8 @@
 
 	%union {
 		char * s;
+		Document* docXML;
+		EnTete* head;
 		deque<AbstractElement*>* abstrElements;
 		ElementBurne* elementBurne;
 		ElementComz* comz;
@@ -32,6 +34,8 @@
 
 	%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
 	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
+	%type <docXML> document
+	%type <head> header
 	%type <abstrElements> content
 	%type <comz> commentaire
 	%type <noeud> element emptytag
@@ -42,7 +46,7 @@
 	%%
 
 	document
-	: header element
+	: header element {$$ = new Document($1, $2);}
 	;
 
 	header
