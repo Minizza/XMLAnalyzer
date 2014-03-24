@@ -47,7 +47,13 @@ public:
 
 
      //ConstructeurRegex getRegex();
+		
+		// Méthodes héritées
+		virtual bool aDesFils() { return enfants.size() > 0; }
+		virtual AbstractElement::iterator begin() { return AbstractElement::iterator(enfants.begin()); } 
+		virtual AbstractElement::iterator end() { return AbstractElement::iterator(enfants.end()); }
 
+		virtual std::ostream& versFlux(std::ostream& os) const;
 
 protected:
 

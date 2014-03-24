@@ -29,6 +29,10 @@ public:
 	//Methodes de base de la classe ElementDonnees
 	ElementDonnees();
 	
+	// Méthodes héritées
+	bool aDesFils() { return false; }
+	iterator begin() { return AbstractElement::iterator(deque<AbstractElement*>()); } 
+	iterator end() { return AbstractElement::iterator(deque<AbstractElement*>()); }
 	
 	virtual ~ElementDonnees();
 
@@ -44,8 +48,9 @@ public:
 	 */
 	ElementDonnees(string* aNom);
 
+	virtual std::ostream& versFlux(std::ostream& os) const;
+	
 private:
-
 	string texte;
 };
 

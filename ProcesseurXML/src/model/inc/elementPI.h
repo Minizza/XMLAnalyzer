@@ -41,6 +41,13 @@ public:
      * 
      */
     ElementPI(string* aNom, deque<AbstractAttribut*>* aAttributs);
+    
+    // Méthodes héritées
+		bool aDesFils() { return false; }
+		iterator begin() { return AbstractElement::iterator(deque<AbstractElement*>()); } 
+		iterator end() { return AbstractElement::iterator(deque<AbstractElement*>()); }
+
+		virtual std::ostream& versFlux(std::ostream& os) const;
 
 private:
 
