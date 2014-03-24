@@ -36,14 +36,14 @@ int main(int argc, char** argv)
     {
         std::cerr <<argv[0]<<" "<<desc;
     }
-    if(vm.count("parse")){
-        #ifdef DEBUG
+    else if(vm.count("parse")){
         std::vector<std::string> files = vm["parse"].as<std::vector<std::string>>();
+        #ifdef DEBUG
         for(std::string file : files){
             std::cout << "Input file " << file << std::endl;
         }
+        cout<<"First argument : "<<files[0]<<endl;
         #endif
-        cout<<files[0]<<endl;
         FILE * fid;
         int temp;
         fid=fopen(files[0].c_str() ,"r");
@@ -52,6 +52,12 @@ int main(int argc, char** argv)
                 putchar(temp);
         }
         fclose(fid);
+    }
+    else
+    {
+        cerr<<"No argument given"<<endl;
+        std::cerr <<argv[0]<<" "<<desc;
+        return 0;
     }
    // int retour = xmlparse();
    // if (!retour)
