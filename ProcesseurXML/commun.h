@@ -13,6 +13,7 @@ using namespace std;
 #include "elementNoeud.h"
 #include "elementComz.h"
 #include "elementDonnees.h"
+#include "elementPI.h"
 
 #include "abstractAttribut.h"
 #include "attributString.h"

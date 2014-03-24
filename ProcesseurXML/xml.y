@@ -27,9 +27,11 @@
 		Doctype* doctype;
 
 		deque<AbstractElement*>* abstrElements;
+		AbstractElement* abstrEle;
 		ElementBurne* elementBurne;
 		ElementComz* comz;
 		ElementNoeud* noeud;
+		ElementPI* pi;
 
 		deque<AbstractAttribut*>* abstrAttr;
 		AttributString* attrString;
@@ -43,8 +45,10 @@
 	%type <doctype> headerdoc
 
 	%type <abstrElements> content
+	%type <abstrEle> headerpart
 	%type <comz> commentaire
 	%type <noeud> element emptytag
+	%type <pi> pi
 
 	%type <abstrAttr> attributs
 	%type <attrString> attribut
@@ -62,8 +66,8 @@
 	;
 
 	headerpart //il faut vérifier qu'on a bien la version du xml
-	: pi
-	| commentaire
+	: pi {$$ = $1;}
+	| commentaire {$$ = $1;}
 	;
 
 	headerdoc
@@ -71,7 +75,7 @@
 	;
 
 	pi
-	:INFSPECIAL NOM attributs SUPSPECIAL
+	:INFSPECIAL NOM attributs SUPSPECIAL {$$ = new ElementPI((string*) $2, $3);}
 	;
 
 	element
