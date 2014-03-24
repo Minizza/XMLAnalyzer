@@ -66,6 +66,7 @@
 	headerpart //il faut vérifier qu'on a bien la version du xml
 	: headerpart pi {$$ = $1; $$->push_back($2);}
 	| headerpart commentaire {$$ = $1; $$->push_back($2);}
+    |/*vide*/
 	;
 
 	headerdoc
@@ -89,7 +90,7 @@
 	: content element {$$ = $1; $$->push_back($2);}
 	| content DONNEES {$$ = $1; $$->push_back(new ElementDonnees((string*) $2));}	
 	| content commentaire {$$ = $1; $$->push_back($2);}
-	| CDATABEGIN CDATAEND
+	| content CDATABEGIN CDATAEND
 	| /* vide */
 	;
 
