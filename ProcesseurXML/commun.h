@@ -6,8 +6,8 @@
 using namespace std;
 
 #include "document.h"
-
 #include "enTete.h"
+#include "doctype.h"
 
 #include "abstractElement.h"
 #include "elementNoeud.h"
@@ -16,8 +16,6 @@ using namespace std;
 
 #include "abstractAttribut.h"
 #include "attributString.h"
-
-#include "doctype.h"
 
 //#define DEBUG
 #ifdef DEBUG

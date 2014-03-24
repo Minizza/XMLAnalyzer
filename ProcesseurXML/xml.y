@@ -21,27 +21,33 @@
 
 	%union {
 		char * s;
+
 		Document* docXML;
-		EnTete* head;
+		EnTete* head;		
+		Doctype* doctype;
+
 		deque<AbstractElement*>* abstrElements;
 		ElementBurne* elementBurne;
 		ElementComz* comz;
 		ElementNoeud* noeud;
+
 		deque<AbstractAttribut*>* abstrAttr;
 		AttributString* attrString;
-		Doctype* doctype;
 	}
 
 	%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
 	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
+
 	%type <docXML> document
 	%type <head> header
+	%type <doctype> headerdoc
+
 	%type <abstrElements> content
 	%type <comz> commentaire
 	%type <noeud> element emptytag
+
 	%type <abstrAttr> attributs
 	%type <attrString> attribut
-	%type <doctype> headerdoc
 
 	%%
 
@@ -69,7 +75,7 @@
 	;
 
 	element
-	: INF NOM SUP content INF SLASH NOM SUP {}
+	: INF NOM attributs SUP content INF SLASH NOM SUP {$$ = new ElementNoeud((string*) $2, $3, $5);}
 	| emptytag
 	;
 
