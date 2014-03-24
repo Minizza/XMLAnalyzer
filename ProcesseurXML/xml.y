@@ -23,14 +23,18 @@
 		char * s;
 		ElementComz* comz;
 		ElementNoeud* noeud;
-		deque<AbstractAttribut*>* abstrAttrs;
+		deque<AbstractAttribut*>* abstrAttr;
+		AttributString* attrString;
+		Doctype* doctype;
 	}
 
 	%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
 	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
 	%type <comz> commentaire
 	%type <noeud> emptytag
-	%type <abstrAttrs> attributs
+	%type <abstrAttr> attributs
+	%type <attrString> attribut
+	%type <doctype> headerdoc
 
 	%%
 
@@ -40,13 +44,17 @@
 
 	header
 	: header headerpart
+	| header headerdoc
 	|/*vide*/
 	;
 
 	headerpart //il faut vérifier qu'on a bien la version du xml
 	: pi
 	| commentaire
-	| DOCTYPE
+	;
+
+	headerdoc
+	: DOCTYPE {$$ = new Doctype((string*) "doctype", (string*) "none", (string*) "none");}
 	;
 
 	pi
@@ -71,15 +79,13 @@
 	;
 
 	attributs
-	: attributs attribut
+	: attributs attribut {$$ = $1; $$->push_back($2);}
 	| /* vide */
 	;
 
 	attribut
-	: NOM EGAL VALEUR
+	: NOM EGAL VALEUR {$$ = new AttributString((string*) $1, (string*) $3);}
 	;
-
-
 
 	commentaire
 	: COMMENT {$$ = new ElementComz((string*) "commentaire", (string*) $1);}
