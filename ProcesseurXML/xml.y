@@ -60,7 +60,6 @@
 
 	header
 	: headerpart headerdoc {$$ = new EnTete(0, $2, $1);}
-	| /*vide*/
 	;
 
 	headerpart //il faut vérifier qu'on a bien la version du xml
@@ -91,7 +90,7 @@
 	: content element {$$ = $1; $$->push_front($2);}
 	| content DONNEES {$$ = $1; $$->push_front(new ElementDonnees((string*) $2));}	
 	| content commentaire {$$ = $1; $$->push_front($2);}
-	| content CDATABEGIN CDATAEND
+	| content CDATABEGIN CDATAEND {$$ = $1; $$->push_front(new ElementCData((string*) $3));}
 	| /* vide */
 	;
 
