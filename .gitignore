@@ -27,9 +27,6 @@
 *.fuse_hidden*
 
 #Project files
-<<<<<<< HEAD
-common
-=======
 commun
 
 #LaTeX files
@@ -38,5 +35,3 @@ commun
 *.out
 *.toc
 main.pdf
-
->>>>>>> master
