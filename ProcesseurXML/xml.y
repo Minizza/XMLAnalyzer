@@ -73,7 +73,7 @@
 
 	headerdoc
 	: DOCTYPE {$$ = new Doctype(new string("doctype"), new string("none"), new string("none"));}
-	| /*vide*/
+	| /*vide*/{$$=NULL;}
 	;
 
 	pi

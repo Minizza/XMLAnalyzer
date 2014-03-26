@@ -10,28 +10,63 @@ extern FILE* xmlin;
 extern int xmldebug;
 int xmlparse(Document**);
 
-int parseOption()
+void catDatFile(FILE * fid,char* nomFichier)
+{
+    cout<<"=============DEBUT DU DEBUG"<<endl;
+    int temp;
+    if (fid) {
+        while ((temp = getc(fid)) != EOF)
+            putchar(temp);
+    }
+    cout<<"=============FIN DU DEBUG"<<endl;
+    fclose(fid);
+    fid=fopen(nomFichier ,"r");
+}
+
+int parseOption(int argc, char** argv)
+{
+    FILE * fid;
+    char * nomFichier =argv[2];
+    fid=fopen(nomFichier ,"r");
+    if(fid!=NULL)
+    {
+        cout<<"bite"<<endl;
+        #ifdef DEBUG
+        catDatFile(fid,nomFichier);
+        #endif
+        cout<<"phallus"<<endl;
+        xmlin=fid;
+        Document* rootDoc=NULL;
+        int b=xmlparse(&rootDoc);
+        rootDoc->versFlux(std::cout);
+        fclose(fid);
+        return 0;
+    }
+    else
+    {
+
+        return 1;
+    }
+}
+int validateOption(int argc, char** argv)
 {
 
 }
-int validateOption()
+int templateOption(int argc, char** argv)
 {
 
-}
-int templateOption()
-{
-    
 }
 int main(int argc, char** argv)
 {
+    // xmldebug=1;
     if (argc>1)
     {
         if(string(argv[1])=="-p")
         {
-            if (string(argv[1]).empty())
+            if (argc>2)
             {
-                parseOption();
-                return 0;
+                parseOption(argc, argv);
+                
             }
             else
             {
@@ -43,7 +78,7 @@ int main(int argc, char** argv)
         {
             if (argc>3)
             {
-                templateOption();
+                templateOption(argc, argv);
                 return 0;
             }
             else
@@ -54,9 +89,9 @@ int main(int argc, char** argv)
         }
         else if(string(argv[1])=="-v")
         {
-                        if (argc>3)
+            if (argc>3)
             {
-                validateOption();
+                validateOption(argc, argv);
                 return 0;
             }
             else

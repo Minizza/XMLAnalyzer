@@ -51,10 +51,10 @@ commun: $(OBJ) xml.l xml.y
 
 $(BUILDDIR)/%.o: %.cpp
 	@echo "--------compile of " $<
-	g++ $(CFLAGS) -c $(CFLAGS) -o $@ $<
+	g++ $(CFLAGS) -c $(CFLAGS) -o $@ $< $(DEFINE_F)
 
 
 clean:
-	-rm -rf xml.tab.c lex.xml.c xml.tab.h xml.output xmltool commun $(BUILDDIR)/*
+	-rm -rf xml.tab.c lex.xml.c xml.tab.h xml.output xmltool commun $(BUILDDIR)/* 
 test:
 	cd Tests; ./mktest.sh
