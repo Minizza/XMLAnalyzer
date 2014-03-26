@@ -8,10 +8,16 @@
 
  Doctype::Doctype(string* aNom, string* aExternalId, string* aIntSubSet){
 #ifdef DEBUG
-		std::cout << "Construction de <Doctype>" << std::endl;
+  std::cout << "Construction de <Doctype>" << std::endl;
 #endif
-    nom = *aNom;
-    externalId = *aExternalId;
-    intSubSet = *aIntSubSet;
- }
- Doctype::~Doctype(){}
+  nom = *aNom;
+  externalId = *aExternalId;
+  intSubSet = *aIntSubSet;
+}
+Doctype::~Doctype(){}
+
+
+std::ostream& Doctype::versFlux(std::ostream& os) const
+{
+    
+}

@@ -34,3 +34,11 @@ int Document::Ololol (int pouet, char crottin) {
 
     return 0;
 }
+
+
+std::ostream& Document::versFlux(std::ostream& os) const
+{
+    this->enTete->versFlux(os);
+    this->racine->versFlux(os);
+    return os;
+}

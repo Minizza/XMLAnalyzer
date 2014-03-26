@@ -9,6 +9,7 @@
 //Liste des includes système/libs
  #include "elementNoeud.h"
  #include "enTete.h"
+ #include "iAffichable.h"
 
 
 //Liste des espaces de noms utilises 
@@ -20,7 +21,7 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
- class Document {
+ class Document : IAffichable {
  	
  public:
  	
@@ -54,6 +55,8 @@
 	 * 
 	 */
 	 int Ololol(int pouet, char crottin);
+
+     virtual std::ostream& versFlux(std::ostream& os) const;
 
 	private:
 		EnTete* enTete;

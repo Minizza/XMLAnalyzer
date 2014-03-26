@@ -6,9 +6,10 @@
 #ifndef EN_TETE_H
 #define EN_TETE_H
 //Liste des includes système/libs
- #include "xmlDecl.h"
- #include "doctype.h"
- #include "abstractElement.h"
+#include "xmlDecl.h"
+#include "doctype.h"
+#include "abstractElement.h"
+#include "iAffichable.h"
 
 
 //Liste des espaces de noms utilises 
@@ -19,18 +20,20 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
 */
-class EnTete {
-public:
+ class EnTete : IAffichable {
+ public:
      EnTete(int atest);
      virtual ~EnTete();
      EnTete(XmlDecl* aDecl, Doctype* aDoctype, deque<AbstractElement*>* aHeaderpart);
 
+     virtual std::ostream& versFlux(std::ostream& os) const;
+
      /* data */
-private:
+ private:
     int test;
     XmlDecl* decl;
     Doctype* doctype;
     deque<AbstractElement*> headerpart;
- }; 
+}; 
 
 #endif 

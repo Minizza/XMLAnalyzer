@@ -7,7 +7,8 @@
 
 //Liste des includes système/libs
 #include <string>
-
+#include "iAffichable.h"
+ 
 //Liste des espaces de noms utilises
 using namespace std;
 
@@ -17,7 +18,7 @@ using namespace std;
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class Doctype {
+class Doctype : public IAffichable{
 
 public:
 
@@ -35,6 +36,7 @@ public:
      * 
      */
      Doctype(string* aNom, string* aExternalId, string* aIntSubSet);
+     virtual std::ostream& versFlux(std::ostream& os) const;
 
 private:
 
