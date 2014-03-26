@@ -14,7 +14,7 @@ String TransformationXSL(noeudXSL, noeudXML, sortie)
 Dans l'algorithme, on utilisera la fonction get_sans_balises qui
 retournera le contenu d'un noeud sans interpreter les balises.
 L'algorithme utilise aussi la fonction get_content qui retourne simplement
-le code xml d'un noeud.
+le code xml d'un noeud (sans les fils).
 
 Appel initial de la fonction
 sortie = TransformationXSL(template_match_racine, racineXML, "")

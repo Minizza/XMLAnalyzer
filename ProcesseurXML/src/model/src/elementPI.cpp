@@ -22,5 +22,6 @@ ElementPI::ElementPI(string* aNom, deque<AbstractAttribut*>* aAttributs) : Eleme
 
 std::ostream& ElementPI::versFlux(std::ostream& os) const
 {
+    cout<<"mabiiiiiiiiiiiiiiiiiiiite"<<endl;
 	os << "<?" << nom << "/>\n";
 }

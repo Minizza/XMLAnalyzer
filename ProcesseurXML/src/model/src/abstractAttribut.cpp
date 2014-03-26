@@ -12,10 +12,10 @@ AbstractAttribut::AbstractAttribut(AbstractAttribut* orig){}
 
 AbstractAttribut::AbstractAttribut(string* aNom)
 {
-	#ifdef DEBUG
-		std::cout << "Construction de <AbstractAttribut>" << std::endl;
-	#endif
 	nom = *aNom;
+    #ifdef DEBUG
+        std::cout << "Construction de <AbstractAttribut>" << std::endl;
+    #endif
 }
 
 AbstractAttribut::~AbstractAttribut(){}
