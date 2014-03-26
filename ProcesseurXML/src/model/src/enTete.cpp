@@ -15,3 +15,10 @@ EnTete::EnTete(int atest)
 }
 
 EnTete::~EnTete(){}
+
+EnTete::EnTete(XmlDecl* aDecl, Doctype* aDoctype, deque<AbstractElement*>* aHeaderpart)
+{
+	decl = aDecl;
+	doctype = aDoctype;
+	headerpart = *aHeaderpart;
+}
