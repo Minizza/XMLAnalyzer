@@ -37,6 +37,10 @@ commun
 *.log
 *.out
 *.toc
+*.tex~
+*.nav
+*.snm
+*.tex.backup
 main.pdf
 
 >>>>>>> master
