@@ -2,14 +2,6 @@
 #               ALGORITHME de VALIDATION                    #
 #############################################################
 
-Map type -> regex
-On note qu'un seul niveau de profondeur dans la regex
-Avant d'ajouter à la map, on vérifie que le type ne soit pas déjà traité.
-Lorsqu'on rencontre un ref, on le traite ci nécessaire.
-On traite le document XSD dans l'ordre. (on traite les fils lorsqu'on les rencontre).
-On a probablement pas besoin des éléments du modèle actuel (Constructeur regex toussa).
-On aura besoin d'un accès à la Map lors de l'itération afin d'ajouter les types à la volée.
-
 1) Création des regex
 
 Premier appel :
