@@ -59,13 +59,13 @@
 	;
 
 	header
-	: headerpart headerdoc
+	: headerpart headerdoc {$$ = new EnTete(0, $2, $1);}
 	| /*vide*/
 	;
 
 	headerpart //il faut vérifier qu'on a bien la version du xml
-	: headerpart pi {$$ = $1; $$->push_back($2);}
-	| headerpart commentaire {$$ = $1; $$->push_back($2);}
+	: headerpart pi {$$ = $1; $$->push_front($2);}
+	| headerpart commentaire {$$ = $1; $$->push_front($2);}
     | /*vide*/
 	;
 
@@ -88,15 +88,15 @@
 	;
 
 	content
-	: content element {$$ = $1; $$->push_back($2);}
-	| content DONNEES {$$ = $1; $$->push_back(new ElementDonnees((string*) $2));}	
-	| content commentaire {$$ = $1; $$->push_back($2);}
+	: content element {$$ = $1; $$->push_front($2);}
+	| content DONNEES {$$ = $1; $$->push_front(new ElementDonnees((string*) $2));}	
+	| content commentaire {$$ = $1; $$->push_front($2);}
 	| content CDATABEGIN CDATAEND
 	| /* vide */
 	;
 
 	attributs
-	: attributs attribut {$$ = $1; $$->push_back($2);}
+	: attributs attribut {$$ = $1; $$->push_front($2);}
 	| /* vide */
 	;
 
