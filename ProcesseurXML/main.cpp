@@ -7,11 +7,12 @@
 using namespace std;
 
 extern FILE* xmlin;
-int xmlparse(void);
+extern int xmldebug;
+int xmlparse(Document**);
 
 int main(int argc, char** argv)
 {
-
+    // xmldebug=1;
     namespace po=boost::program_options;
     // Handling of options 
     po::options_description desc("Available commands are");
@@ -52,15 +53,36 @@ int main(int argc, char** argv)
             while ((temp = getc(fid)) != EOF)
                 putchar(temp);
         }
+        cout<<"FIN DU DEBUG"<<endl;
         #endif
         xmlin=fid;
+        Document* bite=NULL;
+        int b=xmlparse(&bite);
     }
     else
     {
-        cerr<<"No argument given"<<endl;
-        std::cerr <<argv[0]<<" "<<desc<<endl;
-        return 0;
+
+        FILE * fid;
+        fid=fopen("files/catalog.xml" ,"r");
+        #ifdef DEBUG
+        // int temp;
+        // if (fid) {
+        //     while ((temp = getc(fid)) != EOF)
+        //         putchar(temp);
+        // }
+        cout<<"FIN DU DEBUG"<<endl;
+        #endif
+        xmlin=fid;
+        Document* bite=NULL;
+        int b=xmlparse(&bite);
+        bite->versFlux(std::cout);
     }
+    // else
+    // {
+    //     cerr<<"No argument given"<<endl;
+    //     std::cerr <<argv[0]<<" "<<desc<<endl;
+    //     return 0;
+    // }
    // int retour = xmlparse();
    // if (!retour)
    // {

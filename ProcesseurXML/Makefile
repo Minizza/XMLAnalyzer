@@ -3,7 +3,7 @@ BUILDDIR= ./build
 
 
 #with what build(headers paths)
-CFLAGS=-std=c++11 -g -DYYDEBUG
+CFLAGS=-std=c++11 -O0 -g -DYYDEBUG
 CFLAGS+=-Isrc/model/inc -I./ -I./build
 
 #Library boost

@@ -12,7 +12,7 @@
 
 	int xmllex(void);  
 
-	void xmlerror(const char * msg)
+	void xmlerror(Document** datDoc,const char * msg)
 	{
 		fprintf(stderr,"%s\n",msg);
 	}
@@ -37,6 +37,8 @@
 		AttributString* attrString;
 	}
 
+    %parse-param {Document** datDoc}
+
 	%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
 	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
 
@@ -55,7 +57,7 @@
 	%%
 
 	document
-	: header element {$$ = new Document($1, $2);}
+	: header element {*datDoc = new Document($1, $2);}
 	;
 
 	header
@@ -65,45 +67,45 @@
 	headerpart //il faut vérifier qu'on a bien la version du xml
 	: headerpart pi {$$ = $1; $$->push_front($2);}
 	| headerpart commentaire {$$ = $1; $$->push_front($2);}
-    | /*vide*/
+    | /*vide*/{$$=new deque<AbstractElement*>();}
 	;
 
 	headerdoc
-	: DOCTYPE {$$ = new Doctype((string*) "doctype", (string*) "none", (string*) "none");}
+	: DOCTYPE {$$ = new Doctype(new string("doctype"), new string("none"), new string("none"));}
 	| /*vide*/
 	;
 
 	pi
-	:INFSPECIAL NOM attributs SUPSPECIAL {$$ = new ElementPI((string*) $2, $3);}
+	:INFSPECIAL NOM attributs SUPSPECIAL {$$ = new ElementPI(new string($2), $3);}
 	;
 
 	element
-	: INF NOM attributs SUP content INF SLASH NOM SUP {$$ = new ElementNoeud((string*) $2, $3, $5);}
+	: INF NOM attributs SUP content INF SLASH NOM SUP {$$ = new ElementNoeud(new string($2), $3, $5);}
 	| emptytag
 	;
 
 	emptytag
-	: INF NOM attributs SLASH SUP {$$ = new ElementNoeud((string*) $2, $3, 0);}
+	: INF NOM attributs SLASH SUP {$$ = new ElementNoeud(new string($2), $3, 0);}
 	;
 
 	content
 	: content element {$$ = $1; $$->push_front($2);}
-	| content DONNEES {$$ = $1; $$->push_front(new ElementDonnees((string*) $2));}	
+	| content DONNEES {$$ = $1; $$->push_front(new ElementDonnees(new string($2)));}	
 	| content commentaire {$$ = $1; $$->push_front($2);}
-	| content CDATABEGIN CDATAEND {$$ = $1; $$->push_front(new ElementCData((string*) $3));}
-	| /* vide */
+	| content CDATABEGIN CDATAEND {$$ = $1; $$->push_front(new ElementCData(new string($3)));}
+	| /* vide */{$$=new deque<AbstractElement*>();}
 	;
 
 	attributs
 	: attributs attribut {$$ = $1; $$->push_front($2);}
-	| /* vide */
+	| /* vide */{$$=new deque<AbstractAttribut*>();}
 	;
 
 	attribut
-	: NOM EGAL VALEUR {$$ = new AttributString((string*) $1, (string*) $3);}
+	: NOM EGAL VALEUR {$$ = new AttributString(new string($1), new string($3));}
 	;
 
 	commentaire
-	: COMMENT {$$ = new ElementComz((string*) $1);}
+	: COMMENT {$$ = new ElementComz(new string($1));}
 	;
 %%

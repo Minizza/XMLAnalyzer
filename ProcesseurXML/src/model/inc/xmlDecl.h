@@ -7,6 +7,7 @@
 
 //Liste des includes système/libs
 #include <string>
+#include "iAffichable.h"
 
 //Liste des espaces de noms utilises
 using namespace std;
@@ -35,6 +36,8 @@ public:
      * 
      */
      XmlDecl(string* aNom, string* aExternalId, string* aIntSubSet);
+     
+     virtual std::ostream& versFlux(std::ostream& os) const;
 
 private:
 

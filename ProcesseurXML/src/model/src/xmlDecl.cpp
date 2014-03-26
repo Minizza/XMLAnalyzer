@@ -20,3 +20,8 @@
  {
     
  }
+
+ std::ostream& XmlDecl::versFlux(std::ostream& os) const
+ {
+    
+ }
