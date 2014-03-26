@@ -49,6 +49,8 @@ public:
 	ElementDonnees(string* aTexte);
 
 	virtual std::ostream& versFlux(std::ostream& os) const;
+
+	string get_sans_balises();
 	
 private:
 	string texte;

@@ -47,6 +47,7 @@ public:
 	virtual iterator end()=0;
 	
 	virtual std::ostream& versFlux(std::ostream& os) const=0;
+	std::string get_sans_balises();
 
 	class iterator
 	{

@@ -27,3 +27,8 @@ std::ostream& ElementDonnees::versFlux(std::ostream& os) const
 {
 	os << texte;
 }
+
+std::string ElementDonnees::get_sans_balises()
+{
+	return texte;
+}

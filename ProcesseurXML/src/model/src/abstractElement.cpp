@@ -29,3 +29,8 @@ AbstractElement::iterator::iterator(std::deque<AbstractElement*>::iterator it)
 {
 	this->it = it;
 }
+
+std::string AbstractElement::get_sans_balises()
+{
+	return "";
+}
