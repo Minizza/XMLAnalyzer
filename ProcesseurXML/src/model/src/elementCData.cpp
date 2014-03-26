@@ -26,7 +26,8 @@ ElementCData::ElementCData(string* aTexte) : ElementCastre(new string("")) {
 	texte = *aTexte;
 }
 
-std::ostream& ElementCData::versFlux(std::ostream& os) const
+void ElementCData::versFluxIndent(std::ostream& os, int indent) const
 {
-	os << "<![CDATA[" << texte << "]]>\n";
+	indenter(os, indent);
+	os << "<![CDATA[" << texte << "]]>";
 }

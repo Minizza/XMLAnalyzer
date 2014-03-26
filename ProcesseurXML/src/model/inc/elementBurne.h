@@ -46,6 +46,7 @@ public:
      */
     ElementBurne(string* aNom, deque<AbstractAttribut*>* aAtts);
 
+
 private:
 
     deque<AbstractAttribut*> atts;

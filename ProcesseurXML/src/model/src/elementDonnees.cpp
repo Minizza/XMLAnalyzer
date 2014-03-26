@@ -23,7 +23,9 @@ ElementDonnees::ElementDonnees(string* aTexte)  : ElementCastre(new string("")) 
 	texte = *aTexte;
 }
 
-std::ostream& ElementDonnees::versFlux(std::ostream& os) const
+void ElementDonnees::versFluxIndent(std::ostream& os, int indent) const
 {
-	os << texte;
+	indenter(os, indent);
+	os << texte << endl;
 }
+

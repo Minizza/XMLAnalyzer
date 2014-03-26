@@ -7,7 +7,7 @@ CFLAGS=-std=c++11 -O0 -g -DYYDEBUG
 CFLAGS+=-Isrc/model/inc -I./ -I./build
 
 #Library boost
-LIBRARY=/usr/lib/libboost_program_options.so
+LIBRARY=/usr/lib64/libboost_program_options.so
 # /usr/lib/libboost_program_options.so
 
 

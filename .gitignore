@@ -27,9 +27,7 @@
 *.fuse_hidden*
 
 #Project files
-<<<<<<< HEAD
 common
-=======
 commun
 
 #LaTeX files
@@ -42,5 +40,3 @@ commun
 *.snm
 *.tex.backup
 main.pdf
-
->>>>>>> master
