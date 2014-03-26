@@ -9,3 +9,103 @@ Lorsqu'on rencontre un ref, on le traite ci nécessaire.
 On traite le document XSD dans l'ordre. (on traite les fils lorsqu'on les rencontre).
 On a probablement pas besoin des éléments du modèle actuel (Constructeur regex toussa).
 On aura besoin d'un accès à la Map lors de l'itération afin d'ajouter les types à la volée.
+
+personne
+    adresse
+        rue
+        numero
+    /adresse
+    telephone
+        premier
+        deuxieme
+    /telephone
+/personne
+
+personne    <personne><adresse>.*</adresse></personne>
+            <personne><adresse>.*</adresse></personne>
+adresse     rue, numero
+rue         .*
+numero      .*
+
+1) Création des regex
+
+String CreationRegex(noeudXSD, &map)
+    regex = ""
+
+    si noeudXSD.containsName() alors
+        regex += '<' + noeudXSD.nom + '>'
+
+    pour filsXSD de noeudXSD faire:
+        a) élément vide
+        b) élément non vide
+        c) élément ref
+        d) complex type
+        e) choice
+        f) séquence
+
+    si noeudXSD.containsName() alors
+        regex += '</' + noeudXSD.nom + '>'
+        map.ajouter(noeudXSD.nom, regex)
+    
+    retourner regex
+
+Premier appel :
+map = new Map()
+CreationRegex(racineXSD, map)
+
+a) élément vide
+si map.notContains(filsXSD.nom) alors
+    regex += ".*"
+
+b) élément non vide
+regex += CreationRegex(filsXSD, map)
+
+c) élément ref
+regex += "@" + noeudXSD.ref + "@"
+si noeudXSD.hasAttribute(minOccurs) and noeudXSD.hasAttribute(maxOccurs) alors
+    regex += "{" + noeudXSD.minOccurs + ", " + noeudXSD.maxOccurs + "}"
+sinon si noeudXSD.hasAttribute(minOccurs) alors
+    regex += "{" + noeudXSD.minOccurs + ",}"
+sinon si noeudXSD.hasAttribute(maxOccurs) alors
+    regex += "{1, " + noeudXSD.maxOccurs + "}"
+ 
+d) complex type
+return CreationRegex(filsXSD, map)
+
+e) choice
+regex += "("
+pour petitFilsXSD de filsXSD alors
+    regex += CreationRegex(petitFilsXSD, map)
+    regex += " | " -> si pas dernier fils
+regex += ")"
+
+f) séquence
+regex += "("
+pour petitFilsXSD de filsXSD alors
+    regex += CreationRegex(petitFilsXSD, map)
+regex += ")"
+
+2) Remplacement des refs par leur regex
+
+Dans l'algo suivant, on utilisera la fonction parseRef qui retourne
+un tableau avec les noms contenus entre deux "@"
+
+String RemplacerRefs(nom, map)
+
+    si map[nom].contains("@") alors
+        ref = parseRef()
+        pour refFils de ref alors 
+            si map.contains(refFils)
+                regex = RemplacerRefs(refFils, map)
+                map.remplacer("@" + refFils + "@", regex)
+            sinon
+                ERREUR
+    
+    retouner map[nom]
+
+
+pour nom, regex de map faire
+    RemplacerRefs(nom, map)
+
+3) Validation du XML avec les regex
+
