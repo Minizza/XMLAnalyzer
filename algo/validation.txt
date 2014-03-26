@@ -10,24 +10,11 @@ On traite le document XSD dans l'ordre. (on traite les fils lorsqu'on les rencon
 On a probablement pas besoin des éléments du modèle actuel (Constructeur regex toussa).
 On aura besoin d'un accès à la Map lors de l'itération afin d'ajouter les types à la volée.
 
-personne
-    adresse
-        rue
-        numero
-    /adresse
-    telephone
-        premier
-        deuxieme
-    /telephone
-/personne
-
-personne    <personne><adresse>.*</adresse></personne>
-            <personne><adresse>.*</adresse></personne>
-adresse     rue, numero
-rue         .*
-numero      .*
-
 1) Création des regex
+
+Premier appel :
+map = new Map()
+CreationRegex(racineXSD, map)
 
 String CreationRegex(noeudXSD, &map)
     regex = ""
@@ -48,10 +35,6 @@ String CreationRegex(noeudXSD, &map)
         map.ajouter(noeudXSD.nom, regex)
     
     retourner regex
-
-Premier appel :
-map = new Map()
-CreationRegex(racineXSD, map)
 
 a) élément vide
 si map.notContains(filsXSD.nom) alors
@@ -99,7 +82,8 @@ String RemplacerRefs(nom, map)
                 regex = RemplacerRefs(refFils, map)
                 map.remplacer("@" + refFils + "@", regex)
             sinon
-                ERREUR
+                afficher "Impossible de trouver la référence pour " + refFils.nom
+                retourner ""
     
     retouner map[nom]
 
@@ -109,3 +93,23 @@ pour nom, regex de map faire
 
 3) Validation du XML avec les regex
 
+L'algo suivant utilise une fonction qui retourne les noeuds de premier
+niveau sous forme XML d'un noeud voulu. (getFirstLevel)
+
+Premier appel :
+ValiderXML(racineXML, map)
+
+Booleen ValiderXML(noeudXML, map)
+    si map.contains(noeudXML.nom) alors
+        si map[noeudXML.nom] match getFirstLevel(noeudXML) alors
+            pour filsXML de noeudXML faire
+                booleenValider = ValiderXML(filsXML, map)
+                si booleenValider est faux alors
+                    retourner faux 
+            retourner vrai
+        sinon
+            afficher "Le document n'est pas valide au niveau du noeud " + noeudXML.nom
+            retourner faux
+    sinon
+        afficher "L'expression régulière n'est pas définie pour le noeud " + noeudXML.nom
+        retourner faux
