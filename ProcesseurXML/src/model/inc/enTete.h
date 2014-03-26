@@ -6,6 +6,9 @@
 #ifndef EN_TETE_H
 #define EN_TETE_H
 //Liste des includes système/libs
+ #include "xmlDecl.h"
+ #include "doctype.h"
+ #include "abstractElement.h"
 
 
 //Liste des espaces de noms utilises 
@@ -20,10 +23,14 @@ class EnTete {
 public:
      EnTete(int atest);
      virtual ~EnTete();
+     EnTete(XmlDecl* aDecl, Doctype* aDoctype, deque<AbstractElement*>* aHeaderpart);
 
      /* data */
 private:
     int test;
+    XmlDecl* decl;
+    Doctype* doctype;
+    deque<AbstractElement*> headerpart;
  }; 
 
 #endif 

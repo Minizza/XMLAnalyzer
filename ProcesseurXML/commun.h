@@ -14,6 +14,7 @@ using namespace std;
 #include "elementComz.h"
 #include "elementDonnees.h"
 #include "elementPI.h"
+#include "elementCData.h"
 
 #include "abstractAttribut.h"
 #include "attributString.h"
