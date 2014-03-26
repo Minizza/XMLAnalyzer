@@ -42,3 +42,8 @@ std::ostream& Document::versFlux(std::ostream& os) const
     this->racine->versFlux(os);
     return os;
 }
+
+std::string transformationXSL(AbstractElement* noeudXSL, AbstractElement* noeudXML, std::string& sortie)
+{
+	/* DAT ALGO' MAN ! */
+}
