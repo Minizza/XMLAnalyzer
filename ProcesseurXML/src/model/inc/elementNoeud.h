@@ -56,11 +56,10 @@ public:
 
     void ajouterFils(AbstractElement* aFils);
 
-	virtual std::ostream& versFlux(std::ostream& os) const;
-
 protected:
 
     //void construireRegex(ConstructeurRegex& regex);
+    virtual void versFluxIndent(std::ostream& os, int indent) const;
 
 private:
 

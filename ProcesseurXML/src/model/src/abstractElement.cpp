@@ -29,3 +29,16 @@ AbstractElement::iterator::iterator(std::deque<AbstractElement*>::iterator it)
 {
 	this->it = it;
 }
+
+std::ostream& AbstractElement::versFlux(std::ostream& os) const
+{
+	this->versFluxIndent(os, 0);
+}
+
+void AbstractElement::indenter(std::ostream& os, int indent) const
+{
+	for(int i=0; i<indent; ++i)
+	{
+		os << "\t";
+	}
+}

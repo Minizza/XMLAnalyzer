@@ -33,8 +33,6 @@ public:
 	iterator begin() { return AbstractElement::iterator(deque<AbstractElement*>()); } 
 	iterator end() { return AbstractElement::iterator(deque<AbstractElement*>()); }
 	
-	virtual std::ostream& versFlux(std::ostream& os) const;
-	
 	virtual ~ElementCData();
 
 	/*
@@ -48,6 +46,9 @@ public:
 	 * 
 	 */
 	ElementCData(string* aTexte);
+
+protected:
+	virtual void versFluxIndent(std::ostream& os, int indent) const;
 
 private:
 
