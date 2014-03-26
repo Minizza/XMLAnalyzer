@@ -60,17 +60,18 @@
 
 	header
 	: headerpart headerdoc
-	|/*vide*/
+	| /*vide*/
 	;
 
 	headerpart //il faut vérifier qu'on a bien la version du xml
 	: headerpart pi {$$ = $1; $$->push_back($2);}
 	| headerpart commentaire {$$ = $1; $$->push_back($2);}
-    |/*vide*/
+    | /*vide*/
 	;
 
 	headerdoc
 	: DOCTYPE {$$ = new Doctype((string*) "doctype", (string*) "none", (string*) "none");}
+	| /*vide*/
 	;
 
 	pi
