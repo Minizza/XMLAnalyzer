@@ -17,7 +17,10 @@ ElementPI::ElementPI(string* aNom, deque<AbstractAttribut*>* aAttributs) : Eleme
 		#ifdef DEBUG
 			std::cout << "Construction de <ElementPI>" << std::endl;
 		#endif
-    nom = *aNom;
-    attributs = *aAttributs; 
+}
 
+
+std::ostream& ElementPI::versFlux(std::ostream& os) const
+{
+	os << "<?" << nom << "/>\n";
 }

@@ -27,7 +27,7 @@ class AttributString: public AbstractAttribut{
 public:
     
     //Methodes de base de la classe AttributString
-    AttributString(){};
+    AttributString();
     
     AttributString(AttributString* orig);
     
@@ -43,7 +43,7 @@ public:
      *                  les textures et les modèles
      * 
      */
-    AttributString(string* aValue){value = *aValue;};
+    AttributString(string* aNom, string* aValue);
 
 private:
 

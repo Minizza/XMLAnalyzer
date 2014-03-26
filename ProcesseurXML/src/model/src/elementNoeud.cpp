@@ -14,11 +14,11 @@ ElementNoeud::ElementNoeud(ElementNoeud* orig) {
 	nom = orig->nom;
 	estXSD = orig->estXSD;
 	enfants = orig->enfants;
-	regexFils = new ConstructeurRegex(orig->regexFils);
+	//regexFils = new ConstructeurRegex(orig->regexFils);
 }
 
 ElementNoeud::~ElementNoeud() {
-	delete(regexFils);
+	//delete(regexFils);
 }
 
 
@@ -27,10 +27,28 @@ ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<
 	#ifdef DEBUG
 		std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif
-	ElementBurne(aNom, aAtts);
 	enfants = *aEnfants;
 }
 
 /*ConstructeurRegex* ElementNoeud::getRegex() {
 	return regexFils;
 }*/
+
+void ElementNoeud::ajouterFils(AbstractElement* aFils) {
+	#ifdef DEBUG
+			std::cout << "Ajout d'un fils" << std::endl;
+	#endif
+	enfants.push_back(aFils);
+}
+
+
+std::ostream& ElementNoeud::versFlux(std::ostream& os) const
+{
+	os << "<" << nom << ">\n";
+	for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+	{
+		AbstractElement* elt = *it;
+		elt->versFlux(os);
+	}
+	os << "</" << nom << ">\n";
+}

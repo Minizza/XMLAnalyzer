@@ -6,12 +6,15 @@ BUILDDIR= ./build
 CFLAGS=-std=c++11 -g -DYYDEBUG
 CFLAGS+=-Isrc/model/inc -I./ -I./build
 
+#Library boost
+LIBRARY=/usr/lib/libboost_program_options.so
+# /usr/lib/libboost_program_options.so
+
 
 vpath %.cpp src/model/src build/
 #what to build
 	#essential
-SRC=main.cpp $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp \
-
+SRC=main.cpp 
 	# src/model/src/enTete.cpp \
 	# src/model/src/contructeurRegex.cpp \
 	# src/model/src/doctype.cpp \
@@ -25,27 +28,32 @@ SRC=main.cpp $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp \
 	# src/model/src/elementPI.cpp
 	#Our project
 SRC+=${wildcard src/model/src/*.cpp}
-SRC+=${wildcard build/*.cpp}
 
+DEFINE=DEBUG
+###################### Formatage
 #target file name
 OBJ= $(addprefix $(BUILDDIR)/,$(SRC:.cpp=.o))
+DEFINE_F = $(addprefix -D,$(DEFINE))
 
+######################
 .PHONY: clean
 
 all: commun
-commun: 
+commun: $(SRC) xml.l xml.y
 	@echo $(SRC)
 	@echo "--------------------------"
 	@echo $(OBJ)
 	@echo "--------------------------"
 	flex -P xml --outfile=$(BUILDDIR)/lex.xml.cpp xml.l 
 	bison -p xml --debug --verbose --defines=$(BUILDDIR)/xml.tab.h --output=$(BUILDDIR)/xml.tab.cpp xml.y
-	g++ $(CFLAGS)  -o xmltool $(SRC)
+	g++ $(CFLAGS)  -o xmltool $(SRC) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp $(LIBRARY) $(DEFINE_F)
 	touch commun
 
 $(BUILDDIR)/%.o: %.cpp
 	@echo "coucou !!"
 	g++ $(CFLAGS) -c $(CFLAGS) -o $@ $<
+
+
 
 tempo:
 	g++ $(CFLAGS)  -o ksjdfkjshdufhlsfdg src/model/src/enTete.cpp

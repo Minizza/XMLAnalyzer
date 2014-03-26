@@ -21,40 +21,65 @@
 
 	%union {
 		char * s;
+
+		Document* docXML;
+		EnTete* head;		
+		Doctype* doctype;
+
+		deque<AbstractElement*>* abstrElements;
+		AbstractElement* abstrEle;
+		ElementBurne* elementBurne;
 		ElementComz* comz;
 		ElementNoeud* noeud;
-		deque<AbstractAttribut*>* abstrAttrs;
+		ElementPI* pi;
+
+		deque<AbstractAttribut*>* abstrAttr;
+		AttributString* attrString;
 	}
 
 	%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
 	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
+
+	%type <docXML> document
+	%type <head> header
+	%type <doctype> headerdoc
+
+	%type <abstrElements> content headerpart
 	%type <comz> commentaire
-	%type <noeud> emptytag
-	%type <abstrAttrs> attributs
+	%type <noeud> element emptytag
+	%type <pi> pi
+
+	%type <abstrAttr> attributs
+	%type <attrString> attribut
 
 	%%
 
 	document
-	: header element
+	: header element {$$ = new Document($1, $2);}
 	;
 
 	header
-	: header headerpart
-	| headerpart
+	: headerpart headerdoc
+	| /*vide*/
 	;
 
 	headerpart //il faut vérifier qu'on a bien la version du xml
-	: pi
-	| commentaire
-	| DOCTYPE
+	: headerpart pi {$$ = $1; $$->push_back($2);}
+	| headerpart commentaire {$$ = $1; $$->push_back($2);}
+    	| /*vide*/
+	;
+
+	headerdoc
+	: DOCTYPE {$$ = new Doctype((string*) "doctype", (string*) "none", (string*) "none");}
+	| /*vide*/
 	;
 
 	pi
-	:INFSPECIAL NOM attributs SUPSPECIAL
+	:INFSPECIAL NOM attributs SUPSPECIAL {$$ = new ElementPI((string*) $2, $3);}
 	;
 
 	element
-	: INF NOM SUP content INF SLASH NOM SUP
+	: INF NOM attributs SUP content INF SLASH NOM SUP {$$ = new ElementNoeud((string*) $2, $3, $5);}
 	| emptytag
 	;
 
@@ -63,23 +88,23 @@
 	;
 
 	content
-	: content element
-	| content DONNEES
-	| content commentaire
-	| CDATABEGIN CDATAEND
+	: content element {$$ = $1; $$->push_back($2);}
+	| content DONNEES {$$ = $1; $$->push_back(new ElementDonnees((string*) $2));}	
+	| content commentaire {$$ = $1; $$->push_back($2);}
+	| content CDATABEGIN CDATAEND
 	| /* vide */
 	;
 
 	attributs
-	: attributs attribut
+	: attributs attribut {$$ = $1; $$->push_back($2);}
 	| /* vide */
 	;
 
 	attribut
-	: NOM EGAL VALEUR
+	: NOM EGAL VALEUR {$$ = new AttributString((string*) $1, (string*) $3);}
 	;
 
 	commentaire
-	: COMMENT {$$ = new ElementComz((string*) "commentaire", (string*) $1);}
+	: COMMENT {$$ = new ElementComz((string*) $1);}
 	;
 %%

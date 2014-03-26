@@ -28,6 +28,12 @@ public:
 	//Methodes de base de la classe ElementComz
 	ElementComz();
 	
+	// Méthodes héritées
+	bool aDesFils() { return false; }
+	iterator begin() { return AbstractElement::iterator(deque<AbstractElement*>()); } 
+	iterator end() { return AbstractElement::iterator(deque<AbstractElement*>()); }
+	
+	virtual std::ostream& versFlux(std::ostream& os) const;
 	
 	virtual ~ElementComz();
 
@@ -41,7 +47,7 @@ public:
 	 *                  les textures et les modèles
 	 * 
 	 */
-	ElementComz(string* aNom, string* aTexte);
+	ElementComz(string* aTexte);
 
 private:
 
