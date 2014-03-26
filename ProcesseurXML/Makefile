@@ -1,3 +1,4 @@
+#!/bin/bash
 #Where to build
 BUILDDIR= ./build
 
