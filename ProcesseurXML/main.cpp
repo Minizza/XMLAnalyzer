@@ -54,28 +54,35 @@ int main(int argc, char** argv)
                 putchar(temp);
         }
         cout<<"FIN DU DEBUG"<<endl;
+        fclose(fid);
+        fid=fopen(files[0].c_str() ,"r");
         #endif
         xmlin=fid;
-        Document* bite=NULL;
-        int b=xmlparse(&bite);
+        Document* rootDoc=NULL;
+        int b=xmlparse(&rootDoc);
+        rootDoc->versFlux(std::cout);
+        fclose(fid);
     }
     else
     {
 
         FILE * fid;
-        fid=fopen("files/catalog.xml" ,"r");
+        fid=fopen("files/simple_no_att.xml" ,"r");
         #ifdef DEBUG
-        // int temp;
-        // if (fid) {
-        //     while ((temp = getc(fid)) != EOF)
-        //         putchar(temp);
-        // }
+        int temp;
+        if (fid) {
+            while ((temp = getc(fid)) != EOF)
+                putchar(temp);
+        }
         cout<<"FIN DU DEBUG"<<endl;
+        fclose(fid);
+        fid=fopen("files/simple_no_att.xml" ,"r");
         #endif
         xmlin=fid;
-        Document* bite=NULL;
-        int b=xmlparse(&bite);
-        bite->versFlux(std::cout);
+        Document* rootDoc=NULL;
+        int b=xmlparse(&rootDoc);
+        rootDoc->versFlux(std::cout);
+        fclose(fid);
     }
     // else
     // {

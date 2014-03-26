@@ -62,6 +62,7 @@
 
 	header
 	: headerpart headerdoc {$$ = new EnTete(0, $2, $1);}
+    |/**/{$$=NULL;}
 	;
 
 	headerpart //il faut vérifier qu'on a bien la version du xml

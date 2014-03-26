@@ -22,7 +22,7 @@ EnTete::EnTete(XmlDecl* aDecl, Doctype* aDoctype, deque<AbstractElement*>* aHead
     doctype = aDoctype;
     headerpart = *aHeaderpart;
     #ifdef DEBUG
-    cout<<"construction de : <EnTete>"<<endl;
+    cout<<"construction de <EnTete> "<<endl;
     #endif
 }
 
