@@ -24,5 +24,12 @@
 *.fuse_hidden*
 
 #Project files
-common
+commun
+
+#LaTeX files
+*.aux
+*.log
+*.out
+*.toc
+main.pdf
 
