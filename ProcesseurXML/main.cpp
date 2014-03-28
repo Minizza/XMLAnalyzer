@@ -32,7 +32,8 @@ int parseOption(int argc, char** argv)
     {
         cout<<"bite"<<endl;
         #ifdef DEBUG
-        catDatFile(fid,nomFichier);
+        //catDatFile(fid,nomFichier);
+        //rewind(fid);
         #endif
         cout<<"phallus"<<endl;
         xmlin=fid;

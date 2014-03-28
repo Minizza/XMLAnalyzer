@@ -61,7 +61,7 @@
 	;
 
 	header
-	: headerpart headerdoc {$$ = new EnTete(0, $2, $1);}
+	: headerdoc headerpart {$$ = new EnTete(0, $1, $2);}
     |/**/{$$=NULL;}
 	;
 
