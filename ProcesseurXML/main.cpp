@@ -19,8 +19,6 @@ void catDatFile(FILE * fid,char* nomFichier)
             putchar(temp);
     }
     cout<<"=============FIN DU DEBUG"<<endl;
-    fclose(fid);
-    fid=fopen(nomFichier ,"r");
 }
 
 int parseOption(int argc, char** argv)
@@ -31,8 +29,8 @@ int parseOption(int argc, char** argv)
     if(fid!=NULL)
     {
         #ifdef DEBUG
-        //catDatFile(fid,nomFichier);
-        //rewind(fid);
+        catDatFile(fid,nomFichier);
+        rewind(fid);
         #endif
         xmlin=fid;
         Document* rootDoc=NULL;
@@ -43,7 +41,6 @@ int parseOption(int argc, char** argv)
     }
     else
     {
-
         return 1;
     }
 }
@@ -57,7 +54,9 @@ int templateOption(int argc, char** argv)
 }
 int main(int argc, char** argv)
 {
-    // xmldebug=1;
+    #ifdef XMLDEBUG
+    xmldebug=1;
+    #endif
     if (argc>1)
     {
         if(string(argv[1])=="-p")
@@ -71,7 +70,7 @@ int main(int argc, char** argv)
                 }
                 else if (success == 1)
                 {
-                    cerr<<"Unable to open does_not_exist.xml"<<endl;
+                    cerr<<"Unable to open "<<argv[2]<<endl;
                     return 1;
                 }
                 

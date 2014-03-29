@@ -6,6 +6,7 @@
 
  #include "document.h"
 #include <iostream>
+ #include <assert.h>
 
 //Methodes par defaut de la classe Document
 Document::Document() {
@@ -23,6 +24,7 @@ Document::Document(EnTete* aEnTete, ElementNoeud* aElementNoeud) {
     #ifdef DEBUG
         std::cout << "Construction de <Document>" << std::endl;
     #endif
+    assert(aElementNoeud!=NULL);
     if (aEnTete)
     {
         enTete = aEnTete;

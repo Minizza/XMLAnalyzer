@@ -28,31 +28,41 @@ vpath %.cpp src/model/src build/
 SRC=${wildcard src/model/src/*.cpp}
 SRC+=main.cpp
 
-DEFINE= 
-#DEBUG
+DEBUG=no
+DEFINEOPT=DEBUG XMLDEBUG
 ###################### Formatage
 #target file name
 OBJT=$(notdir $(SRC:.cpp=.o))
 OBJ= $(addprefix $(BUILDDIR)/,$(OBJT))
-DEFINE_F = $(addprefix -D,$(DEFINE))
+DEFINE_F = $(addprefix -D,$(DEFINEOPT))
 
 ######################
 .PHONY: clean
 
-all: commun
-commun: $(OBJ) xml.l xml.y
-	@echo $(SRC)
-	@echo "--------------------------"
-	@echo $(OBJ)
-	@echo "--------------------------"
+all: flexBison commun
+
+flexBison:xml.l xml.y
+	@echo "-------------------------- Flex"
 	flex -P xml --outfile=$(BUILDDIR)/lex.xml.cpp xml.l 
+	@echo "-------------------------- Bison"
 	bison -p xml --debug --verbose --defines=$(BUILDDIR)/xml.tab.h --output=$(BUILDDIR)/xml.tab.cpp xml.y
+
+commun: $(OBJ)
+	@echo "-------------------------- G++"
+ifeq ($(DEBUG),yes)
 	g++ $(CFLAGS)  -o xmltool $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp $(DEFINE_F)
+else
+	g++ $(CFLAGS)  -o xmltool $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp
+endif
 	touch commun
 
 $(BUILDDIR)/%.o: %.cpp
 	@echo "--------compile of " $<
-	g++ $(CFLAGS) -c $(CFLAGS) -o $@ $< $(DEFINE_F)
+ifeq ($(DEBUG),yes)
+		g++ $(CFLAGS) -c $(CFLAGS) -o $@ $< $(DEFINE_F)
+else
+		g++ $(CFLAGS) -c $(CFLAGS) -o $@ $<
+endif
 
 
 clean:
