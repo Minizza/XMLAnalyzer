@@ -41,7 +41,7 @@
     %parse-param {Document** datDoc}
 
 	%token EGAL SLASH SUP SUPSPECIAL DOCTYPE COLON INFSPECIAL INF CDATABEGIN
-	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND
+	%token <s> VALEUR DONNEES COMMENT NOM CDATAEND 
 
 	%type <docXML> document
 	%type <head> header
@@ -51,7 +51,8 @@
 	%type <comz> commentaire
 	%type <noeud> element emptytag
 	%type <pi> pi
-    %type <values> noms
+    %type <values> values
+    %type <s> dttype
 
 	%type <abstrAttr> attributs
 	%type <attrString> attribut
@@ -82,14 +83,18 @@
 	;
 
 	headerdoc
-	: DOCTYPE NOM noms SUP{$$ = new Doctype(new string($2),$3);}
+	: DOCTYPE NOM dttype values SUP{$$ = new Doctype(new string($2),new string($3),$4);}
 	| /*vide*/{$$=NULL;}
 	;
 
-    noms
-    :noms NOM {$$ = $1; $$->push_back(new string($2));}
-    |noms VALEUR{$$ = $1; $$->push_back(new string($2));}
+    values
+    :values VALEUR{$$ = $1; $$->push_back(new string($2));}
     |/*vide*/{$$=new deque<string*>();}
+    ;
+
+    dttype
+    :NOM {$$=$1;}
+    |/*vide*/
     ;
 
 	pi
