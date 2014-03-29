@@ -2,23 +2,30 @@
 #               ALGORITHME de TRANSFORMATION                #
 #############################################################
 
+--------------- Fonctions utiles ---------------------------
+
 FONCTION DE ABSTRACTELEMENT ET REDEFINIE DANS ELEMENTDONNEES
 String obtenirDonnees()
 Elle retourne "" pour abstractelement et noeud.texte pour elementdonnees
 
+------------------Appel initial de l'algo-------------------
+
 APPEL INITIAL DE LA FONCTION
 racineXSL = documentXSL.racine.enfants.trouver(xsl:template match="/")
+racineXML = documentXML.racine
 sortie = racineXSL.TransformationXSL(racineXML, "")
+
+---------------- Fonction pour la classe elementnoeud -------
 
 FONCTION DE ELEMENTNOEUD
 String TransformationXSL(noeudXML, sortie)
-    pour filsXSL de noeudCourantXSL faire
-        1) si value-of
-        2) si fore-each
-        3) si rien
-        4) si apply-template avec attribut
-        5) si apply-template sans attribut
-    retour sortie
+    1) si noeudXSLCourant est value-of
+    2) si noeudXSLCourant est fore-each
+    3) si noeudXSLCourant est rien
+    4) si noeudXSLCourant est apply-template avec attribut
+    5) si noeudXSLCourant est apply-template sans attribut
+    6) si noeudXSLCourant est template
+retour sortie
 
 1) value-of
 si select est "." alors
@@ -40,7 +47,7 @@ pour attribut de noeudXSL.attributs faire
     sortie += " " + attribut.nom + "=" + attribut.valeur
 sortie += ">"
 pour filsXSL de noeudXSL faire
-    sortie += filsXSL.TransformationXSL(noeudXML, sortie)
+    sortie += filsXSL.TransformationXSL(noeudXML, sortie)    
 sortie += "</" + noeudXSL.nom + ">"
 
 4) apply-templates select="something"
@@ -55,10 +62,18 @@ pour enfantXML de enfantsXML faire
     templateXSL = noeudXSL tel que noeudXSL.match = enfantXML.nom
     sortie += templateXSL.TransformationXSL(enfantXML, sortie)
 
+6) template match="something"
+pour filsXSL de noeudXSL faire
+    sortie += filsXSL.TransformationXSL(noeudXML, sortie)
+
+--------------- Fonction pour la classe abstract element ---------
+
 FONCTION DE ABSTRACTELEMENT
 String TransformationXSL(noeudXML, sortie)
-    retourner ""
+    retourner sortie
+
+----------- Fonction pour la classe elementdonnées ------------
 
 FONCTION DE ELEMENTDONNEES
 String TransformationXSL(noeudXML, sortie)
-    retourner noeudCourantXSL.texte
+    retourner sortie += noeudCourantXSL.texte
