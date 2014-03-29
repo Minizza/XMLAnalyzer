@@ -49,14 +49,11 @@ flexBison:xml.l xml.y
 
 commun: $(OBJ)
 	@echo "-------------------------- G++"
-	g++ $(CFLAGS)  -o xmltool $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp 
-	touch commun
-
-debug: flexBison g++Debug
-
-g++Debug:$(OBJ)
-	@echo "-------------------------- G++"
+ifeq ($(DEBUG),yes)
 	g++ $(CFLAGS)  -o xmltool $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp $(DEFINE_F)
+else
+	g++ $(CFLAGS)  -o xmltool $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp
+endif
 	touch commun
 
 $(BUILDDIR)/%.o: %.cpp
