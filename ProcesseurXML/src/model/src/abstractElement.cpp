@@ -39,6 +39,6 @@ void AbstractElement::indenter(std::ostream& os, int indent) const
 {
 	for(int i=0; i<indent; ++i)
 	{
-		os << "\t";
+		os << "  ";
 	}
 }

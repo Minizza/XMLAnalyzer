@@ -29,5 +29,5 @@ void ElementPI::versFluxIndent(std::ostream& os, int indent) const
 		AbstractAttribut* att = *it;
 		att->versFlux(os);
 	}
-	os << "/>\n";
+	os << "?>\n";
 }

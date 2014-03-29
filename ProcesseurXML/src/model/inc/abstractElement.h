@@ -85,6 +85,7 @@ public:
 
 protected:
 	void indenter(std::ostream& os, int indent) const;
+
 	std::string nom;
 };
 
