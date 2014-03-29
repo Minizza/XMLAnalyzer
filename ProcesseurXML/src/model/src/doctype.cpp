@@ -6,13 +6,12 @@
  #include "doctype.h"
 #include <iostream>
 
- Doctype::Doctype(string* aNom, string* aExternalId, string* aIntSubSet){
+ Doctype::Doctype(string* aNom, deque<string*>* aListOfStrings){
 #ifdef DEBUG
   std::cout << "Construction de <Doctype>" << std::endl;
 #endif
   nom = *aNom;
-  externalId = *aExternalId;
-  intSubSet = *aIntSubSet;
+  values = *aListOfStrings;
 }
 Doctype::~Doctype(){}
 
