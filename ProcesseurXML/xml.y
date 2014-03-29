@@ -81,12 +81,31 @@
 	;
 
 	element
-	: INF NOM attributs SUP content INF SLASH NOM SUP {$$ = new ElementNoeud(new string($2), $3, $5); if(strcmp($2,$8) != 0) {fprintf(stderr, "Non matching element names %s and %s\n", $2, $8);}} 
+	: INF NOM attributs SUP content INF SLASH NOM SUP 
+	{
+		$$ = new ElementNoeud(new string($2), $3, $5, new string("")); 
+		if(strcmp($2,$8) != 0) 
+		{
+			fprintf(stderr, "Non matching element names %s and %s\n", $2, $8);
+		}
+	}
+	| INF NOM COLON NOM attributs SUP content INF SLASH NOM COLON NOM SUP 
+	{
+		$$ = new ElementNoeud(new string($4), $5, $7, new string($2)); 
+		if(strcmp($2,$10) != 0) 
+		{
+			fprintf(stderr, "Non matching element namespaces %s and %s\n", $2, $10);
+		}
+		if(strcmp($4,$12) != 0) 
+		{
+			fprintf(stderr, "Non matching element names %s and %s\n", $4, $12);
+		}
+	}
 	| emptytag
 	;
 
 	emptytag
-	: INF NOM attributs SLASH SUP {$$ = new ElementNoeud(new string($2), $3, 0);}
+	: INF NOM attributs SLASH SUP {$$ = new ElementNoeud(new string($2), $3, 0, new string(""));}
 	;
 
 	content

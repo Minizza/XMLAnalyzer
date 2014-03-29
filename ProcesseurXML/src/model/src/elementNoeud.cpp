@@ -23,11 +23,10 @@ ElementNoeud::~ElementNoeud() {
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants): ElementBurne(aNom, aAtts) {
+ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants, string* aNamespaceName): ElementBurne(aNom, aAtts), enfants(*aEnfants), namespaceName(*aNamespaceName) {
 	#ifdef DEBUG
 		std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif
-	enfants = *aEnfants;
 }
 
 /*ConstructeurRegex* ElementNoeud::getRegex() {
@@ -44,7 +43,8 @@ void ElementNoeud::ajouterFils(AbstractElement* aFils) {
 void ElementNoeud::versFluxIndent(std::ostream& os, int indent) const
 {
 	indenter(os, indent);
-	os << "<" << nom;
+	os << "<";
+	nomVersFlux(os);
 	for(deque<AbstractAttribut*>::const_iterator it = atts.begin(); it != atts.end(); it++)
 	{
 		AbstractAttribut* att = *it;
@@ -57,5 +57,16 @@ void ElementNoeud::versFluxIndent(std::ostream& os, int indent) const
 		elt->versFluxIndent(os, indent+1);
 	}
 	indenter(os, indent);
-	os << "</" << nom << ">\n";
+	os << "</";
+	nomVersFlux(os);
+	os << ">\n";
+}
+
+void ElementNoeud::nomVersFlux(ostream& os) const
+{
+	if(!namespaceName.empty())
+	{
+		os << namespaceName << ":";
+	}
+	os << nom;
 }

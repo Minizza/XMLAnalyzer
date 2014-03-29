@@ -43,7 +43,7 @@ public:
      *          -ElementNoeud aElementNoeud : passage de l'element racine du document xml
      * 
      */
-     ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants);
+     ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants, string* aNamespaceName);
 
 
      //ConstructeurRegex getRegex();
@@ -66,6 +66,9 @@ private:
    bool estXSD;
    deque<AbstractElement*> enfants;
    ConstructeurRegex* regexFils;
+   string namespaceName;
+
+   void nomVersFlux(ostream& os) const;
 };
 
 
