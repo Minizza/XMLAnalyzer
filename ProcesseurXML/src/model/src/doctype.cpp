@@ -6,13 +6,12 @@
  #include "doctype.h"
 #include <iostream>
 
- Doctype::Doctype(string* aNom, deque<string*>* aListOfStrings,int aIndexOfDT){
+ Doctype::Doctype(string* aNom, deque<string*>* aListOfStrings){
 #ifdef DEBUG
   std::cout << "Construction de <Doctype>" << std::endl;
 #endif
   nom = *aNom;
   values = *aListOfStrings;
-  indexOfDT = aIndexOfDT;
 }
 Doctype::~Doctype(){}
 
