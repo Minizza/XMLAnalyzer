@@ -47,8 +47,7 @@ public:
     ElementBurne(string* aNom, deque<AbstractAttribut*>* aAtts);
 
 
-private:
-
+protected:
     deque<AbstractAttribut*> atts;
 };
 
