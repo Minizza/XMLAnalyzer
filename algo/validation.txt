@@ -6,17 +6,6 @@
 
 ------------------Appel initial de l'algo-------------------
 documentXML.ValidationXSD(documentXSD)
-map = newMap()
-racineXSD = documentXSD.racine
-sortie = racineXSD.CreationRegex(map)
-
-pour tout nom de map faire
-	RemplacerRefs(nom, map)
-fin pour
-
-racineXML = documentXML.racine
-estValide = racineXML.ValiderXML(map)
-	
 
 --------------- Méthode pour Document ---------------------------
 
