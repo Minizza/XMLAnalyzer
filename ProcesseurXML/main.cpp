@@ -28,6 +28,7 @@ int parseOption(int argc, char** argv)
     fid=fopen(nomFichier ,"r");
     if(fid!=NULL)
     {
+        int returnCode = 0;
         #ifdef DEBUG
         catDatFile(fid,nomFichier);
         rewind(fid);
@@ -35,12 +36,21 @@ int parseOption(int argc, char** argv)
         xmlin=fid;
         Document* rootDoc=NULL;
         int b=xmlparse(&rootDoc);
-        rootDoc->versFlux(std::cout);
+        if(rootDoc)
+        {
+            rootDoc->versFlux(std::cout);
+        }
+        else
+        {
+            cerr<<"No root markup"<<endl;
+            returnCode = 1;
+        }
         fclose(fid);
-        return 0;
+        return returnCode;
     }
     else
     {
+        cerr<<"Unable to open "<<argv[2]<<endl;
         return 1;
     }
 }
@@ -63,17 +73,8 @@ int main(int argc, char** argv)
         {
             if (argc>2)
             {
-                int success = parseOption(argc, argv);
-                if (success == 0)
-                {
-                    return 0;
-                }
-                else if (success == 1)
-                {
-                    cerr<<"Unable to open "<<argv[2]<<endl;
-                    return 1;
-                }
-                
+                int returnCode = parseOption(argc, argv);
+                return returnCode;
             }
             else
             {
