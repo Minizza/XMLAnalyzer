@@ -63,7 +63,15 @@
 	;
 
 	header
-	: headerpart headerdoc {$$ = new EnTete(0, $2, $1,0);}
+	: headerpart headerdoc headerpart{
+        //first deque 123
+        //last deque 456
+        //get it, iterator on 4
+        deque<AbstractElement*>::iterator it = $3->begin();
+        //insert before it the first deque
+        $3->insert(it,$1->begin(),$1->end());
+        $$ = new EnTete(0, $2, $3,$1->size());
+    }
     |/**/{$$=NULL;}
 	;
 
