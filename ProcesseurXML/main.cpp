@@ -36,21 +36,20 @@ int parseOption(int argc, char** argv)
         xmlin=fid;
         Document* rootDoc=NULL;
         int b=xmlparse(&rootDoc);
-        if(rootDoc)
+        if(rootDoc!=NULL)
         {
             rootDoc->versFlux(std::cout);
+            fclose(fid);
+            return 0;
         }
         else
         {
-            cerr<<"No root markup"<<endl;
-            returnCode = 1;
+
+            return 2;
         }
-        fclose(fid);
-        return returnCode;
     }
     else
     {
-        cerr<<"Unable to open "<<argv[2]<<endl;
         return 1;
     }
 }
@@ -73,8 +72,26 @@ int main(int argc, char** argv)
         {
             if (argc>2)
             {
-                int returnCode = parseOption(argc, argv);
-                return returnCode;
+                int success = parseOption(argc, argv);
+                switch(success)
+                {
+
+                    
+                    case 0:
+                    {
+                        return 0;
+                    }
+                    case 1:
+                    {
+                        cerr<<"Unable to open "<<argv[2]<<endl;
+                        return 1;
+                    }
+                    case 2:
+                    {
+                        cerr<<"No root markup"<<endl;
+                        return 1;
+                    }
+                }
             }
             else
             {
