@@ -28,7 +28,8 @@ vpath %.cpp src/model/src build/
 SRC=${wildcard src/model/src/*.cpp}
 SRC+=main.cpp
 
-DEFINE=DEBUG
+DEFINE= 
+#DEBUG
 ###################### Formatage
 #target file name
 OBJT=$(notdir $(SRC:.cpp=.o))

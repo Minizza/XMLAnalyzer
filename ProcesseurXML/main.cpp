@@ -30,12 +30,10 @@ int parseOption(int argc, char** argv)
     fid=fopen(nomFichier ,"r");
     if(fid!=NULL)
     {
-        cout<<"bite"<<endl;
         #ifdef DEBUG
         //catDatFile(fid,nomFichier);
         //rewind(fid);
         #endif
-        cout<<"phallus"<<endl;
         xmlin=fid;
         Document* rootDoc=NULL;
         int b=xmlparse(&rootDoc);
@@ -66,7 +64,16 @@ int main(int argc, char** argv)
         {
             if (argc>2)
             {
-                parseOption(argc, argv);
+                int success = parseOption(argc, argv);
+                if (success == 0)
+                {
+                    return 0;
+                }
+                else if (success == 1)
+                {
+                    cerr<<"Unable to open does_not_exist.xml"<<endl;
+                    return 1;
+                }
                 
             }
             else
