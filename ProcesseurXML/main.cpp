@@ -35,9 +35,17 @@ int parseOption(int argc, char** argv)
         xmlin=fid;
         Document* rootDoc=NULL;
         int b=xmlparse(&rootDoc);
-        rootDoc->versFlux(std::cout);
-        fclose(fid);
-        return 0;
+        if(rootDoc!=NULL)
+        {
+            rootDoc->versFlux(std::cout);
+            fclose(fid);
+            return 0;
+        }
+        else
+        {
+
+            return 2;
+        }
     }
     else
     {
@@ -64,14 +72,24 @@ int main(int argc, char** argv)
             if (argc>2)
             {
                 int success = parseOption(argc, argv);
-                if (success == 0)
+                switch(success)
                 {
-                    return 0;
-                }
-                else if (success == 1)
-                {
-                    cerr<<"Unable to open "<<argv[2]<<endl;
-                    return 1;
+
+                    
+                    case 0:
+                    {
+                        return 0;
+                    }
+                    case 1:
+                    {
+                        cerr<<"Unable to open "<<argv[2]<<endl;
+                        return 1;
+                    }
+                    case 2:
+                    {
+                        cerr<<"le parsing à merdé grave !"<<endl;
+                        return 1;
+                    }
                 }
                 
             }
