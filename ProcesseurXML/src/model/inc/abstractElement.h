@@ -22,7 +22,7 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class AbstractElement : IAffichable {
+class AbstractElement : public IAffichable {
 	
 public:
 	
@@ -46,7 +46,9 @@ public:
 	virtual iterator begin()=0;
 	virtual iterator end()=0;
 	
-	virtual std::ostream& versFlux(std::ostream& os) const=0;
+	std::ostream& versFlux(std::ostream& os) const;
+	//J'aurais bien aimé la mettre protégée mais c++ me chie dessus...
+	virtual void versFluxIndent(std::ostream& os, int indent) const=0;
 
 	class iterator
 	{
@@ -82,6 +84,7 @@ public:
 	};
 
 protected:
+	void indenter(std::ostream& os, int indent) const;
 	std::string nom;
 };
 

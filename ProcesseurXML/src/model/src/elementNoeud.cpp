@@ -41,14 +41,15 @@ void ElementNoeud::ajouterFils(AbstractElement* aFils) {
 	enfants.push_back(aFils);
 }
 
-
-std::ostream& ElementNoeud::versFlux(std::ostream& os) const
+void ElementNoeud::versFluxIndent(std::ostream& os, int indent) const
 {
+	indenter(os, indent);
 	os << "<" << nom << ">\n";
 	for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 	{
 		AbstractElement* elt = *it;
-		elt->versFlux(os);
+		elt->versFluxIndent(os, indent+1);
 	}
+	indenter(os, indent);
 	os << "</" << nom << ">\n";
 }

@@ -22,7 +22,7 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementDonnees: public ElementCastre{
+class ElementDonnees : public ElementCastre{
 	
 public:
 	
@@ -47,9 +47,10 @@ public:
 	 * 
 	 */
 	ElementDonnees(string* aTexte);
-
-	virtual std::ostream& versFlux(std::ostream& os) const;
 	
+protected:
+	virtual void versFluxIndent(std::ostream& os, int indent) const;
+
 private:
 	string texte;
 };

@@ -20,8 +20,8 @@ ElementPI::ElementPI(string* aNom, deque<AbstractAttribut*>* aAttributs) : Eleme
 }
 
 
-std::ostream& ElementPI::versFlux(std::ostream& os) const
+void ElementPI::versFluxIndent(std::ostream& os, int indent) const
 {
-    cout<<"mabiiiiiiiiiiiiiiiiiiiite"<<endl;
+    indenter(os, indent);
 	os << "<?" << nom << "/>\n";
 }
