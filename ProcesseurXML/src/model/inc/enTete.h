@@ -22,15 +22,14 @@
 */
  class EnTete : IAffichable {
  public:
-     EnTete(int atest);
      virtual ~EnTete();
-     EnTete(XmlDecl* aDecl, Doctype* aDoctype, deque<AbstractElement*>* aHeaderpart);
+     EnTete(XmlDecl* aDecl, Doctype* aDoctype, deque<AbstractElement*>* aHeaderpart,int aIndexOfDT);
 
      virtual std::ostream& versFlux(std::ostream& os) const;
 
      /* data */
  private:
-    int test;
+    int indexOfDT;
     XmlDecl* decl;
     Doctype* doctype;
     deque<AbstractElement*> headerpart;

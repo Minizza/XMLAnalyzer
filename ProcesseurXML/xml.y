@@ -27,6 +27,7 @@
 		Doctype* doctype;
 
 		deque<AbstractElement*>* abstrElements;
+        deque<string*>* values;
 		AbstractElement* abstrEle;
 		ElementBurne* elementBurne;
 		ElementComz* comz;
@@ -50,6 +51,7 @@
 	%type <comz> commentaire
 	%type <noeud> element emptytag
 	%type <pi> pi
+    %type <values> noms
 
 	%type <abstrAttr> attributs
 	%type <attrString> attribut
@@ -61,7 +63,7 @@
 	;
 
 	header
-	: headerpart headerdoc {$$ = new EnTete(0, $2, $1);}
+	: headerpart headerdoc {$$ = new EnTete(0, $2, $1,0);}
     |/**/{$$=NULL;}
 	;
 
@@ -72,9 +74,15 @@
 	;
 
 	headerdoc
-	: DOCTYPE {$$ = new Doctype(new string("doctype"), new string("none"), new string("none"));}
+	: DOCTYPE noms SUP{$$ = new Doctype(new string("doctype"),$2);}
 	| /*vide*/{$$=NULL;}
 	;
+
+    noms
+    :noms NOM {$$ = $1; $$->push_back(new string($2));}
+    |noms VALEUR{$$ = $1; $$->push_back(new string($2));}
+    |/*vide*/{$$=new deque<string*>();}
+    ;
 
 	pi
 	:INFSPECIAL NOM attributs SUPSPECIAL {$$ = new ElementPI(new string($2), $3);}

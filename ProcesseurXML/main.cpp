@@ -44,8 +44,7 @@ int parseOption(int argc, char** argv)
         }
         else
         {
-
-            return 2;
+            return 3;
         }
     }
     else
@@ -91,7 +90,14 @@ int main(int argc, char** argv)
                         cerr<<"No root markup"<<endl;
                         return 1;
                     }
+                    case 3:
+                    {
+                        #ifdef DEBUG
+                        cerr<<"Parsing error"<<endl;
+                        #endif
+                    }
                 }
+                
             }
             else
             {
