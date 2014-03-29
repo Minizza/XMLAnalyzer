@@ -33,12 +33,15 @@ std::ostream& EnTete::versFlux(std::ostream& os) const
     {
         this->decl->versFlux(os);
     }
-    this->doctype->versFlux(os);
+
+    if (this->doctype)
+    {
+        this->doctype->versFlux(os);
+    }
     for(deque<AbstractElement*>::const_iterator it = headerpart.begin();
         it != headerpart.end(); it++)
     {
-        AbstractElement* elt = *it;
-        cout<<headerpart.size()<<" Yo mama so faaat !"<<endl;   
+        AbstractElement* elt = *it;  
         elt->versFlux(os);
     }
 }

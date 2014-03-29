@@ -45,6 +45,8 @@ public:
      */
     AttributString(string* aNom, string* aValue);
 
+    void valeurVersFlux(ostream& os) const;
+
 private:
 
     string value;

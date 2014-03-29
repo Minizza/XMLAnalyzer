@@ -51,9 +51,6 @@ protected:
     virtual void versFluxIndent(std::ostream& os, int indent) const;
     
 private:
-
-    string nom;
-    deque<AbstractAttribut*> attributs;
 };
 
 

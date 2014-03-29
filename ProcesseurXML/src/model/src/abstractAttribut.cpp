@@ -19,3 +19,10 @@ AbstractAttribut::AbstractAttribut(string* aNom)
 }
 
 AbstractAttribut::~AbstractAttribut(){}
+
+ostream& AbstractAttribut::versFlux(ostream& os) const
+{
+	os << " " << nom << "=\"";
+	valeurVersFlux(os);
+	os << "\"";
+}

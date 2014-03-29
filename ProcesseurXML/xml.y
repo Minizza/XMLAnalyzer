@@ -81,7 +81,7 @@
 	;
 
 	element
-	: INF NOM attributs SUP content INF SLASH NOM SUP {$$ = new ElementNoeud(new string($2), $3, $5);}
+	: INF NOM attributs SUP content INF SLASH NOM SUP {$$ = new ElementNoeud(new string($2), $3, $5); if(strcmp($2,$8) != 0) {fprintf(stderr, "Non matching element names %s and %s\n", $2, $8);}} 
 	| emptytag
 	;
 

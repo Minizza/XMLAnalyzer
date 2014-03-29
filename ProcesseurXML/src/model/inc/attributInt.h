@@ -42,6 +42,8 @@ public:
      */
     AttributInt(int aValue){value = aValue;};
 
+    void valeurVersFlux(ostream& os) const;
+
 private:
 
     int value;
