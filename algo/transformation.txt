@@ -8,8 +8,6 @@ FONCTION DE ABSTRACTELEMENT ET REDEFINIE DANS ELEMENTDONNEES
 String obtenirDonnees()
 Elle retourne "" pour abstractelement et noeud.texte pour elementdonnees
 
-------------------Appel initial de l'algo-------------------
-
 APPEL INITIAL DE LA FONCTION
 racineXSL = documentXSL.racine.enfants.trouver(xsl:template match="/")
 racineXML = documentXML.racine

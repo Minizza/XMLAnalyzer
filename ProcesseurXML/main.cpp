@@ -28,6 +28,7 @@ int parseOption(int argc, char** argv)
     fid=fopen(nomFichier ,"r");
     if(fid!=NULL)
     {
+        int returnCode = 0;
         #ifdef DEBUG
         catDatFile(fid,nomFichier);
         rewind(fid);
@@ -43,8 +44,7 @@ int parseOption(int argc, char** argv)
         }
         else
         {
-
-            return 2;
+            return 3;
         }
     }
     else
@@ -75,7 +75,7 @@ int main(int argc, char** argv)
                 switch(success)
                 {
 
-
+                    
                     case 0:
                     {
                         return 0;
@@ -87,8 +87,14 @@ int main(int argc, char** argv)
                     }
                     case 2:
                     {
-                        cerr<<"Parsing failed"<<endl;
+                        cerr<<"No root markup"<<endl;
                         return 1;
+                    }
+                    case 3:
+                    {
+                        #ifdef DEBUG
+                        cerr<<"Parsing error"<<endl;
+                        #endif
                     }
                 }
                 
@@ -149,3 +155,94 @@ int main(int argc, char** argv)
     }
     return 1;
 }
+// int main(int argc, char** argv)
+// {
+//     // xmldebug=1;
+//     namespace po=boost::program_options;
+//     // Handling of options 
+//     po::options_description desc("Available commands are");
+//     desc.add_options()
+//     ("parse,p",po::value<std::vector<std::string>>(),"parse and display the xml file")
+//     ("validate,v", po::value<std::vector<std::string>>(), "parse both xml and xsd files and display the validation result")
+//     ("transforme,t",po::value<std::vector<std::string>>(),"parse both xml and xsl files and display de transformation result of file.xml by the stylesheet file.xsl")
+//     ("help,h","displays this help");
+
+
+//     po::positional_options_description p;
+//     p.add("parse", -1);
+//     p.add("validate", 2);
+//     p.add("trasnform", 2);
+// // parse the options
+//     po::variables_map vm;
+//     po::store(po::command_line_parser(argc, argv).options(desc).positional(p).run(), vm);
+//     po::notify(vm);
+
+
+//     if(vm.count("help"))
+//     {
+//         std::cerr <<argv[0]<<" "<<desc<<endl<<argv[1];
+//     }
+//     else if(vm.count("parse")){
+//         std::vector<std::string> files = vm["parse"].as<std::vector<std::string>>();
+//         #ifdef DEBUG
+//         for(std::string file : files){
+//             std::cout << "Input file " << file << std::endl;
+//         }
+//         cout<<"First argument : "<<files[0]<<endl;
+//         #endif
+//         FILE * fid;
+//         fid=fopen(files[0].c_str() ,"r");
+//         #ifdef DEBUG
+//         int temp;
+//         if (fid) {
+//             while ((temp = getc(fid)) != EOF)
+//                 putchar(temp);
+//         }
+//         cout<<"FIN DU DEBUG"<<endl;
+//         fclose(fid);
+//         fid=fopen(files[0].c_str() ,"r");
+//         #endif
+//         xmlin=fid;
+//         Document* rootDoc=NULL;
+//         int b=xmlparse(&rootDoc);
+//         rootDoc->versFlux(std::cout);
+//         fclose(fid);
+//     }
+//     else
+//     {
+
+//         FILE * fid;
+//         fid=fopen("files/simple_no_att.xml" ,"r");
+//         #ifdef DEBUG
+//         int temp;
+//         if (fid) {
+//             while ((temp = getc(fid)) != EOF)
+//                 putchar(temp);
+//         }
+//         cout<<"FIN DU DEBUG"<<endl;
+//         fclose(fid);
+//         fid=fopen("files/simple_no_att.xml" ,"r");
+//         #endif
+//         xmlin=fid;
+//         Document* rootDoc=NULL;
+//         int b=xmlparse(&rootDoc);
+//         rootDoc->versFlux(std::cout);
+//         fclose(fid);
+//     }
+//     // else
+//     // {
+//     //     cerr<<"No argument given"<<endl;
+//     //     std::cerr <<argv[0]<<" "<<desc<<endl;
+//     //     return 0;
+//     // }
+//    // int retour = xmlparse();
+//    // if (!retour)
+//    // {
+//    //    cout<<"Entrée standard reconnue"<<endl;
+//    // }
+//    // else
+//    // {
+//    //    cout<<"Entrée standard non reconnue"<<endl;
+//    // }
+//     return 1;
+// }

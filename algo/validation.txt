@@ -2,19 +2,35 @@
 #               ALGORITHME de VALIDATION                    #
 #############################################################
 
+--------------- Fonctions utiles ---------------------------
+
+------------------Appel initial de l'algo-------------------
+
+map = newMap()
+racineXSD = documentXSD.racine
+sortie = racineXSD.CreationRegex(map)
+
+pour tout nom de map faire
+	RemplacerRefs(nom, map)
+fin pour
+
+racineXML = documentXML.racine
+estValide = racineXML.ValiderXML(map)
+	
+
+--------------- Méthode pour AbstractElement ---------------------------
+
+--------------- Méthodes pour ElementNoeud ---------------------------
+
 1) Création des regex
 
-Premier appel :
-map = new Map()
-CreationRegex(racineXSD, map)
-
-String CreationRegex(noeudXSD, &map)
+String CreationRegex(&map)
     regex = ""
 
-    si noeudXSD.containsName() alors
+    si this.containsName() alors
         regex += '<' + noeudXSD.nom + '>'
 
-    pour filsXSD de noeudXSD faire:
+    pour filsXSD de this faire:
         a) élément vide
         b) élément non vide
         c) élément ref
@@ -22,9 +38,9 @@ String CreationRegex(noeudXSD, &map)
         e) choice
         f) séquence
 
-    si noeudXSD.containsName() alors
-        regex += '</' + noeudXSD.nom + '>'
-        map.ajouter(noeudXSD.nom, regex)
+    si this.containsName() alors
+        regex += '</' + this.nom + '>'
+        map.ajouter(this.nom, regex)
     
     retourner regex
 
@@ -33,31 +49,31 @@ si map.notContains(filsXSD.nom) alors
     regex += ".*"
 
 b) élément non vide
-regex += CreationRegex(filsXSD, map)
+regex += filsXSD.CreationRegex(map)
 
 c) élément ref
-regex += "@" + noeudXSD.ref + "@"
-si noeudXSD.hasAttribute(minOccurs) and noeudXSD.hasAttribute(maxOccurs) alors
-    regex += "{" + noeudXSD.minOccurs + ", " + noeudXSD.maxOccurs + "}"
-sinon si noeudXSD.hasAttribute(minOccurs) alors
-    regex += "{" + noeudXSD.minOccurs + ",}"
-sinon si noeudXSD.hasAttribute(maxOccurs) alors
-    regex += "{1, " + noeudXSD.maxOccurs + "}"
+regex += "@" + this.ref + "@"
+si this.hasAttribute(minOccurs) and this.hasAttribute(maxOccurs) alors
+    regex += "{" + this.minOccurs + ", " + this.maxOccurs + "}"
+sinon si this.hasAttribute(minOccurs) alors
+    regex += "{" + this.minOccurs + ",}"
+sinon si this.hasAttribute(maxOccurs) alors
+    regex += "{1, " + this.maxOccurs + "}"
  
 d) complex type
-return CreationRegex(filsXSD, map)
+return filsXSD.CreationRegex(map)
 
 e) choice
 regex += "("
 pour petitFilsXSD de filsXSD alors
-    regex += CreationRegex(petitFilsXSD, map)
+    regex += petitFilsXSD.CreationRegex(map)
     regex += " | " -> si pas dernier fils
 regex += ")"
 
 f) séquence
 regex += "("
 pour petitFilsXSD de filsXSD alors
-    regex += CreationRegex(petitFilsXSD, map)
+    regex += petitFilsXSD.CreationRegex(map)
 regex += ")"
 
 2) Remplacement des refs par leur regex
@@ -80,28 +96,24 @@ String RemplacerRefs(nom, map)
     retouner map[nom]
 
 
-pour nom, regex de map faire
-    RemplacerRefs(nom, map)
-
 3) Validation du XML avec les regex
 
 L'algo suivant utilise une fonction qui retourne les noeuds de premier
 niveau sous forme XML d'un noeud voulu. (getFirstLevel)
 
-Premier appel :
-ValiderXML(racineXML, map)
 
-Booleen ValiderXML(noeudXML, map)
-    si map.contains(noeudXML.nom) alors
-        si map[noeudXML.nom] match getFirstLevel(noeudXML) alors
-            pour filsXML de noeudXML faire
+
+Booleen ValiderXML(map)
+    si map.contains(this.nom) alors
+        si map[this.nom] match getFirstLevel(this) alors
+            pour filsXML de this faire
                 booleenValider = ValiderXML(filsXML, map)
                 si booleenValider est faux alors
                     retourner faux 
             retourner vrai
         sinon
-            afficher "Le document n'est pas valide au niveau du noeud " + noeudXML.nom
+            afficher "Le document n'est pas valide au niveau du noeud " + this.nom
             retourner faux
     sinon
-        afficher "L'expression régulière n'est pas définie pour le noeud " + noeudXML.nom
+        afficher "L'expression régulière n'est pas définie pour le noeud " + this.nom
         retourner faux
