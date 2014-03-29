@@ -39,15 +39,22 @@ DEFINE_F = $(addprefix -D,$(DEFINEOPT))
 ######################
 .PHONY: clean
 
-all: flexBison commun
+all: commun
 
-flexBison:xml.l xml.y
+# flexBison:xml.l xml.y
+# 	@echo "GERRRRRRRRRRRRRRRRRRRR"
+# 	flex -P xml --outfile=$(BUILDDIR)/lex.xml.cpp xml.l 
+# 	bison -p xml --debug --verbose --defines=$(BUILDDIR)/xml.tab.h --output=$(BUILDDIR)/xml.tab.cpp xml.y
+
+$(BUILDDIR)/lex.xml.cpp: xml.l
 	@echo "-------------------------- Flex"
 	flex -P xml --outfile=$(BUILDDIR)/lex.xml.cpp xml.l 
+
+$(BUILDDIR)/lex.tab.cpp: xml.y
 	@echo "-------------------------- Bison"
 	bison -p xml --debug --verbose --defines=$(BUILDDIR)/xml.tab.h --output=$(BUILDDIR)/xml.tab.cpp xml.y
 
-commun: $(OBJ)
+commun: $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/lex.tab.cpp
 	@echo "-------------------------- G++"
 ifeq ($(DEBUG),yes)
 	g++ $(CFLAGS)  -o xmltool $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp $(DEFINE_F)
