@@ -28,8 +28,7 @@ vpath %.cpp src/model/src build/
 SRC=${wildcard src/model/src/*.cpp}
 SRC+=main.cpp
 
-DEFINE= 
-#DEBUG
+DEFINE=DEBUG XMLDEBUG
 ###################### Formatage
 #target file name
 OBJT=$(notdir $(SRC:.cpp=.o))
@@ -39,14 +38,22 @@ DEFINE_F = $(addprefix -D,$(DEFINE))
 ######################
 .PHONY: clean
 
-all: commun
-commun: $(OBJ) xml.l xml.y
-	@echo $(SRC)
-	@echo "--------------------------"
-	@echo $(OBJ)
-	@echo "--------------------------"
+all: flexBison commun
+commun: $(OBJ)
+	@echo "-------------------------- G++"
+	g++ $(CFLAGS)  -o xmltool $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp 
+	touch commun
+
+flexBison:xml.l xml.y
+	@echo "-------------------------- Flex"
 	flex -P xml --outfile=$(BUILDDIR)/lex.xml.cpp xml.l 
+	@echo "-------------------------- Bison"
 	bison -p xml --debug --verbose --defines=$(BUILDDIR)/xml.tab.h --output=$(BUILDDIR)/xml.tab.cpp xml.y
+
+debug: flexBison g++Debug
+
+g++Debug:$(OBJ)
+	@echo "-------------------------- G++"
 	g++ $(CFLAGS)  -o xmltool $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp $(DEFINE_F)
 	touch commun
 
