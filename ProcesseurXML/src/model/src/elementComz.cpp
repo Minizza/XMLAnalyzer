@@ -28,7 +28,6 @@ ElementComz::ElementComz(string* aTexte) : ElementCastre(new string("")) {
 
 void ElementComz::versFluxIndent(std::ostream& os, int indent) const
 {
-	indenter(os, indent);
-	os << "<!--" << texte << "-->";
+	os << "<!--" << texte << "-->" << endl << endl;
 }
 

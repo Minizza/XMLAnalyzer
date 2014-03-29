@@ -36,6 +36,13 @@ static char * enleveGuillemets(char *s) {
    return s;
 }
 
+// enlève les balises de commentaire
+static char * enleveBalisesCom(char *s) {
+  s += 4;
+  s[strlen(s)-3] = '\0';
+  return s;
+}
+
 %}
 
 nl		(\r\n|\r|\n)
@@ -83,7 +90,7 @@ endcdata   "]]>"
 
 <CONTENU,INITIAL>{infspecial}  {dbg; BEGIN(INITIAL); return INFSPECIAL;}
 <CONTENU,INITIAL>{inf}	       {dbg; BEGIN(INITIAL); return INF;}
-<CONTENU,INITIAL>{comment}		{dbg; xmllval.s = strdup(xmltext); return COMMENT;}
+<CONTENU,INITIAL>{comment}		{dbg; xmllval.s = strdup(supprimeEspaces(enleveBalisesCom(xmltext))); return COMMENT;}
 
 <CONTENU>{pcdata}		{dbg; xmllval.s = strdup(supprimeEspaces(xmltext)); return DONNEES;}
 
