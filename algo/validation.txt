@@ -5,7 +5,7 @@
 --------------- Fonctions utiles ---------------------------
 
 ------------------Appel initial de l'algo-------------------
-
+documentXML.ValidationXSD(documentXSD)
 map = newMap()
 racineXSD = documentXSD.racine
 sortie = racineXSD.CreationRegex(map)
@@ -18,13 +18,46 @@ racineXML = documentXML.racine
 estValide = racineXML.ValiderXML(map)
 	
 
---------------- Méthode pour AbstractElement ---------------------------
+--------------- Méthode pour Document ---------------------------
+
+Boolean documentXML::ValidationXSD(documentXSD) {
+
+	map = newMap()
+	racineXSD = documentXSD.racine
+	sortie = racineXSD.CreationRegex(map)
+
+	pour tout nom de map faire
+		this.RemplacerRefs(nom, map)
+	fin pour
+
+	racineXML = this.racine
+	estValide = racineXML.ValiderXML(map)
+	
+	retourner estValide
+}
+
+String documentXML::RemplacerRefs(nom, map) {
+
+    si map[nom].contains("@") alors
+        ref = parseRef()
+        pour refFils de ref alors 
+            si map.contains(refFils)
+                regex = RemplacerRefs(refFils, map)
+                map.remplacer("@" + refFils + "@", regex)
+            sinon
+                afficher "Impossible de trouver la référence pour " + refFils.nom
+                retourner ""
+    
+    retouner map[nom]
+}
+
+
 
 --------------- Méthodes pour ElementNoeud ---------------------------
 
 1) Création des regex
 
-String CreationRegex(&map)
+String ElementNoeud::CreationRegex(&map)
     regex = ""
 
     si this.containsName() alors
@@ -76,25 +109,6 @@ pour petitFilsXSD de filsXSD alors
     regex += petitFilsXSD.CreationRegex(map)
 regex += ")"
 
-2) Remplacement des refs par leur regex
-
-Dans l'algo suivant, on utilisera la fonction parseRef qui retourne
-un tableau avec les noms contenus entre deux "@"
-
-String RemplacerRefs(nom, map)
-
-    si map[nom].contains("@") alors
-        ref = parseRef()
-        pour refFils de ref alors 
-            si map.contains(refFils)
-                regex = RemplacerRefs(refFils, map)
-                map.remplacer("@" + refFils + "@", regex)
-            sinon
-                afficher "Impossible de trouver la référence pour " + refFils.nom
-                retourner ""
-    
-    retouner map[nom]
-
 
 3) Validation du XML avec les regex
 
@@ -103,7 +117,7 @@ niveau sous forme XML d'un noeud voulu. (getFirstLevel)
 
 
 
-Booleen ValiderXML(map)
+Booleen ElementNoeud::ValiderXML(map)
     si map.contains(this.nom) alors
         si map[this.nom] match getFirstLevel(this) alors
             pour filsXML de this faire
