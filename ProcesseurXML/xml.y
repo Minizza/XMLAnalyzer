@@ -82,7 +82,7 @@
 	;
 
 	headerdoc
-	: DOCTYPE noms SUP{$$ = new Doctype(new string("doctype"),$2);}
+	: DOCTYPE NOM noms SUP{$$ = new Doctype(new string($2),$3);}
 	| /*vide*/{$$=NULL;}
 	;
 
