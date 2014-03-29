@@ -36,12 +36,13 @@ public:
      *                  les textures et les modèles
      * 
      */
-     Doctype(string* aNom, deque<string*>* aListOfStrings);
+     Doctype(string* aNom, deque<string*>* aListOfStrings,int aIndexOfDT);
      virtual std::ostream& versFlux(std::ostream& os) const;
 
 private:
 
     string nom;
+    int indexOfDT;
     deque<string*> values;
 };
 

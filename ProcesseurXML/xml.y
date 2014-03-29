@@ -63,7 +63,7 @@
 	;
 
 	header
-	: headerpart headerdoc {$$ = new EnTete(0, $2, $1);}
+	: headerpart headerdoc headerpart{$$ = new EnTete(0, $2, $1);}
     |/**/{$$=NULL;}
 	;
 
@@ -74,7 +74,7 @@
 	;
 
 	headerdoc
-	: DOCTYPE noms SUP{$$ = new Doctype(new string("doctype"),$2);}
+	: DOCTYPE noms SUP{$$ = new Doctype(new string("doctype"),$2,0);}
 	| /*vide*/{$$=NULL;}
 	;
 
