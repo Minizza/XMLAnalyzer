@@ -47,16 +47,19 @@
 	%type <head> header
 	%type <doctype> headerdoc
 
-	%type <abstrElements> content headerpart
+	%type <abstrElements> content headerparts 
 	%type <comz> commentaire
 	%type <noeud> element emptytag
 	%type <pi> pi
     %type <values> values
     %type <s> dttype
+    %type <abstrEle> headerpart
 
 	%type <abstrAttr> attributs
 	%type <attrString> attribut
 
+    %expect 2
+    
 	%%
 
 	document
@@ -64,7 +67,7 @@
 	;
 
 	header
-	: headerpart headerdoc headerpart{
+	: headerparts headerdoc headerparts{
         //first deque 123
         //last deque 456
         //get it, iterator on 4
@@ -73,14 +76,17 @@
         $3->insert(it,$1->begin(),$1->end());
         $$ = new EnTete(0, $2, $3,$1->size());
     }
-    |/**/{$$=NULL;}
 	;
 
-	headerpart //il faut vérifier qu'on a bien la version du xml
-	: headerpart pi {$$ = $1; $$->push_back($2);}
-	| headerpart commentaire {$$ = $1; $$->push_back($2);}
+	headerparts //il faut vérifier qu'on a bien la version du xml
+	: headerparts headerpart {$$ = $1; $$->push_back($2);}
     | /*vide*/{$$=new deque<AbstractElement*>();}
 	;
+
+    headerpart
+    :pi{$$=$1;}
+    |commentaire{$$=$1;}
+    ;
 
 	headerdoc
 	: DOCTYPE NOM dttype values SUP{$$ = new Doctype(new string($2),new string($3),$4);}
@@ -94,7 +100,7 @@
 
     dttype
     :NOM {$$=$1;}
-    |/*vide*/
+    |/*vide*/{$$=NULL;}
     ;
 
 	pi
