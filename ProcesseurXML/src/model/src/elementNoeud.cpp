@@ -77,7 +77,7 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, std::ostream& os
 	// todo
 }
 
-void ElementNoeud::creationRegex(map& mapRegex) const
+string ElementNoeud::creationRegex(map& mapRegex) const
 {
 	return;
 	// todo

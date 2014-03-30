@@ -7,7 +7,6 @@
  #include "document.h"
 #include <iostream>
  #include <assert.h>
- #include <map>
  
  using namespace std;
 
@@ -50,11 +49,13 @@ std::ostream& Document::versFlux(std::ostream& os) const
 bool Document::validationXSD(Document documentXSD) const
 {
 	bool estValide;
+	
+	std::map<string, string> mapRegex;
 	//TODO
 	return estValide;
 }
 
-string Document::RemplacerRefs(string nom, map mapRegex) const
+string Document::RemplacerRefs(std::string nom, map mapRegex) const
 {
 	//TODO
 	return;

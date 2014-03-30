@@ -51,6 +51,10 @@ public:
 	virtual void versFluxIndent(std::ostream& os, int indent) const=0;
 
 	virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
+	
+	virtual bool ElementNoeud::ValiderXML(map mapRegex) const;
+	
+	virtual string ElementNoeud::creationRegex(map& mapRegex) const;
 
 	class iterator
 	{
