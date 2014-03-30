@@ -71,25 +71,21 @@ void ElementNoeud::nomVersFlux(ostream& os) const
 	os << nom;
 }
 
-void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const
+void ElementNoeud::transformationXSL(AbstractElement* noeudXML, std::ostream& os) const
 {
-	switch(nom)
+	if(namespaceName == "xsl")
 	{
-		case "xsl:value-of":
-			break;
-		case "xsl:for-each":
-			break;
-		case "xsl:apply-template":
-			if(estVide())
-			{
-				
-			} else {
-				
-			}
-			break;
-		case "xsl:template":
-			break;
-		default:
-			break;
+		if(nom == "value-of")
+		{
+			os << "Ooooh, un value-of ! ";
+		}
+		else if(nom == "for-each")
+		{
+			os << "Ooooh, un for-each ! ";
+		}
+		else if(nom == "apply-template")
+		{
+			os << "Ooooh, un apply-template ! ";
+		}
 	}
 }
