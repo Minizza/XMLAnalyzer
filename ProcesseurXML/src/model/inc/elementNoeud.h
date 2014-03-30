@@ -9,6 +9,7 @@
 //Liste des includes système/libs
  #include <string>
  #include <deque>
+ #include <map>
 
  #include "abstractElement.h"
  #include "elementBurne.h"
@@ -58,9 +59,9 @@ public:
 
     virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
 	
-	virtual string ElementNoeud::creationRegex(map& mapRegex) const;
+    virtual string creationRegex(map<string,string>& mapRegex) const;
 	
-	virtual bool ElementNoeud::ValiderXML(map mapRegex) const;
+    virtual bool ValiderXML(map<string,string>& mapRegex) const;
 
 
 protected:

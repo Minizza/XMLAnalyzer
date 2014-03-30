@@ -77,40 +77,53 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, std::ostream& os
 	// todo
 }
 
-string ElementNoeud::creationRegex(map& mapRegex) const
+string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 {
 	string regex = "";
 	
-	if (nom <> "") {
+	if (nom != "") {
 		regex += '<' + nom + '>';
 	}
 	
-	if not(aDesFils()) {
+	if (!enfants.empty()) 
+	{
 		regex += ".*";
-	} else if (aDesFils()) {
+	} 
+	else if (enfants.empty()) 
+	{
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
-			regex += it.creationRegex(mapRegex);
+			AbstractElement* elt = *it;
+			regex += elt->creationRegex(mapRegex);
 		}
-	} else if (/* a un attribut ref */) {
+	} 
+	else if (false/* a un attribut ref */) 
+	{
 		
-	} else if (nom == "complexType") {
+	} 
+	else if (nom == "complexType") 
+	{
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
-			regex += it.creationRegex(mapRegex);
+			AbstractElement* elt = *it;
+			regex += elt->creationRegex(mapRegex);
 		}
-	} else if (nom == "sequence") {
+	} 
+	else if (nom == "sequence") 
+	{
 		regex += "(";
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
-			regex += it.creationRegex(mapRegex);
+			AbstractElement* elt = *it;
+			regex += elt->creationRegex(mapRegex);
 		}
 		regex += ")";
 	} else if (nom == "choice") {
 		regex += "(";
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
-			regex += it.creationRegex(mapRegex);
+			AbstractElement* elt = *it;
+			regex += elt->creationRegex(mapRegex);
 			regex += "|";
 		}
 		regex.erase(regex.end());
@@ -120,8 +133,8 @@ string ElementNoeud::creationRegex(map& mapRegex) const
 	return regex;
 }
 
-bool ElementNoeud::validerXML(map mapRegex) const
+bool ElementNoeud::ValiderXML(map<string,string>& mapRegex) const
 {
-	return;
+	return false;
 	// todo
 }

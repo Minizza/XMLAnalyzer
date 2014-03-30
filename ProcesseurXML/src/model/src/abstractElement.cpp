@@ -53,12 +53,12 @@ void AbstractElement::transformationXSL(AbstractElement* noeudXML, std::ostream&
     return;
 }
 
-string ElementNoeud::creationRegex(map& mapRegex) const
+std::string AbstractElement::creationRegex(std::map<std::string,std::string>& mapRegex) const
 {
-	return;
+	return "";
 }
 
-bool ElementNoeud::ValiderXML(map mapRegex) const
+bool AbstractElement::ValiderXML(std::map<std::string,std::string>& mapRegex) const
 {
-	return;
+	return false;
 }

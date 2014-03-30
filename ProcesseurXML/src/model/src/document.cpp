@@ -47,29 +47,31 @@ std::ostream& Document::versFlux(std::ostream& os) const
 }
 
 //Valide un document XML a partir de la structure d'un document XSD
-bool Document::validationXSD(Document documentXSD) const
+bool Document::validationXSD(const Document& documentXSD) const
 {
 	bool estValide;
 	
 	//Creation de la map d'expression regulieres
 	std::map<string, string> mapRegex;
-	string out = documentXSD.racine.creationRegex(mapRegex);
+	string out = documentXSD.racine->creationRegex(mapRegex);
 	
 	//Suppression des ref et remplacement par ce a quoi elles font reference
-	for(mapRegex::iterator it=mapRegex.begin() ; it!=mapRegex.end() ; ++it)
+	for(map<string, string>::iterator it=mapRegex.begin() ; it!=mapRegex.end() ; ++it)
 	{
-		this.RemplacerRefs(it->first, mapRegex);
+		pair<string, string> p = *it;
+		std::string noeud = p.first;
+		RemplacerRefs(noeud, mapRegex);
 	}
 	
 	//Match regex/noeuds du document XML
-	estValide = racine.ValiderXML(mapRegex);
+	estValide = racine->ValiderXML(mapRegex);
 	
 	return estValide;
 }
 
-string Document::RemplacerRefs(std::string nom, map mapRegex) const
+string Document::RemplacerRefs(std::string& nom, map<string, string>& mapRegex) const
 {
 	//TODO
-	return;
+	return "";
 }
 

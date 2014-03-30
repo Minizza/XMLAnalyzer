@@ -9,6 +9,7 @@
 //Liste des includes système/libs
 #include <string>
 #include <deque>
+#include <map>
 
 //Liste des includes personnels
 #include "iAffichable.h"
@@ -52,9 +53,9 @@ public:
 
 	virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
 	
-	virtual bool ElementNoeud::ValiderXML(map mapRegex) const;
+	virtual bool ValiderXML(std::map<std::string,std::string>& mapRegex) const;
 	
-	virtual string ElementNoeud::creationRegex(map& mapRegex) const;
+	virtual std::string creationRegex(std::map<std::string,std::string>& mapRegex) const;
 
 	class iterator
 	{
