@@ -71,7 +71,25 @@ void ElementNoeud::nomVersFlux(ostream& os) const
 	os << nom;
 }
 
-void transformationXSL(AbstractElement noeudXML, std::ostream& os) const
+void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const
 {
-	// todo
+	switch(nom)
+	{
+		case "xsl:value-of":
+			break;
+		case "xsl:for-each":
+			break;
+		case "xsl:apply-template":
+			if(estVide())
+			{
+				
+			} else {
+				
+			}
+			break;
+		case "xsl:template":
+			break;
+		default:
+			break;
+	}
 }

@@ -49,6 +49,10 @@ public:
 
 protected:
     deque<AbstractAttribut*> atts;
+    // Savoir si l'element a des attributs
+    bool estVide() const;
+    // Retourne un attribut en fonction de son nom. Null si non trouvé.
+    AbstractAttribut* getAttribut(std::string attr) const;
 };
 
 

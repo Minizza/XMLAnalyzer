@@ -29,3 +29,25 @@ ElementBurne::ElementBurne(string* aNom, deque<AbstractAttribut*>* aAtts) : Abst
 /*ConstructeurRegex* ElementBurne::getRegex() {
     return regexFils;
 }*/
+
+bool ElementBurne::estVide() const
+{
+    deque<AbstractAttribut*>::const_iterator it = atts.begin();
+    if(it == atts.end()) {
+        return true;
+    }
+    return false;
+}
+
+AbstractAttribut* ElementBurne::getAttribut(std::string attrNom) const
+{
+    for(deque<AbstractAttribut*>::const_iterator it = atts.begin(); it != atts.end(); it++)
+    {
+        AbstractAttribut* attr = *it;
+        if(attr->getNom() == attrNom)
+        {
+            return attr;
+        }
+    }
+    return NULL;
+}

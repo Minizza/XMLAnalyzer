@@ -26,3 +26,8 @@ ostream& AbstractAttribut::versFlux(ostream& os) const
 	valeurVersFlux(os);
 	os << "\"";
 }
+
+string AbstractAttribut::getNom() const
+{
+    return nom;
+}
