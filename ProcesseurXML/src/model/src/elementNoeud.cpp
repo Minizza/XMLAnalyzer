@@ -79,8 +79,20 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, std::ostream& os
 
 string ElementNoeud::creationRegex(map& mapRegex) const
 {
-	return;
-	// todo
+	string regex = "";
+	
+	if (nom <> "") {
+		regex += '<' + nom + '>';
+	}
+	
+	if (aDesfils() == 0) {
+		regex += ".*";
+	} else if () {
+	
+	}
+	
+	
+	return regex;
 }
 
 bool ElementNoeud::validerXML(map mapRegex) const
