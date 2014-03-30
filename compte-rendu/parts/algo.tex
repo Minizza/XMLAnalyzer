@@ -2,4 +2,120 @@
 
 \subsection{Algorithme de validation}
 
+\textbf{Document}
+
+\begin{verbatimtab}
+Boolean documentXML::ValidationXSD(documentXSD) {
+
+	map = new Map()
+	racineXSD = documentXSD.racine
+	sortie = racineXSD.CreationRegex(map)
+
+	pour tout nom de map faire
+		this.RemplacerRefs(nom, map)
+	fin pour
+
+	racineXML = this.racine
+	estValide = racineXML.ValiderXML(map)
+	
+	retourner estValide
+}
+
+\end{verbatimtab}
+
+\begin{verbatimtab}
+String documentXML::RemplacerRefs(nom, map) {
+
+    si map[nom].contains("@") alors
+        ref = parseRef()
+        pour refFils de ref alors 
+            si map.contains(refFils)
+                regex = RemplacerRefs(refFils, map)
+                map.remplacer("@" + refFils + "@", regex)
+            sinon
+                afficher "Impossible de trouver la référence pour " + refFils.nom
+                retourner ""
+            fin si
+    
+    retouner map[nom]
+}
+
+\end{verbatimtab}
+
+\textbf{ElementNoeud}
+
+\begin{verbatimtab}
+String ElementNoeud::CreationRegex(&map) {
+    regex = ""
+
+    si this.containsName() alors
+        regex += '<' + noeudXSD.nom + '>'
+    fin si
+
+    pour filsXSD de this faire:
+        si filsXSD vide alors
+			si map.notContains(filsXSD.nom) alors
+    			regex += ".*"
+            fin si
+
+		sinon si filsXSD non vide
+			regex += filsXSD.CreationRegex(map)
+
+		sinon si filsXSD.hasRefAttribut()
+			regex += "@" + this.ref + "@"
+			si this.hasAttribute(minOccurs) and this.hasAttribute(maxOccurs) alors
+   				 regex += "{" + this.minOccurs + ", " + this.maxOccurs + "}"
+			sinon si this.hasAttribute(minOccurs) alors
+    			regex += "{" + this.minOccurs + ",}"
+			sinon si this.hasAttribute(maxOccurs) alors
+    			regex += "{1, " + this.maxOccurs + "}"
+            fin si
+ 
+		sinon si filsXSD.isComplex()
+        	retourne filsXSD.CreationRegex(map)
+         
+
+		sinon si filsXSD.isSequence()
+		regex += "("
+		pour petitFilsXSD de filsXSD alors
+    		regex += petitFilsXSD.CreationRegex(map)
+   		 	regex += " | " -> si pas dernier fils
+        fin pour
+		regex += ")"
+
+		sinon si filsXSD.isChoice()
+			regex += "("
+			pour petitFilsXSD de filsXSD 
+    			regex += petitFilsXSD.CreationRegex(map)
+            fin pour
+			regex += ")"
+        fin si
+
+    si this.containsName() alors
+        regex += '</' + this.nom + '>'
+        map.ajouter(this.nom, regex)
+    fin si
+    
+    retourner regex
+}
+
+\end{verbatimtab}
+
+\begin{verbatimtab}
+Booleen ElementNoeud::ValiderXML(map)
+    si map.contains(this.nom) alors
+        si map[this.nom] match getFirstLevel(this) alors
+            pour filsXML de this faire
+                booleenValider = ValiderXML(filsXML, map)
+                si booleenValider est faux alors
+                    retourner faux 
+            retourner vrai
+        sinon
+            afficher "Le document n'est pas valide au niveau du noeud " + this.nom
+            retourner faux
+    sinon
+        afficher "L'expression régulière n'est pas définie pour le noeud " + this.nom
+        retourner faux
+\end{verbatimtab}
+
 \subsection{Algorithme de transformation}
