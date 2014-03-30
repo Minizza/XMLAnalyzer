@@ -77,39 +77,44 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, std::ostream& os
 	// todo
 }
 
-string ElementNoeud::creationRegex(map& mapRegex) const
+string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 {
 	string regex = "";
 	
-	if (nom <> "") {
+	if (nom != "") {
 		regex += '<' + nom + '>';
 	}
-	
-	if (!aDesFils()) {
+
+	if (!enfants.empty()) 
+	{
 		regex += ".*";
-	} else if (aDesFils()) {
+	} 
+	else if (enfants.empty()) 
+	{
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
 			AbstractElement* elt = *it;
 			regex += elt->creationRegex(mapRegex);
 		}
-	} else if (getAttribut("ref") {
-		regex += "@" + getAttribut("ref") + "@";
-		
+	else if (nom == "complexType") 
+	{
+		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+		{
+			AbstractElement* elt = *it;
+			regex += elt->creationRegex(mapRegex);
+		}
+	} else if (getAttribut("ref")) {
 		if (getAttribut("minOccurs") && getAttribut("maxOccurs")) {
 			regex += "{" + getAttribut("minOccurs") + ", " + getAttribut("maxOccurs") + "}";
+			//TODO se servir de attribut.valeurVersFlux et d'un ostringstream !!!
 		} else if (getAttribut("minOccurs")) {
 			regex += "{" + getAttribut("maxOccurs") + ",}";
 		} else if (getAttribut("maxOccurs")) {
-			regex += "{1, " + this.maxOccurs + "}";
+			regex += "{1, " + getAttribut("maxOccurs") + "}";
 		}
-	} else if (nom == "complexType") {
-		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
-		{
-			AbstractElement* elt = *it;
-			regex += elt->creationRegex(mapRegex);
-		}
-	} else if (nom == "sequence") {
+	}
+	else if (nom == "sequence") 
+	{
 		regex += "(";
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
@@ -132,8 +137,8 @@ string ElementNoeud::creationRegex(map& mapRegex) const
 	return regex;
 }
 
-bool ElementNoeud::validerXML(map mapRegex) const
+bool ElementNoeud::ValiderXML(map<string,string>& mapRegex) const
 {
-	return;
+	return false;
 	// todo
 }

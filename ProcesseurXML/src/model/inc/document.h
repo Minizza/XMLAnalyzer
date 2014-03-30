@@ -11,6 +11,8 @@
  #include "enTete.h"
  #include "iAffichable.h"
 
+ #include <map>
+
 
 //Liste des espaces de noms utilises 
 
@@ -45,9 +47,9 @@
 
      virtual std::ostream& versFlux(std::ostream& os) const;
 	 
-	 virtual bool Document::validationXSD(Document documentXSD) const;
+	 virtual bool validationXSD(const Document& documentXSD) const;
 	 
-	 virtual string Document::RemplacerRefs(string nom, map mapRegex) const;
+	 virtual string RemplacerRefs(string& nom, map<string, string>& mapRegex) const;
 
 	private:
 		EnTete* enTete;
