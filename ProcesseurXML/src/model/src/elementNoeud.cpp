@@ -83,7 +83,7 @@ string ElementNoeud::creationRegex(map& mapRegex) const
 	// todo
 }
 
-bool ElementNoeud::ValiderXML(map mapRegex) const
+bool ElementNoeud::validerXML(map mapRegex) const
 {
 	return;
 	// todo
