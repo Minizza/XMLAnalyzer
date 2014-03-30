@@ -30,7 +30,25 @@ AbstractElement::iterator::iterator(std::deque<AbstractElement*>::iterator it)
 	this->it = it;
 }
 
-std::string AbstractElement::get_sans_balises()
+std::ostream& AbstractElement::versFlux(std::ostream& os) const
 {
-	return "";
+	this->versFluxIndent(os, 0);
+}
+
+void AbstractElement::indenter(std::ostream& os, int indent) const
+{
+	for(int i=0; i<indent; ++i)
+	{
+		os << "  ";
+	}
+}
+
+void AbstractElement::obtenirDonnees(std::ostream& os) const
+{
+    return;
+}
+
+void AbstractElement::transformationXSL(AbstractElement noeudXML, std::ostream& os) const
+{
+    return;
 }

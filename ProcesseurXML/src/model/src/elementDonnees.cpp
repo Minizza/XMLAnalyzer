@@ -23,9 +23,21 @@ ElementDonnees::ElementDonnees(string* aTexte)  : ElementCastre(new string("")) 
 	texte = *aTexte;
 }
 
-std::ostream& ElementDonnees::versFlux(std::ostream& os) const
+void ElementDonnees::versFluxIndent(std::ostream& os, int indent) const
 {
-	os << texte;
+	indenter(os, indent);
+	os << texte << endl;
+}
+
+// Méthdode utilisée pour la transformationXSL
+void ElementDonnees::obtenirDonnees(std::ostream& os) const
+{
+    os << texte;
+}
+
+void ElementDonnees::transformationXSL(AbstractElement noeudXML, std::ostream& os) const
+{
+    os << texte;
 }
 
 std::string ElementDonnees::get_sans_balises()

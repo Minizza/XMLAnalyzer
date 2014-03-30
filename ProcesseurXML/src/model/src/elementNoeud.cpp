@@ -23,11 +23,10 @@ ElementNoeud::~ElementNoeud() {
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants): ElementBurne(aNom, aAtts) {
+ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants, string* aNamespaceName): ElementBurne(aNom, aAtts), enfants(*aEnfants), namespaceName(*aNamespaceName) {
 	#ifdef DEBUG
 		std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif
-	enfants = *aEnfants;
 }
 
 /*ConstructeurRegex* ElementNoeud::getRegex() {
@@ -41,14 +40,38 @@ void ElementNoeud::ajouterFils(AbstractElement* aFils) {
 	enfants.push_back(aFils);
 }
 
-
-std::ostream& ElementNoeud::versFlux(std::ostream& os) const
+void ElementNoeud::versFluxIndent(std::ostream& os, int indent) const
 {
-	os << "<" << nom << ">\n";
+	indenter(os, indent);
+	os << "<";
+	nomVersFlux(os);
+	for(deque<AbstractAttribut*>::const_iterator it = atts.begin(); it != atts.end(); it++)
+	{
+		AbstractAttribut* att = *it;
+		att->versFlux(os);
+	}
+	os << ">\n";
 	for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 	{
 		AbstractElement* elt = *it;
-		elt->versFlux(os);
+		elt->versFluxIndent(os, indent+1);
 	}
-	os << "</" << nom << ">\n";
+	indenter(os, indent);
+	os << "</";
+	nomVersFlux(os);
+	os << ">\n";
+}
+
+void ElementNoeud::nomVersFlux(ostream& os) const
+{
+	if(!namespaceName.empty())
+	{
+		os << namespaceName << ":";
+	}
+	os << nom;
+}
+
+void transformationXSL(AbstractElement noeudXML, std::ostream& os) const
+{
+	// todo
 }

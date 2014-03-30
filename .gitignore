@@ -27,6 +27,7 @@
 *.fuse_hidden*
 
 #Project files
+common
 commun
 
 #LaTeX files
@@ -34,4 +35,8 @@ commun
 *.log
 *.out
 *.toc
+*.tex~
+*.nav
+*.snm
+*.tex.backup
 main.pdf

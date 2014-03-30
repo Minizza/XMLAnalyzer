@@ -1,3 +1,4 @@
+#!/bin/bash
 #Where to build
 BUILDDIR= ./build
 
@@ -6,15 +7,12 @@ BUILDDIR= ./build
 CFLAGS=-std=c++11 -O0 -g -DYYDEBUG
 CFLAGS+=-Isrc/model/inc -I./ -I./build
 
-#Library boost
-LIBRARY=/usr/lib/libboost_program_options.so
-# /usr/lib/libboost_program_options.so
 
 
 vpath %.cpp src/model/src build/
 #what to build
 	#essential
-SRC=main.cpp 
+ 
 	# src/model/src/enTete.cpp \
 	# src/model/src/contructeurRegex.cpp \
 	# src/model/src/doctype.cpp \
@@ -27,37 +25,54 @@ SRC=main.cpp
 	# src/model/src/elementBurne.cpp \
 	# src/model/src/elementPI.cpp
 	#Our project
-SRC+=${wildcard src/model/src/*.cpp}
+SRC=${wildcard src/model/src/*.cpp}
+SRC+=main.cpp
 
-DEFINE=DEBUG
+DEBUG=no
+DEFINEOPT=DEBUG XMLDEBUG
 ###################### Formatage
 #target file name
-OBJ= $(addprefix $(BUILDDIR)/,$(SRC:.cpp=.o))
-DEFINE_F = $(addprefix -D,$(DEFINE))
+OBJT=$(notdir $(SRC:.cpp=.o))
+OBJ= $(addprefix $(BUILDDIR)/,$(OBJT))
+DEFINE_F = $(addprefix -D,$(DEFINEOPT))
 
 ######################
 .PHONY: clean
 
 all: commun
-commun: $(SRC) xml.l xml.y
-	@echo $(SRC)
-	@echo "--------------------------"
-	@echo $(OBJ)
-	@echo "--------------------------"
+
+# flexBison:xml.l xml.y
+# 	@echo "GERRRRRRRRRRRRRRRRRRRR"
+# 	flex -P xml --outfile=$(BUILDDIR)/lex.xml.cpp xml.l 
+# 	bison -p xml --debug --verbose --defines=$(BUILDDIR)/xml.tab.h --output=$(BUILDDIR)/xml.tab.cpp xml.y
+
+$(BUILDDIR)/lex.xml.cpp: xml.l
+	@echo "-------------------------- Flex"
 	flex -P xml --outfile=$(BUILDDIR)/lex.xml.cpp xml.l 
+
+$(BUILDDIR)/lex.tab.cpp: xml.y
+	@echo "-------------------------- Bison"
 	bison -p xml --debug --verbose --defines=$(BUILDDIR)/xml.tab.h --output=$(BUILDDIR)/xml.tab.cpp xml.y
-	g++ $(CFLAGS)  -o xmltool $(SRC) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp $(LIBRARY) $(DEFINE_F)
+
+commun: $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/lex.tab.cpp
+	@echo "-------------------------- G++"
+ifeq ($(DEBUG),yes)
+	g++ $(CFLAGS)  -o xmltool $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp $(DEFINE_F)
+else
+	g++ $(CFLAGS)  -o xmltool $(OBJ) $(BUILDDIR)/lex.xml.cpp $(BUILDDIR)/xml.tab.cpp
+endif
 	touch commun
 
 $(BUILDDIR)/%.o: %.cpp
-	@echo "coucou !!"
-	g++ $(CFLAGS) -c $(CFLAGS) -o $@ $<
+	@echo "--------compile of " $<
+ifeq ($(DEBUG),yes)
+		g++ $(CFLAGS) -c $(CFLAGS) -o $@ $< $(DEFINE_F)
+else
+		g++ $(CFLAGS) -c $(CFLAGS) -o $@ $<
+endif
 
 
-
-tempo:
-	g++ $(CFLAGS)  -o ksjdfkjshdufhlsfdg src/model/src/enTete.cpp
 clean:
-	-rm -rf xml.tab.c lex.xml.c xml.tab.h xml.output xmltool commun $(BUILDDIR)/*
+	-rm -rf xml.tab.c lex.xml.c xml.tab.h xml.output xmltool commun $(BUILDDIR)/* 
 test:
 	cd Tests; ./mktest.sh

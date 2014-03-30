@@ -9,6 +9,8 @@
 //Liste des includes système/libs
 #include <string>
 
+#include "iAffichable.h"
+
 //Liste des espaces de noms utilises 
  using namespace std;
  
@@ -18,7 +20,7 @@
      *      Cette classe appartient à la partie bloblo de notre application.
      *
      */
-class AbstractAttribut {
+class AbstractAttribut : IAffichable{
     
 public:
     
@@ -33,7 +35,8 @@ public:
      */
     AbstractAttribut(string* aNom);
 
-
+    virtual ostream& versFlux(ostream& os) const;
+    virtual void valeurVersFlux(ostream& os) const=0;
     virtual ~AbstractAttribut();
 
     

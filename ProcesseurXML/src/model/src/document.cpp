@@ -6,6 +6,7 @@
 
  #include "document.h"
 #include <iostream>
+ #include <assert.h>
 
 //Methodes par defaut de la classe Document
 Document::Document() {
@@ -23,7 +24,11 @@ Document::Document(EnTete* aEnTete, ElementNoeud* aElementNoeud) {
     #ifdef DEBUG
         std::cout << "Construction de <Document>" << std::endl;
     #endif
-    enTete = aEnTete;
+    assert(aElementNoeud!=NULL);
+    if (aEnTete)
+    {
+        enTete = aEnTete;
+    }
     racine = aElementNoeud;
 
 }
@@ -38,7 +43,10 @@ int Document::Ololol (int pouet, char crottin) {
 
 std::ostream& Document::versFlux(std::ostream& os) const
 {
-    this->enTete->versFlux(os);
+    if (this->enTete)
+    {
+        this->enTete->versFlux(os);
+    }
     this->racine->versFlux(os);
     return os;
 }

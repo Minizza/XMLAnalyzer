@@ -19,3 +19,9 @@ AttributString::AttributString(string* aNom, string* aValue) : 	AbstractAttribut
 }
 
 AttributString::~AttributString(){}
+
+
+void AttributString::valeurVersFlux(ostream& os) const
+{
+	os << value;
+}

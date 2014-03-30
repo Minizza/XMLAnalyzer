@@ -8,6 +8,7 @@
 //Liste des includes système/libs
 #include <string>
 #include "iAffichable.h"
+#include <deque>
  
 //Liste des espaces de noms utilises
 using namespace std;
@@ -35,15 +36,14 @@ public:
      *                  les textures et les modèles
      * 
      */
-     Doctype(string* aNom, string* aExternalId, string* aIntSubSet);
+     Doctype(string* aNom, string* aType, deque<string*>* aListOfStrings);
      virtual std::ostream& versFlux(std::ostream& os) const;
 
 private:
 
     string nom;
-    string externalId;
-    string intSubSet;
-
+    string type;
+    deque<string*> values;
 };
 
 #endif /* DOCTYPE_H */

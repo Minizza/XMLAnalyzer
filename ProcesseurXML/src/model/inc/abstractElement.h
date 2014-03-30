@@ -22,14 +22,14 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class AbstractElement : IAffichable {
+class AbstractElement : public IAffichable {
 	
 public:
 	
 	class iterator;
 	
 	AbstractElement();
-  AbstractElement(AbstractElement* orig);
+  	AbstractElement(AbstractElement* orig);
 	
 	/*
 	 *  Constructeur abstrait
@@ -46,8 +46,11 @@ public:
 	virtual iterator begin()=0;
 	virtual iterator end()=0;
 	
-	virtual std::ostream& versFlux(std::ostream& os) const=0;
-	std::string get_sans_balises();
+	std::ostream& versFlux(std::ostream& os) const;
+	//J'aurais bien aimé la mettre protégée mais c++ me chie dessus...
+	virtual void versFluxIndent(std::ostream& os, int indent) const=0;
+
+	virtual void transformationXSL(AbstractElement noeudXML, std::ostream& os) const;
 
 	class iterator
 	{
@@ -83,6 +86,9 @@ public:
 	};
 
 protected:
+	void indenter(std::ostream& os, int indent) const;
+	virtual void obtenirDonnees(std::ostream& os) const;
+
 	std::string nom;
 };
 

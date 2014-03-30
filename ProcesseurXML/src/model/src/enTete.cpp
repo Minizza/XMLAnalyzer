@@ -6,23 +6,17 @@
 #include "enTete.h"
 #include <iostream>
 
-EnTete::EnTete(int atest)
-{
-		#ifdef DEBUG
-			std::cout << "Construction de <EnTete>" << std::endl;
-		#endif
-    test=atest;
-}
 
 EnTete::~EnTete(){}
 
-EnTete::EnTete(XmlDecl* aDecl, Doctype* aDoctype, deque<AbstractElement*>* aHeaderpart)
+EnTete::EnTete(XmlDecl* aDecl, Doctype* aDoctype, deque<AbstractElement*>* aHeaderpart,int aIndexOfDT)
 {
     decl = aDecl;
     doctype = aDoctype;
     headerpart = *aHeaderpart;
+    indexOfDT=aIndexOfDT;
     #ifdef DEBUG
-    cout<<"construction de : <EnTete>"<<endl;
+    cout<<"construction de <EnTete> "<<endl;
     #endif
 }
 
@@ -33,12 +27,21 @@ std::ostream& EnTete::versFlux(std::ostream& os) const
     {
         this->decl->versFlux(os);
     }
-    this->doctype->versFlux(os);
+
+    int index = 0;
     for(deque<AbstractElement*>::const_iterator it = headerpart.begin();
         it != headerpart.end(); it++)
     {
-        AbstractElement* elt = *it;
-        cout<<headerpart.size()<<" Yo mama so faaat !"<<endl;   
+        if(index == indexOfDT && this->doctype)
+        {
+            this->doctype->versFlux(os);
+        }
+        AbstractElement* elt = *it;  
         elt->versFlux(os);
+        ++index;
+    }
+    if(index == indexOfDT && this->doctype)
+    {
+        this->doctype->versFlux(os);
     }
 }

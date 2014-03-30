@@ -22,7 +22,7 @@
  *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
-class ElementDonnees: public ElementCastre{
+class ElementDonnees : public ElementCastre{
 	
 public:
 	
@@ -48,10 +48,14 @@ public:
 	 */
 	ElementDonnees(string* aTexte);
 
-	virtual std::ostream& versFlux(std::ostream& os) const;
+	virtual void transformationXSL(AbstractElement noeudXML, std::ostream& os) const;
 
-	string get_sans_balises();
 	
+protected:
+	virtual void versFluxIndent(std::ostream& os, int indent) const;
+	virtual void obtenirDonnees(std::ostream& os) const;
+
+
 private:
 	string texte;
 };

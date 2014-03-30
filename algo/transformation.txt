@@ -2,47 +2,76 @@
 #               ALGORITHME de TRANSFORMATION                #
 #############################################################
 
-String TransformationXSL(noeudXSL, noeudXML, sortie)
-    pour filsXSL de noeudXSL faire
-        1) si value-of
-        2) si fore-each
-        3) si rien
-        4) si apply-template avec atrtibut
-        5) si apply-template sans attribut
-    retour sortie
+--------------- Fonctions utiles ---------------------------
 
-Dans l'algorithme, on utilisera la fonction get_sans_balises qui
-retournera le contenu d'un noeud sans interpreter les balises.
-L'algorithme utilise aussi la fonction get_content qui retourne simplement
-le code xml d'un noeud (sans les fils).
+FONCTION DE ABSTRACTELEMENT ET REDEFINIE DANS ELEMENTDONNEES
+String obtenirDonnees()
+Elle retourne "" pour abstractelement et noeud.texte pour elementdonnees
 
-Appel initial de la fonction
-sortie = TransformationXSL(template_match_racine, racineXML, "")
+APPEL INITIAL DE LA FONCTION
+racineXSL = documentXSL.racine.enfants.trouver(xsl:template match="/")
+racineXML = documentXML.racine
+sortie = racineXSL.TransformationXSL(racineXML, "")
+
+---------------- Fonction pour la classe elementnoeud -------
+
+FONCTION DE ELEMENTNOEUD
+String TransformationXSL(noeudXML, sortie)
+    1) si noeudXSLCourant est value-of
+    2) si noeudXSLCourant est fore-each
+    3) si noeudXSLCourant est rien
+    4) si noeudXSLCourant est apply-template avec attribut
+    5) si noeudXSLCourant est apply-template sans attribut
+    6) si noeudXSLCourant est template
+retour sortie
 
 1) value-of
 si select est "." alors
-    sortie += get_sans_balises(noeudXML)
+    pour filsXML de noeudXML faire
+        sortie += filsXML.obtenirDonnees()
 sinon
     enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
     pour enfantXML de enfantsXML faire
-        sortie += get_sans_balises(enfantXML)
+        sortie += enfantXML.obtenirDonnees()
 
 2) fore-each
 enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
 pour enfantXML de enfantsXML faire
-    sortie += TransformationXSL(noeud_foreach, enfantXML, sortie)
+    sortie += noeud_foreach.TransformationXSL(enfantXML, sortie)
 
 3) Rien (pas de balises xsl spéciale)
-sortie += get_content(noeudXSL)
+sortie += "<" + noeudXSL.nom
+pour attribut de noeudXSL.attributs faire
+    sortie += " " + attribut.nom + "=" + attribut.valeur
+sortie += ">"
+pour filsXSL de noeudXSL faire
+    sortie += filsXSL.TransformationXSL(noeudXML, sortie)    
+sortie += "</" + noeudXSL.nom + ">"
 
 4) apply-templates select="something"
 templateXSL = noeudXSL template tel que noeudXSL.match = select
 enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
 pour enfantXML de enfantsXML faire
-    sortie += TransformationXSL(templateXSL, enfantXML, sortie)
+    sortie += templateXSL.TransformationXSL(enfantXML, sortie)
 
 5) apply-templates sans attribut
-enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
+enfantsXML = tous les filsXML de noeudXML
 pour enfantXML de enfantsXML faire
     templateXSL = noeudXSL tel que noeudXSL.match = enfantXML.nom
-    sortie += TransformationXSL(templateXSL, enfantXML, sortie)
+    sortie += templateXSL.TransformationXSL(enfantXML, sortie)
+
+6) template match="something"
+pour filsXSL de noeudXSL faire
+    sortie += filsXSL.TransformationXSL(noeudXML, sortie)
+
+--------------- Fonction pour la classe abstract element ---------
+
+FONCTION DE ABSTRACTELEMENT
+String TransformationXSL(noeudXML, sortie)
+    retourner sortie
+
+----------- Fonction pour la classe elementdonnées ------------
+
+FONCTION DE ELEMENTDONNEES
+String TransformationXSL(noeudXML, sortie)
+    retourner sortie += noeudCourantXSL.texte

@@ -42,6 +42,8 @@ public:
      */
     AttributBool(bool aValue){value = aValue;};
 
+    void valeurVersFlux(ostream& os) const;
+
 private:
 
     bool value;

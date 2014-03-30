@@ -42,6 +42,8 @@ public:
      */
     AttributDouble(double aValue){value = aValue;};
 
+    void valeurVersFlux(ostream& os) const;
+
 private:
 
     double value;

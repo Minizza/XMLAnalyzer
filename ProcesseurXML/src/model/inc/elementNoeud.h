@@ -43,7 +43,7 @@ public:
      *          -ElementNoeud aElementNoeud : passage de l'element racine du document xml
      * 
      */
-     ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants);
+     ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants, string* aNamespaceName);
 
 
      //ConstructeurRegex getRegex();
@@ -56,17 +56,22 @@ public:
 
     void ajouterFils(AbstractElement* aFils);
 
-	virtual std::ostream& versFlux(std::ostream& os) const;
+    virtual void transformationXSL(AbstractElement noeudXML, std::ostream& os) const;
+
 
 protected:
 
     //void construireRegex(ConstructeurRegex& regex);
+    virtual void versFluxIndent(std::ostream& os, int indent) const;
 
 private:
 
    bool estXSD;
    deque<AbstractElement*> enfants;
    ConstructeurRegex* regexFils;
+   string namespaceName;
+
+   void nomVersFlux(ostream& os) const;
 };
 
 
