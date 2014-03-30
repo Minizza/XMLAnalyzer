@@ -29,10 +29,11 @@
 
      /* data */
  private:
-    int indexOfDT;
     XmlDecl* decl;
     Doctype* doctype;
     deque<AbstractElement*> headerpart;
+    //index mean where in the header part list you put the DocType line
+    int indexOfDT;
 }; 
 
 #endif 

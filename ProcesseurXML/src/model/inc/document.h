@@ -42,19 +42,6 @@
 	 */
 	 Document(EnTete* aEnTete, ElementNoeud* aElementNoeud);
 
-	/*
-	 *  Ololol : Méthode de poutpout
-	 *          
-	 *    Paramètres : 
-	 *          -Golum* pouet : passage du device servant à gérer
-	 *                  l'affichage de la fenêtre
-	 *          -Prout* crottin : passage du driver servant à importer 
-	 *                  les textures et les modèles
-	 *    Retour : 
-	 *          - int : bouboubou
-	 * 
-	 */
-	 int Ololol(int pouet, char crottin);
 
      virtual std::ostream& versFlux(std::ostream& os) const;
 
