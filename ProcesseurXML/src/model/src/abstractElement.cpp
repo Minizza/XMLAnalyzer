@@ -48,7 +48,7 @@ void AbstractElement::obtenirDonnees(std::ostream& os) const
     return;
 }
 
-void AbstractElement::transformationXSL(AbstractElement noeudXML, std::ostream& os) const
+void AbstractElement::transformationXSL(AbstractElement* noeudXML, std::ostream& os) const
 {
     return;
 }

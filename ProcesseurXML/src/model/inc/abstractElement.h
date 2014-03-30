@@ -50,7 +50,7 @@ public:
 	//J'aurais bien aimé la mettre protégée mais c++ me chie dessus...
 	virtual void versFluxIndent(std::ostream& os, int indent) const=0;
 
-	virtual void transformationXSL(AbstractElement noeudXML, std::ostream& os) const;
+	virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
 
 	class iterator
 	{
