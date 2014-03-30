@@ -54,11 +54,61 @@ int parseOption(int argc, char** argv)
 }
 int validateOption(int argc, char** argv)
 {
+    //Le fichier XML
+    FILE * fidXML;
+    char * nomFichierXML =argv[2];
+    fidXML=fopen(nomFichierXML ,"r");
 
+    //Le fichier XSD
+    FILE * fidXSD;
+    char * nomFichierXSD =argv[3];
+    fidXSD=fopen(nomFichierXSD ,"r");
+
+    if(fidXML!=NULL&&fidXSD!=NULL)
+    {
+        return 0;
+    }
+    else if (fidXML==NULL)
+    {
+        return 1;
+    }
+    else if (fidXSD==NULL)
+    {
+        return 2;
+    }
+    else
+    {
+        return 3;
+    }
 }
 int templateOption(int argc, char** argv)
 {
+    //Le fichier XML
+    FILE * fidXML;
+    char * nomFichierXML =argv[2];
+    fidXML=fopen(nomFichierXML ,"r");
 
+    //Le fichier XSL
+    FILE * fidXSL;
+    char * nomFichierXSL =argv[3];
+    fidXSL=fopen(nomFichierXSL ,"r");
+
+    if(fidXML!=NULL&&fidXSL!=NULL)
+    {
+        return 0;
+    }
+    else if (fidXML==NULL)
+    {
+        return 1;
+    }
+    else if (fidXSL==NULL)
+    {
+        return 2;
+    }
+    else
+    {
+        return 3;
+    }
 }
 int main(int argc, char** argv)
 {
@@ -109,7 +159,25 @@ int main(int argc, char** argv)
         {
             if (argc>3)
             {
-                templateOption(argc, argv);
+                int success = templateOption(argc, argv);
+                switch(success)
+                {
+                    case 0:
+                    {
+                        return 0;
+                    }
+                    case 1:
+                    {
+                        cerr<<"Unable to open file "<<argv[2]<<endl;
+                        return 1;
+                    }
+                    case 2:
+                    {
+                        cerr<<"Unable to open file "<<argv[3]<<endl;
+                        return 1;
+                    } 
+                }
+
                 return 0;
             }
             else
@@ -122,8 +190,25 @@ int main(int argc, char** argv)
         {
             if (argc>3)
             {
-                validateOption(argc, argv);
-                return 0;
+                int success = validateOption(argc, argv);
+                switch(success)
+                {
+                    case 0:
+                    {
+                        return 0;    
+                    }
+                    case 1:
+                    {
+                        cerr<<"Unable to open file "<<argv[2]<<endl;
+                        return 1;
+                    }
+                    case 2:
+                    {
+                        cerr<<"Unable to open file "<<argv[3]<<endl;
+                        return 1;
+                    }
+                }
+                    
             }
             else
             {
