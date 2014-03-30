@@ -111,6 +111,7 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 	} else if (getAttribut("ref")) {
 		if (getAttribut("minOccurs") && getAttribut("maxOccurs")) {
 			regex += "{" + getAttribut("minOccurs") + ", " + getAttribut("maxOccurs") + "}";
+			//TODO se servir de attribut.valeurVersFlux et d'un ostringstream !!!
 		} else if (getAttribut("minOccurs")) {
 			regex += "{" + getAttribut("maxOccurs") + ",}";
 		} else if (getAttribut("maxOccurs")) {

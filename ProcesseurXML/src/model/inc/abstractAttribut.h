@@ -39,6 +39,8 @@ public:
     virtual void valeurVersFlux(ostream& os) const=0;
     virtual ~AbstractAttribut();
 
+    string getNom() const { return nom; }
+
     
 
 protected:
