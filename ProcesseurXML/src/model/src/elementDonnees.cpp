@@ -35,7 +35,7 @@ void ElementDonnees::obtenirDonnees(std::ostream& os) const
     os << texte;
 }
 
-void ElementDonnees::transformationXSL(AbstractElement noeudXML, std::ostream& os) const
+void ElementDonnees::transformationXSL(AbstractElement* noeudXML, std::ostream& os) const
 {
     os << texte;
 }
