@@ -48,7 +48,7 @@ public:
 	 */
 	ElementDonnees(string* aTexte);
 
-	virtual void transformationXSL(AbstractElement noeudXML, std::ostream& os) const;
+	virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
 
 	
 protected:
