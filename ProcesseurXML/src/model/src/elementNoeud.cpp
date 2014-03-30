@@ -84,7 +84,7 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 	if (nom != "") {
 		regex += '<' + nom + '>';
 	}
-	
+
 	if (!enfants.empty()) 
 	{
 		regex += ".*";
@@ -108,7 +108,15 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 			AbstractElement* elt = *it;
 			regex += elt->creationRegex(mapRegex);
 		}
-	} 
+	} else if (getAttribut("ref")) {
+		if (getAttribut("minOccurs") && getAttribut("maxOccurs")) {
+			regex += "{" + getAttribut("minOccurs") + ", " + getAttribut("maxOccurs") + "}";
+		} else if (getAttribut("minOccurs")) {
+			regex += "{" + getAttribut("maxOccurs") + ",}";
+		} else if (getAttribut("maxOccurs")) {
+			regex += "{1, " + getAttribut("maxOccurs") + "}";
+		}
+	}
 	else if (nom == "sequence") 
 	{
 		regex += "(";
