@@ -57,6 +57,10 @@ public:
     void ajouterFils(AbstractElement* aFils);
 
     virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
+	
+	virtual string ElementNoeud::creationRegex(map& mapRegex) const;
+	
+	virtual bool ElementNoeud::ValiderXML(map mapRegex) const;
 
 
 protected:

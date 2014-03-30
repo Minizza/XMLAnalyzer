@@ -44,6 +44,10 @@
 
 
      virtual std::ostream& versFlux(std::ostream& os) const;
+	 
+	 bool Document::validationXSD(Document documentXSD) const;
+	 
+	 string Document::RemplacerRefs(string nom, map mapRegex) const;
 
 	private:
 		EnTete* enTete;
