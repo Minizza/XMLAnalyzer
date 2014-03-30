@@ -85,12 +85,37 @@ string ElementNoeud::creationRegex(map& mapRegex) const
 		regex += '<' + nom + '>';
 	}
 	
-	if (aDesfils() == 0) {
+	if not(aDesFils()) {
 		regex += ".*";
-	} else if () {
-	
+	} else if (aDesFils()) {
+		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+		{
+			regex += it.creationRegex(mapRegex);
+		}
+	} else if (/* a un attribut ref */) {
+		
+	} else if (nom == "complexType") {
+		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+		{
+			regex += it.creationRegex(mapRegex);
+		}
+	} else if (nom == "sequence") {
+		regex += "(";
+		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+		{
+			regex += it.creationRegex(mapRegex);
+		}
+		regex += ")";
+	} else if (nom == "choice") {
+		regex += "(";
+		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+		{
+			regex += it.creationRegex(mapRegex);
+			regex += "|";
+		}
+		regex.erase(regex.end());
+		regex += ")";
 	}
-	
 	
 	return regex;
 }
