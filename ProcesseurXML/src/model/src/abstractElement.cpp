@@ -42,3 +42,13 @@ void AbstractElement::indenter(std::ostream& os, int indent) const
 		os << "  ";
 	}
 }
+
+void AbstractElement::obtenirDonnees(std::ostream& os) const
+{
+    return;
+}
+
+void AbstractElement::transformationXSL(AbstractElement noeudXML, std::ostream& os) const
+{
+    return;
+}

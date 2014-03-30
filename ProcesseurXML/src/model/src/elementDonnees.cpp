@@ -29,3 +29,13 @@ void ElementDonnees::versFluxIndent(std::ostream& os, int indent) const
 	os << texte << endl;
 }
 
+// Méthdode utilisée pour la transformationXSL
+void ElementDonnees::obtenirDonnees(std::ostream& os) const
+{
+    os << texte;
+}
+
+void ElementDonnees::transformationXSL(AbstractElement noeudXML, std::ostream& os) const
+{
+    os << texte;
+}

@@ -47,9 +47,14 @@ public:
 	 * 
 	 */
 	ElementDonnees(string* aTexte);
+
+	virtual void transformationXSL(AbstractElement noeudXML, std::ostream& os) const;
+
 	
 protected:
 	virtual void versFluxIndent(std::ostream& os, int indent) const;
+	virtual void obtenirDonnees(std::ostream& os) const;
+
 
 private:
 	string texte;

@@ -56,6 +56,9 @@ public:
 
     void ajouterFils(AbstractElement* aFils);
 
+    virtual void transformationXSL(AbstractElement noeudXML, std::ostream& os) const;
+
+
 protected:
 
     //void construireRegex(ConstructeurRegex& regex);

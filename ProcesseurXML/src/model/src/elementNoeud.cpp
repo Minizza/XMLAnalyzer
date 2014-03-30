@@ -70,3 +70,8 @@ void ElementNoeud::nomVersFlux(ostream& os) const
 	}
 	os << nom;
 }
+
+void transformationXSL(AbstractElement noeudXML, std::ostream& os) const
+{
+	// todo
+}
