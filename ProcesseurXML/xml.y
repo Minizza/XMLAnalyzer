@@ -59,7 +59,7 @@
 	%type <attrString> attribut
 
     %expect 2
-    
+
 	%%
 
 	document
@@ -74,7 +74,7 @@
         deque<AbstractElement*>::iterator it = $3->begin();
         //insert before it the first deque
         $3->insert(it,$1->begin(),$1->end());
-        $$ = new EnTete(0, $2, $3,$1->size());
+        $$ = new EnTete($2, $3,$1->size());
     }
 	;
 
