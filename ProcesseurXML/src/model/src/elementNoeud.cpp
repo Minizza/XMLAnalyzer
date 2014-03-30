@@ -85,32 +85,42 @@ string ElementNoeud::creationRegex(map& mapRegex) const
 		regex += '<' + nom + '>';
 	}
 	
-	if not(aDesFils()) {
+	if (!aDesFils()) {
 		regex += ".*";
 	} else if (aDesFils()) {
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
-			regex += it.creationRegex(mapRegex);
+			AbstractElement* elt = *it;
+			regex += elt->creationRegex(mapRegex);
 		}
-	} else if (/* a un attribut ref */) {
-		
+	} else if (getAttribut("ref") {
+		if (getAttribut("minOccurs") && getAttribut("maxOccurs")) {
+			regex += "{" + getAttribut("minOccurs") + ", " + getAttribut("maxOccurs") + "}";
+		} else if (getAttribut("minOccurs")) {
+			regex += "{" + getAttribut("maxOccurs") + ",}";
+		} else if (getAttribut("maxOccurs")) {
+			regex += "{1, " + this.maxOccurs + "}";
+		}
 	} else if (nom == "complexType") {
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
-			regex += it.creationRegex(mapRegex);
+			AbstractElement* elt = *it;
+			regex += elt->creationRegex(mapRegex);
 		}
 	} else if (nom == "sequence") {
 		regex += "(";
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
-			regex += it.creationRegex(mapRegex);
+			AbstractElement* elt = *it;
+			regex += elt->creationRegex(mapRegex);
 		}
 		regex += ")";
 	} else if (nom == "choice") {
 		regex += "(";
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
-			regex += it.creationRegex(mapRegex);
+			AbstractElement* elt = *it;
+			regex += elt->creationRegex(mapRegex);
 			regex += "|";
 		}
 		regex.erase(regex.end());
