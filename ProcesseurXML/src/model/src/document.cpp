@@ -69,7 +69,24 @@ bool Document::validationXSD(Document documentXSD) const
 
 string Document::RemplacerRefs(std::string nom, map mapRegex) const
 {
-	//TODO
+	if (mapRegex[nom].find_first_of("@")) {
+	int i;
+	string regex = "";
+		//TODO : parser la string, recuperer ce qu'il se trouve entre les deux @ dans un tableau de strings
+		
+		for(i = 0 ; i < ref.lenght() ; i++) {
+			if (mapRegex.count(ref[i]) > 0) {
+				regex = RemplacerRefs(ref[i], map);
+				mapRegex[nom].replace(find_first_of("@", ref[i].lenght(), regex);
+			} else {
+				// TODO : dire que c'est caca.
+			}
+			}
+		}
+		
+		return mapRegex[nom];
+	}
+	
 	return;
 }
 

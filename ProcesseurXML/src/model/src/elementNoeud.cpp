@@ -94,6 +94,8 @@ string ElementNoeud::creationRegex(map& mapRegex) const
 			regex += elt->creationRegex(mapRegex);
 		}
 	} else if (getAttribut("ref") {
+		regex += "@" + getAttribut("ref") + "@";
+		
 		if (getAttribut("minOccurs") && getAttribut("maxOccurs")) {
 			regex += "{" + getAttribut("minOccurs") + ", " + getAttribut("maxOccurs") + "}";
 		} else if (getAttribut("minOccurs")) {
