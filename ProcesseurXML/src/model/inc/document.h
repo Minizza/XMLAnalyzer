@@ -56,7 +56,8 @@
 		ElementNoeud* racine;
 		bool estXSD;
 
-	};
+};
 
+ostream& operator<<(ostream& os, const Document& doc);
 
 #endif  /* DOCUMENT_H */
