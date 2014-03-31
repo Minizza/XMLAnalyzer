@@ -133,6 +133,7 @@
 
 	emptytag
 	: INF NOM attributs SLASH SUP {$$ = new ElementNoeud(new string($2), $3, 0, new string(""));}
+	| INF NOM COLON NOM attributs SLASH SUP {$$ = new ElementNoeud(new string($4), $5, 0, new string($2));}
 	;
 
 	content
