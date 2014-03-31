@@ -105,26 +105,16 @@ string ElementNoeud::creationRegex(map<string,string>& mapreg) const
 		ostringstream oss;
 		att->valeurVersFlux(oss);
 		reg += "<"  + oss.str() + ">";
-
-		//cout << oss.str() << endl;
+#ifdef DEBUG
+		cout << reg << endl;
+#endif
 	}
-
-	if (!enfants.empty()) 
-	{
-
-
-		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
-		{
-			AbstractElement* elt = *it;
-			reg += elt->creationRegex(mapreg);
-		}
-	} 
-	else
-	{
-
 
 		if (nom.getNom() == "complexType") 
 		{
+            #ifdef DEBUG
+            cout << "un complexType !!!!!!!!!!!!" << endl;
+            #endif
 			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 			{
 				AbstractElement* elt = *it;
@@ -133,6 +123,9 @@ string ElementNoeud::creationRegex(map<string,string>& mapreg) const
 		}
 		else if (getAttribut("ref")) 
 		{
+            #ifdef DEBUG
+            cout << "une réf !!!!!!!!!!!!" << endl;
+            #endif
 			AbstractAttribut* ref = getAttribut("ref");
 			AbstractAttribut* min = getAttribut("minOccurs");
 			AbstractAttribut* max = getAttribut("maxOccurs");
@@ -191,7 +184,7 @@ string ElementNoeud::creationRegex(map<string,string>& mapreg) const
                 reg += elt->creationRegex(mapreg);
                 reg += "|";
             }
-            reg.erase(reg.end());
+            reg.erase(reg.end()-1);
             reg += ")";
         }
         else
@@ -204,7 +197,7 @@ string ElementNoeud::creationRegex(map<string,string>& mapreg) const
             }
         }  
 
-    }
+
 
     if (AbstractAttribut* att = getAttribut("name")) {
      ostringstream oss;
