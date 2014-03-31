@@ -126,7 +126,7 @@
 	;
 
 	emptytag
-	: INF nomCanonique attributs SLASH SUP {$$ = new ElementNoeud($2, $3, 0);}
+	: INF nomCanonique attributs SLASH SUP {$$ = new ElementNoeud($2, $3, new deque<AbstractElement*>);}
 	;
 
 	content

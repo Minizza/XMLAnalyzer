@@ -39,3 +39,8 @@ void ElementDonnees::transformationXSL(AbstractElement* noeudXML, AbstractElemen
 {
     os << texte;
 }
+
+void ElementDonnees::filsDirectsVersFlux(std::ostream& os, bool recursiver) const
+{
+    os << texte;
+}

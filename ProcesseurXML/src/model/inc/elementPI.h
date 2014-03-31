@@ -45,6 +45,9 @@ public:
 		iterator begin() { return AbstractElement::iterator(deque<AbstractElement*>()); } 
 		iterator end() { return AbstractElement::iterator(deque<AbstractElement*>()); }
 
+        void filsDirectsVersFlux(std::ostream& os, bool recursiver=true) const;
+    
+
 protected:
     /*
      *  Méthode versFluxIndent

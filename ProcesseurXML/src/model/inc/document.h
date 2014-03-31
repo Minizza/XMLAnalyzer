@@ -11,6 +11,8 @@
  #include "enTete.h"
  #include "iAffichable.h"
 
+ #include <map>
+
 
 //Liste des espaces de noms utilises 
 
@@ -55,6 +57,10 @@
      *              a été écrit.    
      */
      virtual std::ostream& versFlux(std::ostream& os) const;
+	 
+	 virtual bool validationXSD(const Document& documentXSD) const;
+	 
+	 virtual string RemplacerRefs(string& nom, map<string, string>& mapRegex) const;
 
      virtual std::string transformationXSL(const Document& documentXSL);
 
@@ -63,7 +69,8 @@
 		ElementNoeud* racine;
 		bool estXSD;
 
-	};
+};
 
+ostream& operator<<(ostream& os, const Document& doc);
 
 #endif  /* DOCUMENT_H */

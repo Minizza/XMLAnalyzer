@@ -11,7 +11,7 @@ documentXML.ValidationXSD(documentXSD)
 
 Boolean documentXML::ValidationXSD(documentXSD) {
 
-	map = newMap()
+	map = new Map()
 	racineXSD = documentXSD.racine
 	sortie = racineXSD.CreationRegex(map)
 

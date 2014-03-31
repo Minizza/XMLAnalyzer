@@ -9,6 +9,8 @@
 //Liste des includes système/libs
  #include <string>
  #include <deque>
+ #include <map>
+ #include <regex>
 
  #include "abstractElement.h"
  #include "elementBurne.h"
@@ -69,6 +71,11 @@ public:
    */
     virtual void transformationXSL(AbstractElement* noeudXML, AbstractElement* racineXSL, std::ostream& os) const;
 
+	virtual string creationRegex(map<string,string>& mapRegex) const;
+	
+    virtual bool ValiderXML(map<string,string>& mapRegex) const;
+    
+	void filsDirectsVersFlux(std::ostream& os, bool recursiver=true) const;
 
 protected:
 

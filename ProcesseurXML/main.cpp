@@ -70,7 +70,7 @@ int validateOption(int argc, char** argv)
     char * nomFichierXSD =argv[3];
     fidXSD=fopen(nomFichierXSD ,"r");
 
-    if(fidXML && fidXSD)
+    if(fidXML!=NULL&&fidXSD!=NULL)
     {
         Document* docXML = parseFile(fidXML);
         Document* docXSD = parseFile(fidXSD);
@@ -83,11 +83,11 @@ int validateOption(int argc, char** argv)
         //cout << *docXSD << endl;
     return 0;
     }
-    else if (!fidXML)
+    else if (fidXML==NULL)
     {
         return 1;
     }
-    else if (!fidXSD)
+    else if (fidXSD==NULL)
     {
         return 2;
     }
@@ -108,7 +108,7 @@ int templateOption(int argc, char** argv)
     char * nomFichierXSL =argv[3];
     fidXSL=fopen(nomFichierXSL ,"r");
 
-    if(fidXML && fidXSL)
+    if(fidXML!=NULL&&fidXSL!=NULL)
     {
         Document* docXML = parseFile(fidXML);
         Document* docXSL = parseFile(fidXSL);
@@ -122,11 +122,11 @@ int templateOption(int argc, char** argv)
         //cout << html << endl;
         return 0;
     }
-    else if (!fidXML)
+    else if (fidXML==NULL)
     {
         return 1;
     }
-    else if (!fidXSL)
+    else if (fidXSL==NULL)
     {
         return 2;
     }
@@ -140,7 +140,6 @@ int main(int argc, char** argv)
     #ifdef XMLDEBUG
     xmldebug=1;
     #endif
-
     if (argc>1)
     {
         if(string(argv[1])=="-p")
@@ -201,13 +200,7 @@ int main(int argc, char** argv)
                     {
                         cerr<<"Unable to open file "<<argv[3]<<endl;
                         return 1;
-                    }
-                    case 3:
-                    {
-                        #ifdef DEBUG
-                        cerr<<"Parsing error"<<endl;
-                        #endif
-                    }
+                    } 
                 }
 
                 return 0;

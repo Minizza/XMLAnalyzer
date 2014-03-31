@@ -9,6 +9,7 @@
 //Liste des includes système/libs
 #include <string>
 #include <deque>
+#include <map>
 
 //Liste des includes personnels
 #include "iAffichable.h"
@@ -43,6 +44,8 @@ public:
 	 *		renvoie un booléen indiquant si l'élément a des fils ou non
 	 */
 
+	virtual ~AbstractElement();
+
 	virtual bool aDesFils()=0;
 	virtual iterator begin()=0;
 	virtual iterator end()=0;
@@ -71,6 +74,8 @@ public:
      */
 	virtual void versFluxIndent(std::ostream& os, int indent) const=0;
 
+    virtual void filsDirectsVersFlux(std::ostream& os, bool recursiver=true) const=0;
+	
 	/*
 	 *	Méthode virtuelle transformationXSL
 	 *		méthode permettant de transformer l'élément XML en élément XSL
@@ -79,11 +84,15 @@ public:
 	 *			-AbstractElement* noeudXML : le noeud XML supérieur à l'élément présent
 	 *			-ostream& os : passage par référence du flux de sortie
 	 */
-	virtual void transformationXSL(AbstractElement* noeudXML, AbstractElement* racine, std::ostream& os) const;
+	virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
+	
+	virtual bool ValiderXML(std::map<std::string,std::string>& mapRegex) const;
+	
+	virtual std::string creationRegex(std::map<std::string,std::string>& mapRegex) const;
 
 	// Public -> don't know why
-	virtual void donneesVersFlux(std::ostream& os) const;
-
+	virtual void donneesVersFlux(std::ostream& os) const;	
+	
 	virtual NomCanonique const * getNom() const=0;
 
 	//	Itérateur de l'attribut hérité deque<AbstractElement*>
@@ -122,6 +131,7 @@ public:
 
 protected:
 	void indenter(std::ostream& os, int indent) const;
+	virtual void obtenirDonnees(std::ostream& os) const;
 };
 
 #endif  /* ABSTRACT_ELEMENT_H */

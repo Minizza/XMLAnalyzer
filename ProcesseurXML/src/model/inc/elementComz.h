@@ -32,6 +32,7 @@ public:
 	iterator begin() { return AbstractElement::iterator(deque<AbstractElement*>()); } 
 	iterator end() { return AbstractElement::iterator(deque<AbstractElement*>()); }
 	virtual ~ElementComz();
+    void filsDirectsVersFlux(std::ostream& os, bool recursiver=true) const;
 
 	/*
 	 *  Redéfinition du constructeur
