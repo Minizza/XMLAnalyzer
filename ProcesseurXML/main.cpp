@@ -221,6 +221,11 @@ int main(int argc, char** argv)
                         cerr<<"Unable to open file "<<argv[3]<<endl;
                         return 1;
                     }
+                    case 3:
+                    {
+                        cerr<<"No root markup"<<endl;
+                        return 1;
+                    }
                 }
                     
             }

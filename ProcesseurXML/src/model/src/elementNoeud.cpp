@@ -45,8 +45,7 @@ void ElementNoeud::ajouterFils(AbstractElement* aFils) {
 void ElementNoeud::versFluxIndent(std::ostream& os, int indent) const
 {
 	indenter(os, indent);
-	os << "<";
-	nomVersFlux(os);
+	os << "<" << nom;
 	for(deque<AbstractAttribut*>::const_iterator it = atts.begin(); it != atts.end(); it++)
 	{
 		AbstractAttribut* att = *it;
@@ -59,18 +58,7 @@ void ElementNoeud::versFluxIndent(std::ostream& os, int indent) const
 		elt->versFluxIndent(os, indent+1);
 	}
 	indenter(os, indent);
-	os << "</";
-	nomVersFlux(os);
-	os << ">\n";
-}
-
-void ElementNoeud::nomVersFlux(ostream& os) const
-{
-	if(!namespaceName.empty())
-	{
-		os << namespaceName << ":";
-	}
-	os << nom;
+	os << "</" << nom << ">\n";
 }
 
 void ElementNoeud::transformationXSL(AbstractElement* noeudXML, std::ostream& os) const

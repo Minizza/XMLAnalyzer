@@ -19,7 +19,7 @@ ElementBurne::~ElementBurne() {
 
 
 ///// Redéfinition du contructeur /////
-ElementBurne::ElementBurne(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts) : atts(*aAtts), nom(*aNom) {
+ElementBurne::ElementBurne(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts) : AbstractElement(), atts(*aAtts), nom(*aNom) {
 #ifdef DEBUG
 		std::cout << "Construction de <ElementBurne>" << std::endl;
 #endif

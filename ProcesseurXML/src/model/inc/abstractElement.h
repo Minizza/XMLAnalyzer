@@ -39,7 +39,6 @@ public:
 	 *          -String name : le nom de l'élément
 	 * 
 	 */
-	AbstractElement(std::string* aNom);
 
 	virtual ~AbstractElement();
 

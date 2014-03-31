@@ -74,9 +74,6 @@ private:
    bool estXSD;
    deque<AbstractElement*> enfants;
    ConstructeurRegex* regexFils;
-   string namespaceName;
-
-   void nomVersFlux(ostream& os) const;
 };
 
 
