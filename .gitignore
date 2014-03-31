@@ -39,4 +39,5 @@ commun
 *.nav
 *.snm
 *.tex.backup
+*.vrb
 main.pdf
