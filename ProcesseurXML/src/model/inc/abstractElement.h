@@ -44,8 +44,6 @@ public:
 	 *		renvoie un booléen indiquant si l'élément a des fils ou non
 	 */
 
-	virtual ~AbstractElement();
-
 	virtual bool aDesFils()=0;
 	virtual iterator begin()=0;
 	virtual iterator end()=0;
@@ -84,7 +82,7 @@ public:
 	 *			-AbstractElement* noeudXML : le noeud XML supérieur à l'élément présent
 	 *			-ostream& os : passage par référence du flux de sortie
 	 */
-	virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
+	virtual void transformationXSL(AbstractElement* noeudXML, AbstractElement* racineXSL, int indent, std::ostream& os) const;
 	
 	virtual bool ValiderXML(std::map<std::string,std::string>& mapRegex) const;
 	
@@ -131,7 +129,6 @@ public:
 
 protected:
 	void indenter(std::ostream& os, int indent) const;
-	virtual void obtenirDonnees(std::ostream& os) const;
 };
 
 #endif  /* ABSTRACT_ELEMENT_H */

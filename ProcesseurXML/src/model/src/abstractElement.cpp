@@ -42,10 +42,11 @@ void AbstractElement::indenter(std::ostream& os, int indent) const
 
 void AbstractElement::donneesVersFlux(std::ostream& os) const
 {
+	cout << "Je suis dans Abstract" << endl;
     return;
 }
 
-void AbstractElement::transformationXSL(AbstractElement* noeudXML, AbstractElement* racineXSL, std::ostream& os) const
+void AbstractElement::transformationXSL(AbstractElement* noeudXML, AbstractElement* racineXSL, int indent, std::ostream& os) const
 {
     return;
 }

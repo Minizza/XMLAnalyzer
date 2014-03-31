@@ -35,9 +35,11 @@ void ElementDonnees::donneesVersFlux(std::ostream& os) const
     os << texte;
 }
 
-void ElementDonnees::transformationXSL(AbstractElement* noeudXML, AbstractElement* racineXSL, std::ostream& os) const
+void ElementDonnees::transformationXSL(AbstractElement* noeudXML, AbstractElement* racineXSL, int indent, std::ostream& os) const
 {
-    os << texte;
+    cout << "Je suis dans donnees" << endl;
+    indenter(os, indent);
+    os << texte << endl;
 }
 
 void ElementDonnees::filsDirectsVersFlux(std::ostream& os, bool recursiver) const

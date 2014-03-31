@@ -25,8 +25,3 @@ ostream& AbstractAttribut::versFlux(ostream& os) const
 	valeurVersFlux(os);
 	os << "\"";
 }
-
-const NomCanonique& AbstractAttribut::getNom() const
-{
-    return nom;
-}

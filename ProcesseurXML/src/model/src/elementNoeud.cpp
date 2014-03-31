@@ -76,10 +76,11 @@ void ElementNoeud::nomVersFlux(ostream& os) const
 	os << nom;
 }
 
-void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement* racineXSL, std::ostream& os) const
+void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement* racineXSL, int indent, std::ostream& os) const
 {
-	if(nom.getNamespace() == "xsl")
-	{
+    // cout << nom.getNom() << estVide() << endl;
+    if(nom.getNamespace() == "xsl")
+    {
 		if(nom.getNom() == "value-of")
 		{
 			std::ostringstream oss;
@@ -90,7 +91,9 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement*
 				for(AbstractElement::iterator it = noeudXML->begin(); it != noeudXML->end(); it++)
 				{
 					AbstractElement* eltXml = *it;
+                    indenter(os, indent);
 					eltXml->donneesVersFlux(os);
+                    os << endl;
 				}
 			}
 			else
@@ -100,16 +103,18 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement*
 					AbstractElement* eltXml = *it;
 					const NomCanonique* nom = eltXml->getNom();
 					if(nom && nom->getNom() == select) {
+                        indenter(os, indent);
 						eltXml->donneesVersFlux(os);
+                        os << endl;
 					}
 				}
 			}
 		}
 		else if(nom.getNom() == "for-each")
 		{
-			std::ostringstream oss;
-			getAttribut("select")->valeurVersFlux(oss);
-			string select = oss.str();
+            std::ostringstream oss;
+            getAttribut("select")->valeurVersFlux(oss);
+            string select = oss.str();
 
 			for(AbstractElement::iterator itXml = noeudXML->begin(); itXml != noeudXML->end(); itXml++)
 			{
@@ -119,33 +124,37 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement*
 					for(deque<AbstractElement*>::const_iterator itXsl = enfants.begin(); itXsl != enfants.end(); itXsl++)
 					{
 						AbstractElement* filsXsl = *itXsl;
-						filsXsl->transformationXSL(filsXsl, racineXSL, os);
+						filsXsl->transformationXSL(filsXsl, racineXSL, indent, os);
 					}
 				}
 			}
 		}
-		else if(nom.getNom() == "apply-template" && estVide())
+		else if(nom.getNom() == "apply-templates" && estVide())
 		{
 			for(AbstractElement::iterator itXml = noeudXML->begin(); itXml != noeudXML->end(); itXml++)
 			{
+
 				AbstractElement* eltXml = *itXml;
+
+                const NomCanonique* nomXml = eltXml->getNom();
+
 				for(AbstractElement::iterator itXsl = racineXSL->begin(); itXsl != racineXSL->end(); itXsl++)
 				{
 					ElementBurne* eltXsl = (ElementBurne*)*itXsl;
-					const NomCanonique* nom = eltXsl->getNom();
+					const NomCanonique* nomXsl = eltXsl->getNom();
 
 					std::ostringstream oss;
 					eltXsl->getAttribut("match")->valeurVersFlux(oss);
 					string match = oss.str();
 
-					if(nom && nom->getNamespace() == "xsl" && nom->getNom() == "template" && match == nom->getNom())
+					if(nomXsl && nomXsl->getNamespace() == "xsl" && nomXsl->getNom() == "template" && match == nomXml->getNom())
 					{
-						eltXsl->transformationXSL(eltXml, racineXSL, os);
+						eltXsl->transformationXSL(eltXml, racineXSL, indent, os);
 					}
 				}
 			}
 		}
-		else if(nom.getNom() == "apply-template" && !estVide())
+		else if(nom.getNom() == "apply-templates" && !estVide())
 		{
 			std::ostringstream oss;
 			getAttribut("select")->valeurVersFlux(oss);
@@ -168,7 +177,7 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement*
 						const NomCanonique* nomXml = eltXml->getNom();
 						if(nomXml && nomXml->getNom() == select)
 						{
-							eltXsl->transformationXSL(eltXml, racineXSL, os);
+							eltXsl->transformationXSL(eltXml, racineXSL, indent, os);
 						}
 					}
 					break;
@@ -181,24 +190,33 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement*
 			for(deque<AbstractElement*>::const_iterator itXsl = enfants.begin(); itXsl != enfants.end(); itXsl++)
 			{
 				AbstractElement* filsXsl = *itXsl;
-				filsXsl->transformationXSL(noeudXML, racineXSL, os);
+				filsXsl->transformationXSL(noeudXML, racineXSL, indent, os);
 			}
 		}
 	}
 	else {
-		os << "<" << nom.getNom();
-		for(deque<AbstractAttribut*>::const_iterator it = atts.begin(); it != atts.end(); it++)
-		{
-			AbstractAttribut* filsAtts = *it;
-			filsAtts->versFlux(os);
-		}
-		os << ">";
-		for(deque<AbstractElement*>::const_iterator itXsl = enfants.begin(); itXsl != enfants.end(); itXsl++)
-		{
-			AbstractElement* filsXsl = *itXsl;
-			filsXsl->transformationXSL(noeudXML, racineXSL, os);
-		}
-		os << "</" << nom.getNom() << ">";
+        indenter(os, indent);
+        if(nom.getNom() == "br")
+        {
+            os << "<br/>" << endl;
+        }
+        else
+        {
+            os << "<" << nom.getNom();
+            for(deque<AbstractAttribut*>::const_iterator it = atts.begin(); it != atts.end(); it++)
+            {
+                AbstractAttribut* filsAtts = *it;
+                filsAtts->versFlux(os);
+            }
+            os << ">" << endl;
+            for(deque<AbstractElement*>::const_iterator itXsl = enfants.begin(); itXsl != enfants.end(); itXsl++)
+            {
+                AbstractElement* filsXsl = *itXsl;
+                filsXsl->transformationXSL(noeudXML, racineXSL, indent+1, os);
+            }
+            indenter(os, indent);
+            os << "</" << nom.getNom() << ">" << endl;
+        }
 	}
 }
 
