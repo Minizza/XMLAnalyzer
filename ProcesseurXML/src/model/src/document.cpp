@@ -7,6 +7,7 @@
  #include "document.h"
 #include <iostream>
  #include <assert.h>
+#include <sstream>
 
 //Methodes par defaut de la classe Document
 Document::Document() {
@@ -44,7 +45,23 @@ std::ostream& Document::versFlux(std::ostream& os) const
     return os;
 }
 
-std::string transformationXSL(AbstractElement* noeudXSL, AbstractElement* noeudXML, std::string& sortie)
+std::string Document::transformationXSL(const Document& documentXSL)
 {
-	/* DAT ALGO' MAN ! */
+    std::ostringstream os;
+    for(AbstractElement::iterator it = documentXSL.racine->begin(); it != documentXSL.racine->end(); it++)
+    {
+        ElementBurne* elt = (ElementBurne*)*it;
+        const NomCanonique* nom = elt->getNom();
+
+        std::ostringstream oss;
+        elt->getAttribut("match")->valeurVersFlux(oss);
+        string match = oss.str();
+
+        if(nom && nom->getNamespace() == "xsl" && nom->getNom() == "template" && match == "/")
+        {   
+            elt->transformationXSL(racine, elt, os);
+            break;
+        }
+    }
+    return os.str();
 }

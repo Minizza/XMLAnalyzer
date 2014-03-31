@@ -56,7 +56,7 @@
      */
      virtual std::ostream& versFlux(std::ostream& os) const;
 
-     std::string transformationXSL(AbstractElement* noeudXSL, AbstractElement* noeudXML, std::string& sortie);
+     virtual std::string transformationXSL(const Document& documentXSL);
 
 	private:
 		EnTete* enTete;

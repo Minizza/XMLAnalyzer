@@ -10,6 +10,14 @@ extern FILE* xmlin;
 extern int xmldebug;
 int xmlparse(Document**);
 
+Document* parseFile(FILE* fid)
+{
+    xmlin=fid;
+    Document* doc=NULL;
+    int b=xmlparse(&doc);
+    return doc;
+}
+
 void catDatFile(FILE * fid,char* nomFichier)
 {
     cout<<"=============DEBUT DU DEBUG"<<endl;
@@ -33,9 +41,7 @@ int parseOption(int argc, char** argv)
         catDatFile(fid,nomFichier);
         rewind(fid);
         #endif
-        xmlin=fid;
-        Document* rootDoc=NULL;
-        int b=xmlparse(&rootDoc);
+        Document* rootDoc = parseFile(fid);
         if(rootDoc!=NULL)
         {
             rootDoc->versFlux(std::cout);
@@ -64,15 +70,24 @@ int validateOption(int argc, char** argv)
     char * nomFichierXSD =argv[3];
     fidXSD=fopen(nomFichierXSD ,"r");
 
-    if(fidXML!=NULL&&fidXSD!=NULL)
+    if(fidXML && fidXSD)
     {
-        return 0;
+        Document* docXML = parseFile(fidXML);
+        Document* docXSD = parseFile(fidXSD);
+        if(!docXML || !docXSD)
+        {
+            return 3;
+        }
+        //bool valid = docXML->validationXSD(*docXSD);
+        //cout << *docXML << endl;
+        //cout << *docXSD << endl;
+    return 0;
     }
-    else if (fidXML==NULL)
+    else if (!fidXML)
     {
         return 1;
     }
-    else if (fidXSD==NULL)
+    else if (!fidXSD)
     {
         return 2;
     }
@@ -93,15 +108,25 @@ int templateOption(int argc, char** argv)
     char * nomFichierXSL =argv[3];
     fidXSL=fopen(nomFichierXSL ,"r");
 
-    if(fidXML!=NULL&&fidXSL!=NULL)
+    if(fidXML && fidXSL)
     {
+        Document* docXML = parseFile(fidXML);
+        Document* docXSL = parseFile(fidXSL);
+        if(!docXML || !docXSL)
+        {
+            return 3;
+        }
+        //std::string html = docXML->transformationXSL(*docXSL);
+        /*docXML->versFlux(cout);
+        docXSL->versFlux(cout);*/
+        //cout << html << endl;
         return 0;
     }
-    else if (fidXML==NULL)
+    else if (!fidXML)
     {
         return 1;
     }
-    else if (fidXSL==NULL)
+    else if (!fidXSL)
     {
         return 2;
     }
@@ -115,6 +140,7 @@ int main(int argc, char** argv)
     #ifdef XMLDEBUG
     xmldebug=1;
     #endif
+
     if (argc>1)
     {
         if(string(argv[1])=="-p")
@@ -175,7 +201,13 @@ int main(int argc, char** argv)
                     {
                         cerr<<"Unable to open file "<<argv[3]<<endl;
                         return 1;
-                    } 
+                    }
+                    case 3:
+                    {
+                        #ifdef DEBUG
+                        cerr<<"Parsing error"<<endl;
+                        #endif
+                    }
                 }
 
                 return 0;
@@ -205,6 +237,11 @@ int main(int argc, char** argv)
                     case 2:
                     {
                         cerr<<"Unable to open file "<<argv[3]<<endl;
+                        return 1;
+                    }
+                    case 3:
+                    {
+                        cerr<<"No root markup"<<endl;
                         return 1;
                     }
                 }
