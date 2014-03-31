@@ -70,17 +70,25 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, std::ostream& os
 string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 {
 	string regex = "";
-	
-	if (nom.getNom() != "") {
-		regex += '<' + nom.getNamespace() + ":" + nom.getNom() + '>';
+	if (AbstractAttribut* att = getAttribut("name")) {
+		ostringstream oss;
+		att->valeurVersFlux(oss);
+		regex += "<"  + oss.str() + ">";
 	}
 
 	if (!enfants.empty()) 
 	{
-		regex += ".*";
+		
+
+		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+		{
+			AbstractElement* elt = *it;
+			regex += elt->creationRegex(mapRegex);
+		}
 	} 
 	else if (enfants.empty()) 
 	{
+		regex += ".*";
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
 			AbstractElement* elt = *it;
@@ -144,12 +152,22 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 		regex.erase(regex.end());
 		regex += ")";
 	}
+
+	if (AbstractAttribut* att = getAttribut("name")) {
+		ostringstream oss;
+		att->valeurVersFlux(oss);
+		string name = oss.str();
+		regex += "</"  + name + ">";
+		
+		//map<string, string>::iterator it = mapRegex.find(name); 
+		mapRegex[name] = regex;
+	}
 	
 	return regex;
 }
 
 bool ElementNoeud::ValiderXML(map<string,string>& mapRegex) const
 {
-	return false;
+	return true;
 	// todo
 }

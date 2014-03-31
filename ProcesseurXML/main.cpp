@@ -78,9 +78,10 @@ int validateOption(int argc, char** argv)
         {
             return 3;
         }
-        //FAIRE LE CACA !
-        cout << *docXML << endl;
+        bool valid = docXML->validationXSD(*docXSD);
+        //cout << *docXML << endl;
         cout << *docXSD << endl;
+	return 0;
     }
     else if (!fidXML)
     {
