@@ -16,16 +16,16 @@
 using namespace std;
 
 /*
- *      La classe ElementCData blablabla.
+ *      La classe ElementCData représente un élément CDATA d'un document XML pour le parsing.
  * 
- *      Cette classe appartient à la partie bloblo de notre application.
+ *      Cette classe hérite de ElementCastre.
  *
  */
 class ElementCData : public ElementCastre{
 	
 public:
 	
-	//Methodes de base de la classe ElementCData
+	// Constructeur par défaut
 	ElementCData();
 	
 	// Méthodes héritées
@@ -39,15 +39,21 @@ public:
 	 *  Redéfinition du constructeur
 	 *          
 	 *    Paramètres : 
-	 *          -Golum* pouet : passage du device servant à gérer
-	 *                  l'affichage de la fenêtre
-	 *          -Prout* crottin : passage du driver servant à importer 
-	 *                  les textures et les modèles
+	 *          -string* aTexte : pointeur vers le texte contenu dans un CDATA
 	 * 
 	 */
 	ElementCData(string* aTexte);
 
 protected:
+
+	/*
+     *  Méthode versFluxIndent
+     *      méthode analogue à versFlux, mais dans laquelle on spécifie une indentation
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie
+     *			-int ident : entier spécifiant l'indentation à utiliser
+     */
 	virtual void versFluxIndent(std::ostream& os, int indent) const;
 
 private:

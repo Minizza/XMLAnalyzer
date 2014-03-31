@@ -17,9 +17,10 @@
 
 
 /*
- *      La classe AbstractElement blablabla.
+ *      La classe AbstractElement est une classe abstraite représentant
+ *			les différents éléments qui composent un document XML.
  * 
- *      Cette classe appartient à la partie bloblo de notre application.
+ *      Cette classe implémente l'interface IAffichable.
  *
  */
 class AbstractElement : public IAffichable {
@@ -28,29 +29,58 @@ public:
 	
 	class iterator;
 	
+	//Constructeur par défaut
 	AbstractElement();
+
+	//Constructeur par copie
   	AbstractElement(AbstractElement* orig);
 	
-	/*
-	 *  Constructeur abstrait
-	 *          
-	 *    Paramètres : 
-	 *          -String name : le nom de l'élément
-	 * 
-	 */
-
+	//Destructeur par défaut
 	virtual ~AbstractElement();
 
+	/*
+	 *	Méthode virtuelle aDesFils
+	 *		renvoie un booléen indiquant si l'élément a des fils ou non
+	 */
 	virtual bool aDesFils()=0;
 	virtual iterator begin()=0;
 	virtual iterator end()=0;
 	
+	/*
+     *  Méthode versFlux
+     *      écrit dans le flux passé en paramètre tel que l'objet est censé être
+     *      dans un document XML
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie
+     *      
+     *      Retour :
+     *          -ostream& : retourne le flux dans lequel l'affichage de l'objet
+     *              a été écrit.    
+     */
 	std::ostream& versFlux(std::ostream& os) const;
-	//J'aurais bien aimé la mettre protégée mais c++ me chie dessus...
+	
+	/*
+     *  Méthode versFluxIndent
+     *      méthode analogue à versFlux, mais dans laquelle on spécifie une indentation
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie
+     *			-int ident : entier spécifiant l'indentation à utiliser
+     */
 	virtual void versFluxIndent(std::ostream& os, int indent) const=0;
 
+	/*
+	 *	Méthode virtuelle transformationXSL
+	 *		méthode permettant de transformer l'élément XML en élément XSL
+	 *
+	 *		Paramètres : 
+	 *			-AbstractElement* noeudXML : le noeud XML supérieur à l'élément présent
+	 *			-ostream& os : passage par référence du flux de sortie
+	 */
 	virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
 
+	//	Itérateur de l'attribut hérité deque<AbstractElement*>
 	class iterator
 	{
 			public:

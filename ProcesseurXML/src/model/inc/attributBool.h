@@ -14,34 +14,40 @@
 
 
 /*
- *      La classe AttributBool blablabla.
+ *      La classe AttributBool représente un attribut booléen pour le parsing XML.
  * 
- *      Cette classe appartient à la partie bloblo de notre application.
+ *      Cette classe hérite de AbstractAttribut.
  *
  */
 class AttributBool: public AbstractAttribut{
     
 public:
-    
-    //Methodes de base de la classe AttributBool
+
+    //Constructeur par défaut
     AttributBool(){};
     
+    //Constructeur par copie
     AttributBool(const AttributBool& orig);
     
+    //Destructeur par défaut
     virtual ~AttributBool();
 
     /*
      *  Redéfinition du constructeur
      *          
      *    Paramètres : 
-     *          -Golum* pouet : passage du device servant à gérer
-     *                  l'affichage de la fenêtre
-     *          -Prout* crottin : passage du driver servant à importer 
-     *                  les textures et les modèles
+     *          -bool aValue : la valeur donnée à l'attribut
      * 
      */
     AttributBool(bool aValue){value = aValue;};
 
+    /*
+     *  Méthode valeurVersFlux
+     *      n'écrit dans le flux passé en paramètre uniquement la valeur de l'objet.
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie    
+     */
     void valeurVersFlux(ostream& os) const;
 
 private:

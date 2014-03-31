@@ -25,11 +25,13 @@ class ConstructeurRegex{
 	
 public:
 	
-	//Methodes de base de la classe ConstructeurRegex
+	//Constructeur par défaut
 	ConstructeurRegex();
 	
+	//Constructeur par copie 
 	ConstructeurRegex(ConstructeurRegex* orig);
 	
+	//Destructeur par défaut
 	virtual ~ConstructeurRegex();
 
 

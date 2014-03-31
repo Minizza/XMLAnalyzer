@@ -23,20 +23,32 @@ class Doctype : public IAffichable{
 
 public:
 
-   //Methodes de base de la classe Doctype
+   //Destructeur par défaut
     virtual ~Doctype();
 
     /*
      *  Redéfinition du constructeur
      *          
      *    Paramètres : 
-     *          -Golum* pouet : passage du device servant à gérer
-     *                  l'affichage de la fenêtre
-     *          -Prout* crottin : passage du driver servant à importer 
-     *                  les textures et les modèles
+     *          -string* aNom : pointeur sur le nom de l'objet
+     *          -string* aType : pointeur sur la string donnant le type du document
+     *          -deque<string*>* : pointeur sur la deque de la liste des valeurs du doctype
      * 
      */
      Doctype(string* aNom, string* aType, deque<string*>* aListOfStrings);
+     
+     /*
+     *  Méthode virtuelle versFlux
+     *      écrit dans le flux passé en paramètre tel que l'objet est censé être
+     *      dans un document XML
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie
+     *      
+     *      Retour :
+     *          -ostream& : retourne le flux dans lequel l'affichage de l'objet
+     *              a été écrit.    
+     */
      virtual std::ostream& versFlux(std::ostream& os) const;
 
 private:
