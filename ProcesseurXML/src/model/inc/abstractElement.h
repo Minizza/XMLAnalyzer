@@ -38,7 +38,6 @@ public:
 	 *          -String name : le nom de l'élément
 	 * 
 	 */
-	AbstractElement(std::string* aNom);
 
 	virtual ~AbstractElement();
 
@@ -88,8 +87,6 @@ public:
 protected:
 	void indenter(std::ostream& os, int indent) const;
 	virtual void obtenirDonnees(std::ostream& os) const;
-
-	std::string nom;
 };
 
 #endif  /* ABSTRACT_ELEMENT_H */

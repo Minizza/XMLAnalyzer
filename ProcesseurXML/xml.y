@@ -36,6 +36,7 @@
 
 		deque<AbstractAttribut*>* abstrAttr;
 		AttributString* attrString;
+		NomCanonique* nomCan;
 	}
 
     %parse-param {Document** datDoc}
@@ -47,15 +48,19 @@
 	%type <head> header
 	%type <doctype> headerdoc
 
-	%type <abstrElements> content headerpart
+	%type <abstrElements> content headerparts 
 	%type <comz> commentaire
 	%type <noeud> element emptytag
 	%type <pi> pi
     %type <values> values
     %type <s> dttype
+    %type <abstrEle> headerpart
 
 	%type <abstrAttr> attributs
 	%type <attrString> attribut
+	%type <nomCan> nomCanonique
+
+    %expect 2
 
 	%%
 
@@ -64,23 +69,26 @@
 	;
 
 	header
-	: headerpart headerdoc headerpart{
+	: headerparts headerdoc headerparts{
         //first deque 123
         //last deque 456
         //get it, iterator on 4
         deque<AbstractElement*>::iterator it = $3->begin();
         //insert before it the first deque
         $3->insert(it,$1->begin(),$1->end());
-        $$ = new EnTete(0, $2, $3,$1->size());
+        $$ = new EnTete($2, $3,$1->size());
     }
-    |/**/{$$=NULL;}
 	;
 
-	headerpart //il faut vérifier qu'on a bien la version du xml
-	: headerpart pi {$$ = $1; $$->push_back($2);}
-	| headerpart commentaire {$$ = $1; $$->push_back($2);}
+	headerparts //il faut vérifier qu'on a bien la version du xml
+	: headerparts headerpart {$$ = $1; $$->push_back($2);}
     | /*vide*/{$$=new deque<AbstractElement*>();}
 	;
+
+    headerpart
+    :pi{$$=$1;}
+    |commentaire{$$=$1;}
+    ;
 
 	headerdoc
 	: DOCTYPE NOM dttype values SUP{$$ = new Doctype(new string($2),new string($3),$4);}
@@ -94,39 +102,31 @@
 
     dttype
     :NOM {$$=$1;}
-    |/*vide*/
+    |/*vide*/{$$=NULL;}
     ;
 
 	pi
-	:INFSPECIAL NOM attributs SUPSPECIAL {$$ = new ElementPI(new string($2), $3);}
+	:INFSPECIAL nomCanonique attributs SUPSPECIAL {$$ = new ElementPI($2, $3);}
 	;
 
 	element
-	: INF NOM attributs SUP content INF SLASH NOM SUP 
+	: INF nomCanonique attributs SUP content INF SLASH nomCanonique SUP 
 	{
-		$$ = new ElementNoeud(new string($2), $3, $5, new string("")); 
-		if(strcmp($2,$8) != 0) 
+		$$ = new ElementNoeud($2, $3, $5); 
+		if(strcmp($2->getNamespace().c_str(),$8->getNamespace().c_str()) != 0) 
 		{
-			fprintf(stderr, "Non matching element names %s and %s\n", $2, $8);
+			fprintf(stderr, "Non matching element namespaces %s and %s\n", $2->getNamespace().c_str(), $8->getNamespace().c_str());
 		}
-	}
-	| INF NOM COLON NOM attributs SUP content INF SLASH NOM COLON NOM SUP 
-	{
-		$$ = new ElementNoeud(new string($4), $5, $7, new string($2)); 
-		if(strcmp($2,$10) != 0) 
+		if(strcmp($2->getNom().c_str(),$8->getNom().c_str()) != 0) 
 		{
-			fprintf(stderr, "Non matching element namespaces %s and %s\n", $2, $10);
-		}
-		if(strcmp($4,$12) != 0) 
-		{
-			fprintf(stderr, "Non matching element names %s and %s\n", $4, $12);
+			fprintf(stderr, "Non matching element names %s and %s\n", $2->getNom().c_str(), $8->getNom().c_str());
 		}
 	}
 	| emptytag
 	;
 
 	emptytag
-	: INF NOM attributs SLASH SUP {$$ = new ElementNoeud(new string($2), $3, 0, new string(""));}
+	: INF nomCanonique attributs SLASH SUP {$$ = new ElementNoeud($2, $3, 0);}
 	;
 
 	content
@@ -143,7 +143,12 @@
 	;
 
 	attribut
-	: NOM EGAL VALEUR {$$ = new AttributString(new string($1), new string($3));}
+	: nomCanonique EGAL VALEUR {$$ = new AttributString($1, new string($3));}
+	;
+
+	nomCanonique
+	: NOM COLON NOM {$$ = new NomCanonique(new string($3), new string($1));}
+	| NOM {$$ = new NomCanonique(new string($1));}
 	;
 
 	commentaire

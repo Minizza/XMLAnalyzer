@@ -7,23 +7,22 @@
 #include <iostream>
 
 //Methodes par defaut de la classe ElementBurne
-ElementBurne::ElementBurne() : AbstractElement() {
+ElementBurne::ElementBurne() : AbstractElement(){
 }
 
 ElementBurne::ElementBurne(ElementBurne* orig) {
 
 }
 
-ElementBurne::~ElementBurne() {
+ElementBurne::~ElementBurne(){
 }
 
 
 ///// Redéfinition du contructeur /////
-ElementBurne::ElementBurne(string* aNom, deque<AbstractAttribut*>* aAtts) : AbstractElement(aNom) {
+ElementBurne::ElementBurne(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts) : atts(*aAtts), nom(*aNom) {
 #ifdef DEBUG
 		std::cout << "Construction de <ElementBurne>" << std::endl;
 #endif
-    atts = *aAtts;
 }
 
 /*ConstructeurRegex* ElementBurne::getRegex() {

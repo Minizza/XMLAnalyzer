@@ -23,7 +23,8 @@ ElementNoeud::~ElementNoeud() {
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants, string* aNamespaceName): ElementBurne(aNom, aAtts), enfants(*aEnfants), namespaceName(*aNamespaceName) {
+ElementNoeud::ElementNoeud(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants): ElementBurne(aNom, aAtts), enfants(*aEnfants)
+{
 	#ifdef DEBUG
 		std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif
@@ -73,19 +74,6 @@ void ElementNoeud::nomVersFlux(ostream& os) const
 
 void ElementNoeud::transformationXSL(AbstractElement* noeudXML, std::ostream& os) const
 {
-	if(namespaceName == "xsl")
-	{
-		if(nom == "value-of")
-		{
-			os << "Ooooh, un value-of ! ";
-		}
-		else if(nom == "for-each")
-		{
-			os << "Ooooh, un for-each ! ";
-		}
-		else if(nom == "apply-template")
-		{
-			os << "Ooooh, un apply-template ! ";
-		}
-	}
+	return;
+	// todo
 }

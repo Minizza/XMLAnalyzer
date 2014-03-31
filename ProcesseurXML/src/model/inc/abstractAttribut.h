@@ -10,6 +10,7 @@
 #include <string>
 
 #include "iAffichable.h"
+#include "nomCanonique.h"
 
 //Liste des espaces de noms utilises 
  using namespace std;
@@ -33,7 +34,7 @@ public:
      *          -String name : le nom de l'élément
      * 
      */
-    AbstractAttribut(string* aNom);
+    AbstractAttribut(NomCanonique* aNom);
 
     virtual ostream& versFlux(ostream& os) const;
     virtual void valeurVersFlux(ostream& os) const=0;
@@ -43,7 +44,7 @@ public:
     string getNom() const;
 
 protected:
-    string nom;
+    NomCanonique nom;
 };
 
 #endif  /* ABSTRACT_ATTRIBUT_H */

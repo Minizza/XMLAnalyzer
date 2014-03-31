@@ -6,14 +6,12 @@
  #include "elementCastre.h"
  #include <iostream>
 
- ElementCastre::ElementCastre() : AbstractElement() {}
-
  ElementCastre::ElementCastre(ElementCastre* orig){}
 
  ElementCastre::~ElementCastre(){}
 
 
- ElementCastre::ElementCastre(string* aNom) : AbstractElement(aNom){
+ ElementCastre::ElementCastre() : AbstractElement(){
  #ifdef DEBUG
 		std::cout << "Construction de <ElementCastre>" << std::endl;
 	#endif

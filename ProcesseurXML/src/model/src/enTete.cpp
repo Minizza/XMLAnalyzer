@@ -9,9 +9,8 @@
 
 EnTete::~EnTete(){}
 
-EnTete::EnTete(XmlDecl* aDecl, Doctype* aDoctype, deque<AbstractElement*>* aHeaderpart,int aIndexOfDT)
+EnTete::EnTete(Doctype* aDoctype, deque<AbstractElement*>* aHeaderpart,int aIndexOfDT)
 {
-    decl = aDecl;
     doctype = aDoctype;
     headerpart = *aHeaderpart;
     indexOfDT=aIndexOfDT;
@@ -23,10 +22,6 @@ EnTete::EnTete(XmlDecl* aDecl, Doctype* aDoctype, deque<AbstractElement*>* aHead
 
 std::ostream& EnTete::versFlux(std::ostream& os) const
 {
-    if (this->decl)
-    {
-        this->decl->versFlux(os);
-    }
 
     int index = 0;
     for(deque<AbstractElement*>::const_iterator it = headerpart.begin();

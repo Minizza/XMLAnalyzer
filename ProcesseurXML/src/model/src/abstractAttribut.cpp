@@ -10,9 +10,8 @@ AbstractAttribut::AbstractAttribut(){}
 
 AbstractAttribut::AbstractAttribut(AbstractAttribut* orig){}
 
-AbstractAttribut::AbstractAttribut(string* aNom)
+AbstractAttribut::AbstractAttribut(NomCanonique* aNom) : nom(*aNom)
 {
-	nom = *aNom;
     #ifdef DEBUG
         std::cout << "Construction de <AbstractAttribut>" << std::endl;
     #endif

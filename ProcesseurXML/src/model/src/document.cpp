@@ -34,13 +34,6 @@ Document::Document(EnTete* aEnTete, ElementNoeud* aElementNoeud) {
 }
 
 
-///// Définition de la méthode Ololol /////
-int Document::Ololol (int pouet, char crottin) {
-
-    return 0;
-}
-
-
 std::ostream& Document::versFlux(std::ostream& os) const
 {
     if (this->enTete)

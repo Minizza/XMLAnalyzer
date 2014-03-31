@@ -43,7 +43,7 @@ public:
      *                  les textures et les modèles
      * 
      */
-    AttributString(string* aNom, string* aValue);
+    AttributString(NomCanonique* aNom, string* aValue);
 
     void valeurVersFlux(ostream& os) const;
 
