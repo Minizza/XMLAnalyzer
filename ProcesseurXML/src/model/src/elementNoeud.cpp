@@ -107,7 +107,6 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 			oss << ", ";
 			max->valeurVersFlux(oss);
 			oss << "}";
-			//TODO se servir de attribut.valeurVersFlux et d'un ostringstream !!!
 		} 
 		else if (min) 
 		{
