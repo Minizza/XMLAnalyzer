@@ -150,6 +150,7 @@
 
 	attribut
 	: NOM EGAL VALEUR {$$ = new AttributString(new string($1), new string($3));}
+	| NOM COLON NOM EGAL VALEUR {$$ = new AttributString(new string($3), new string($5), new string($1));}
 	;
 
 	commentaire

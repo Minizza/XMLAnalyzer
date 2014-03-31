@@ -10,7 +10,7 @@ AttributString::AttributString(){}
 
 AttributString::AttributString(AttributString* orig){}
 
-AttributString::AttributString(string* aNom, string* aValue) : 	AbstractAttribut(aNom)
+AttributString::AttributString(string* aNom, string* aValue, string* aNamespace) : 	AbstractAttribut(aNom, aNamespace)
 {
 	#ifdef DEBUG
 		std::cout << "Construction de <AttributString>" << std::endl;

@@ -33,7 +33,7 @@ public:
      *          -String name : le nom de l'élément
      * 
      */
-    AbstractAttribut(string* aNom);
+    AbstractAttribut(string* aNom, string* aNamespace=new string(""));
 
     virtual ostream& versFlux(ostream& os) const;
     virtual void valeurVersFlux(ostream& os) const=0;
@@ -42,6 +42,7 @@ public:
     
 
 protected:
+    string namespaceName;
     string nom;
 };
 
