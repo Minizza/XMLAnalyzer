@@ -43,7 +43,7 @@ AbstractAttribut* ElementBurne::getAttribut(std::string attrNom) const
     for(deque<AbstractAttribut*>::const_iterator it = atts.begin(); it != atts.end(); it++)
     {
         AbstractAttribut* attr = *it;
-        if(attr->getNom() == attrNom)
+        if(attr->getNom().getNom() == attrNom)
         {
             return attr;
         }

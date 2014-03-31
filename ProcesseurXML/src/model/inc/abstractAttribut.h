@@ -66,8 +66,7 @@ public:
     //Destructeur
     virtual ~AbstractAttribut();
 
-    // getters
-    string getNom() const;
+    const NomCanonique& getNom() const;
 
 protected:
     NomCanonique nom;

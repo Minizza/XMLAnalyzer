@@ -33,6 +33,7 @@ public:
 	//Destructeur par défaut
 	virtual ~ElementCastre();
 
+	NomCanonique const * getNom() const { return NULL; }
 
 };
 

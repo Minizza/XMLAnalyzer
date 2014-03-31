@@ -67,7 +67,7 @@ public:
    *      -AbstractElement* noeudXML : le noeud XML supérieur à l'élément présent
    *      -ostream& os : passage par référence du flux de sortie
    */
-    virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
+    virtual void transformationXSL(AbstractElement* noeudXML, AbstractElement* racineXSL, std::ostream& os) const;
 
 
 protected:

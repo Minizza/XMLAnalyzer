@@ -26,7 +26,7 @@ ostream& AbstractAttribut::versFlux(ostream& os) const
 	os << "\"";
 }
 
-string AbstractAttribut::getNom() const
+const NomCanonique& AbstractAttribut::getNom() const
 {
     return nom;
 }

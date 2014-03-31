@@ -12,15 +12,15 @@
 
 //Liste des includes personnels
 #include "iAffichable.h"
+#include "nomCanonique.h"
 
 //Liste des espaces de noms utilises 
 
 
 /*
- *      La classe AbstractElement est une classe abstraite représentant
- *			les différents éléments qui composent un document XML.
+ *      La classe AbstractElement blablabla.
  * 
- *      Cette classe implémente l'interface IAffichable.
+ *      Cette classe appartient à la partie bloblo de notre application.
  *
  */
 class AbstractElement : public IAffichable {
@@ -42,6 +42,7 @@ public:
 	 *	Méthode virtuelle aDesFils
 	 *		renvoie un booléen indiquant si l'élément a des fils ou non
 	 */
+
 	virtual bool aDesFils()=0;
 	virtual iterator begin()=0;
 	virtual iterator end()=0;
@@ -78,7 +79,12 @@ public:
 	 *			-AbstractElement* noeudXML : le noeud XML supérieur à l'élément présent
 	 *			-ostream& os : passage par référence du flux de sortie
 	 */
-	virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
+	virtual void transformationXSL(AbstractElement* noeudXML, AbstractElement* racine, std::ostream& os) const;
+
+	// Public -> don't know why
+	virtual void donneesVersFlux(std::ostream& os) const;
+
+	virtual NomCanonique const * getNom() const=0;
 
 	//	Itérateur de l'attribut hérité deque<AbstractElement*>
 	class iterator
@@ -116,7 +122,6 @@ public:
 
 protected:
 	void indenter(std::ostream& os, int indent) const;
-	virtual void obtenirDonnees(std::ostream& os) const;
 };
 
 #endif  /* ABSTRACT_ELEMENT_H */

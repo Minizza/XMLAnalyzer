@@ -53,7 +53,7 @@ public:
 	 *			-AbstractElement* noeudXML : le noeud XML supérieur à l'élément présent
 	 *			-ostream& os : passage par référence du flux de sortie
 	 */
-	virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
+	virtual void transformationXSL(AbstractElement* noeudXML, AbstractElement* racineXSL, std::ostream& os) const;
 
 	
 protected:
@@ -67,7 +67,7 @@ protected:
      *			-int ident : entier spécifiant l'indentation à utiliser
      */
 	virtual void versFluxIndent(std::ostream& os, int indent) const;
-	virtual void obtenirDonnees(std::ostream& os) const;
+	virtual void donneesVersFlux(std::ostream& os) const;
 
 
 private:
