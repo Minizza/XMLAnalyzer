@@ -7,6 +7,7 @@
  #include "document.h"
 #include <iostream>
  #include <assert.h>
+ #include <vector>
  
  using namespace std;
 
@@ -71,17 +72,25 @@ bool Document::validationXSD(const Document& documentXSD) const
 
 string Document::RemplacerRefs(std::string& nom, map<string, string>& mapRegex) const
 {
-	if (mapRegex[nom].find_first_of("@")) {
-	int i;
+	if (unsigned posBegin = mapRegex[nom].find_first_of("@")) {
 	string regex = "";
-		//TODO : parser la string, recuperer ce qu'il se trouve entre les deux @ dans un tableau de strings
+	vector<string> ref;
+	//On split la chaine selon "@"
+	unsigned posEnd = mapRegex[nom].find("@", posBegin+1);
+	while(posEnd != string::npos) {
+		string refCourante = mapRegex[nom].substr(posBegin, posEnd);
+		ref.push_back(refCourante);
+		posBegin = posEnd;
+		posEnd = mapRegex[nom].find("@", posBegin+1);
+	} 
 		
-		for(i = 0 ; i < ref.lenght() ; i++) {
+		for(int i = 0 ; i < ref.size() ; i++) {
 			if (mapRegex.count(ref[i]) > 0) {
-				regex = RemplacerRefs(ref[i], map);
-				mapRegex[nom].replace(find_first_of("@", ref[i].lenght(), regex);
+				regex = RemplacerRefs(ref[i], mapRegex);
+				mapRegex[nom].replace(mapRegex[nom].find_first_of("@"), ref[i].size(), regex);
 			} else {
 				// TODO : dire que c'est caca.
+				cout << "c'est caca !";
 			}
 		}
 	}
@@ -89,4 +98,8 @@ string Document::RemplacerRefs(std::string& nom, map<string, string>& mapRegex) 
 		return mapRegex[nom];
 }
 
+ostream& operator<<(ostream& os, const Document& doc)
+{
+	doc.versFlux(os);
+}
 

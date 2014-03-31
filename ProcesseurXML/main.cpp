@@ -10,6 +10,14 @@ extern FILE* xmlin;
 extern int xmldebug;
 int xmlparse(Document**);
 
+Document* parseFile(FILE* fid)
+{
+    xmlin=fid;
+    Document* doc=NULL;
+    int b=xmlparse(&doc);
+    return doc;
+}
+
 void catDatFile(FILE * fid,char* nomFichier)
 {
     cout<<"=============DEBUT DU DEBUG"<<endl;
@@ -33,9 +41,7 @@ int parseOption(int argc, char** argv)
         catDatFile(fid,nomFichier);
         rewind(fid);
         #endif
-        xmlin=fid;
-        Document* rootDoc=NULL;
-        int b=xmlparse(&rootDoc);
+        Document* rootDoc = parseFile(fid);
         if(rootDoc!=NULL)
         {
             rootDoc->versFlux(std::cout);
@@ -64,15 +70,23 @@ int validateOption(int argc, char** argv)
     char * nomFichierXSD =argv[3];
     fidXSD=fopen(nomFichierXSD ,"r");
 
-    if(fidXML!=NULL&&fidXSD!=NULL)
+    if(fidXML && fidXSD)
     {
-        return 0;
+        Document* docXML = parseFile(fidXML);
+        Document* docXSD = parseFile(fidXSD);
+        if(!docXML || !docXSD)
+        {
+            return 3;
+        }
+        //FAIRE LE CACA !
+        cout << docXML << endl;
+        cout << docXSD << endl;
     }
-    else if (fidXML==NULL)
+    else if (!fidXML)
     {
         return 1;
     }
-    else if (fidXSD==NULL)
+    else if (!fidXSD)
     {
         return 2;
     }

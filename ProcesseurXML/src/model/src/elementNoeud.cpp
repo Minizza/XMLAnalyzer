@@ -5,6 +5,7 @@
 
 #include "elementNoeud.h"
 #include <iostream>
+#include <sstream>
 
 //Methodes par defaut de la classe ElementNoeud
 ElementNoeud::ElementNoeud() : ElementBurne() {
@@ -96,6 +97,7 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 			AbstractElement* elt = *it;
 			regex += elt->creationRegex(mapRegex);
 		}
+	}
 	else if (nom == "complexType") 
 	{
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
@@ -103,15 +105,34 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 			AbstractElement* elt = *it;
 			regex += elt->creationRegex(mapRegex);
 		}
-	} else if (getAttribut("ref")) {
-		if (getAttribut("minOccurs") && getAttribut("maxOccurs")) {
-			regex += "{" + getAttribut("minOccurs") + ", " + getAttribut("maxOccurs") + "}";
+	} 
+	else if (getAttribut("ref")) 
+	{
+		AbstractAttribut* min = getAttribut("minOccurs");
+		AbstractAttribut* max = getAttribut("minOccurs");
+		ostringstream oss;
+		if (min && max) 
+		{		
+			oss << "{";
+			min->valeurVersFlux(oss);
+			oss << ", ";
+			max->valeurVersFlux(oss);
+			oss << "}";
 			//TODO se servir de attribut.valeurVersFlux et d'un ostringstream !!!
-		} else if (getAttribut("minOccurs")) {
-			regex += "{" + getAttribut("maxOccurs") + ",}";
-		} else if (getAttribut("maxOccurs")) {
-			regex += "{1, " + getAttribut("maxOccurs") + "}";
+		} 
+		else if (min) 
+		{
+			oss << "{";
+			min->valeurVersFlux(oss);
+			oss << ",}";
+		} 
+		else if (max) 
+		{
+			oss << "{1, ";
+			max->valeurVersFlux(oss);
+			oss << "}";
 		}
+		regex = oss.str();
 	}
 	else if (nom == "sequence") 
 	{
@@ -122,7 +143,9 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 			regex += elt->creationRegex(mapRegex);
 		}
 		regex += ")";
-	} else if (nom == "choice") {
+	} 
+	else if (nom == "choice") 
+	{
 		regex += "(";
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
