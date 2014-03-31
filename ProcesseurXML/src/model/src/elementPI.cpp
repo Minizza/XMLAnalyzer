@@ -24,22 +24,16 @@ void ElementPI::versFluxIndent(std::ostream& os, int indent) const
 {
     indenter(os, indent);
 	os << "<?" << nom;
-	for(deque<AbstractAttribut*>::const_iterator it = atts.begin(); it != atts.end(); it++)
-	{
-		AbstractAttribut* att = *it;
-		att->versFlux(os);
-	}
-	os << "?>\n";
-}
-
-
-void ElementPI::filsDirectsVersFlux(std::ostream& os, bool recursiver) const
-{
-    os << "<?" << nom;
     for(deque<AbstractAttribut*>::const_iterator it = atts.begin(); it != atts.end(); it++)
     {
         AbstractAttribut* att = *it;
         att->versFlux(os);
     }
-    os << "?>";
+    os << "?>\n";
+}
+
+
+void ElementPI::filsDirectsVersFlux(std::ostream& os, bool recursiver) const
+{
+    os << "<?" << nom << "?>";
 }

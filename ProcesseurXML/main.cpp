@@ -79,8 +79,15 @@ int validateOption(int argc, char** argv)
             return 3;
         }
         bool valid = docXML->validationXSD(*docXSD);
-        //cout << *docXML << endl;
-        cout << *docXSD << endl;
+        if(valid)
+        {
+            cout << "The file " << nomFichierXML << " is valid wrt " << nomFichierXSD << endl;
+
+        }
+        else
+        {
+            cout << "The file " << nomFichierXML << " is not valid wrt " << nomFichierXSD << endl;
+        }
 	return 0;
     }
     else if (!fidXML)

@@ -91,7 +91,7 @@
  				regex = RemplacerRefs(ref[i], mapRegex);
  				mapRegex[nom].replace(mapRegex[nom].find_first_of("@"), ref[i].size()+2, "("+regex+")");
  			} else {
- 				cout << "c'est caca !"<<endl;;
+ 				//inquiétant ?
  			}
  		}
  	}
