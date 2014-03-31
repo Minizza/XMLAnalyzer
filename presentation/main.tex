@@ -23,7 +23,7 @@
 \title[GetL_Presentation]{Grammaires et Langages : Présentation}
 \author{Equipe Minizza - H4111}
 \institute{INSA de Lyon}
-\date{Mardi 1 Mars}
+\date{Mardi 1 Avril}
 
 \begin{document}
 
@@ -89,15 +89,171 @@
 
 \section{Algorithme de  validation}
 \subsection{Algorithme de  validation}
-\begin{frame}{Algorithme de validation}
- 
+\begin{frame}[fragile]{Algorithme de validation}
+	\textbf{Appel initial de l'algorithme :}
+	\scriptsize
+	\begin{verbatim}
+		documentXML.ValidationXSD(documentXSD)
+	\end{verbatim}
+
+	\normalsize
+	\textbf{Méthodes pour la classe Document}
+	\scriptsize
+	\begin{verbatim}
+	Boolean documentXML::ValidationXSD(documentXSD) {
+
+	    map = newMap()
+	    racineXSD = documentXSD.racine
+	    sortie = racineXSD.CreationRegex(map)
+
+	    pour tout nom de map faire
+	        this.RemplacerRefs(nom, map)
+	    fin pour
+
+	    racineXML = this.racine
+	    estValide = racineXML.ValiderXML(map)
+	
+	    retourner estValide
+	}
+
+	\end{verbatim}
+\end{frame}
+
+\subsection{Algorithme de  validation}
+\begin{frame}[fragile]{Algorithme de validation}
+	\textbf{Méthodes pour la classe Document}
+	\scriptsize
+	\begin{verbatim}
+String documentXML::RemplacerRefs(nom, map) {
+
+    si map[nom].contains("@") alors
+        ref = parseRef()
+        pour refFils de ref alors 
+            si map.contains(refFils)
+                regex = RemplacerRefs(refFils, map)
+                map.remplacer("@" + refFils + "@", regex)
+            sinon
+                afficher "Impossible de trouver la référence pour " + refFils.nom
+                retourner ""
+    
+    retouner map[nom]
+}
+
+	\end{verbatim}
+\end{frame}
+
+\subsection{Algorithme de  validation}
+\begin{frame}[fragile]{Algorithme de validation}
+	\textbf{Méthodes pour la classe ElementNoeud}\\ [0.2cm]
+	1) Création des regex
+	\scriptsize
+	\begin{verbatim}
+
+String ElementNoeud::CreationRegex(&map)
+    regex = ""
+    si this.containsName() alors
+        regex += '<' + noeudXSD.nom + '>'
+    pour filsXSD de this faire:
+        a) élément vide
+        b) élément non vide
+        c) élément ref
+        d) complex type
+        e) choice
+        f) séquence
+    si this.containsName() alors
+        regex += '</' + this.nom + '>'
+        map.ajouter(this.nom, regex)
+    
+    retourner regex
+	\end{verbatim}
+\end{frame}
+
+\subsection{Algorithme de  validation}
+\begin{frame}[fragile]{Algorithme de validation}
+	\textit{a) élément vide}
+	\scriptsize
+	\begin{verbatim}
+si map.notContains(filsXSD.nom) alors
+    regex += ".*"
+	\end{verbatim}
+	\normalsize
+	\textit{b) élément non vide}
+	\scriptsize
+	\begin{verbatim}
+regex += filsXSD.CreationRegex(map)
+	\end{verbatim}
+	\normalsize
+	\textit{c) élément ref}
+	\scriptsize
+	\begin{verbatim}
+regex += "@" + this.ref + "@"
+si this.hasAttribute(minOccurs) and this.hasAttribute(maxOccurs) alors
+    regex += "{" + this.minOccurs + ", " + this.maxOccurs + "}"
+sinon si this.hasAttribute(minOccurs) alors
+    regex += "{" + this.minOccurs + ",}"
+sinon si this.hasAttribute(maxOccurs) alors
+    regex += "{1, " + this.maxOccurs + "}"
+	\end{verbatim}
+	\normalsize 
+	\textit{d) complex type}
+	\scriptsize
+	\begin{verbatim}
+return filsXSD.CreationRegex(map)
+	\end{verbatim}
+\end{frame}
+
+\subsection{Algorithme de  validation}
+\begin{frame}[fragile]{Algorithme de validation}
+	\textit{e) choice}
+	\scriptsize
+	\begin{verbatim}
+regex += "("
+pour petitFilsXSD de filsXSD alors
+    regex += petitFilsXSD.CreationRegex(map)
+    regex += " | " -> si pas dernier fils
+regex += ")"
+	\end{verbatim}
+	\normalsize
+	\textit{f) séquence}
+	\scriptsize
+	\begin{verbatim}
+regex += "("
+pour petitFilsXSD de filsXSD alors
+    regex += petitFilsXSD.CreationRegex(map)
+regex += ")"
+	\end{verbatim}
+\end{frame}
+
+\subsection{Algorithme de  validation}
+\begin{frame}[fragile]{Algorithme de validation}
+	2) Validation du XML avec les regex\\[0.1cm]
+	L'algo suivant utilise une fonction qui retourne les noeuds de premier
+niveau sous forme XML d'un noeud voulu. (getFirstLevel)
+	\scriptsize
+	\begin{verbatim}
+
+Booleen ElementNoeud::ValiderXML(map)
+    si map.contains(this.nom) alors
+        si map[this.nom] match getFirstLevel(this) alors
+            pour filsXML de this faire
+                booleenValider = ValiderXML(filsXML, map)
+                si booleenValider est faux alors
+                    retourner faux 
+            retourner vrai
+        sinon
+            afficher "Le document n'est pas valide au niveau du noeud " + this.nom
+            retourner faux
+    sinon
+        afficher "L'expression régulière n'est pas définie pour le noeud " + this.nom
+        retourner faux
+	\end{verbatim}
 \end{frame}
 
 \section{Algorithme de transformation}
-\subsection{Algorithme de transformation}
-\begin{frame}{Algorithme de transformation}
+%\subsection{Algorithme de transformation}
+%\begin{frame}{Algorithme de transformation}
  
-\end{frame}
+%\end{frame}
 
 \subsection{Algorithme de transformation}
 \begin{frame}[fragile]{Algorithme de transformation - Fonctions Utiles }
