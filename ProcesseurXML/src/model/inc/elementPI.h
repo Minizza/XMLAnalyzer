@@ -40,7 +40,7 @@ public:
      *                  les textures et les modèles
      * 
      */
-    ElementPI(string* aNom, deque<AbstractAttribut*>* aAttributs, string* aNamespace);
+    ElementPI(NomCanonique* nom, deque<AbstractAttribut*>* aAttributs);
     
     // Méthodes héritées
 		bool aDesFils() { return false; }

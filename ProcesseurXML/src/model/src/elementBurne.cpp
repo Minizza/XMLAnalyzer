@@ -19,11 +19,11 @@ ElementBurne::~ElementBurne() {
 
 
 ///// Redéfinition du contructeur /////
-ElementBurne::ElementBurne(string* aNom, deque<AbstractAttribut*>* aAtts, string* aNamespace) : AbstractElement(aNom, aNamespace) {
+ElementBurne::ElementBurne(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts) : atts(*aAtts), nom(*aNom) {
 #ifdef DEBUG
 		std::cout << "Construction de <ElementBurne>" << std::endl;
 #endif
-    atts = *aAtts;
+    
 }
 
 /*ConstructeurRegex* ElementBurne::getRegex() {

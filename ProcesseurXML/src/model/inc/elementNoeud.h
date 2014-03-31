@@ -44,7 +44,7 @@ public:
      *          -ElementNoeud aElementNoeud : passage de l'element racine du document xml
      * 
      */
-     ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants, string* aNamespaceName);
+     ElementNoeud(NomCanonique* nom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants);
 
 
      //ConstructeurRegex getRegex();

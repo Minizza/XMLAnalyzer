@@ -24,7 +24,8 @@ ElementNoeud::~ElementNoeud() {
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(string* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants, string* aNamespaceName): ElementBurne(aNom, aAtts), enfants(*aEnfants), namespaceName(*aNamespaceName) {
+ElementNoeud::ElementNoeud(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants): ElementBurne(aNom, aAtts), enfants(*aEnfants)
+{
 	#ifdef DEBUG
 		std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif

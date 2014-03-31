@@ -10,7 +10,7 @@ AbstractAttribut::AbstractAttribut(){}
 
 AbstractAttribut::AbstractAttribut(AbstractAttribut* orig){}
 
-AbstractAttribut::AbstractAttribut(string* aNom, string* aNamespace) : nom(*aNom), namespaceName(*aNamespace)
+AbstractAttribut::AbstractAttribut(NomCanonique* aNom) : nom(*aNom)
 {
     #ifdef DEBUG
         std::cout << "Construction de <AbstractAttribut>" << std::endl;
@@ -21,12 +21,7 @@ AbstractAttribut::~AbstractAttribut(){}
 
 ostream& AbstractAttribut::versFlux(ostream& os) const
 {
-	os << " ";
-	if(!namespaceName.empty())
-	{
-		os << namespaceName << ":";
-	}
-	os << nom << "=\"";
+	os << " " << nom << "=\"";
 	valeurVersFlux(os);
 	os << "\"";
 }

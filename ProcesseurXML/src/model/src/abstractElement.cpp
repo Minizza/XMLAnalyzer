@@ -5,16 +5,13 @@
 
 #include "abstractElement.h"
 
-AbstractElement::AbstractElement(){}
-
 AbstractElement::AbstractElement(AbstractElement* orig){}
 
-AbstractElement::AbstractElement(std::string* aNom)
+AbstractElement::AbstractElement()
 {
 #ifdef DEBUG
 		std::cout << "Construction de <AbstractElement>" << std::endl;
 #endif
-	nom = *aNom;
 }
 
 

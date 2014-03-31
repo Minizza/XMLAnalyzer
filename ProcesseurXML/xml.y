@@ -36,6 +36,7 @@
 
 		deque<AbstractAttribut*>* abstrAttr;
 		AttributString* attrString;
+		NomCanonique* nomCan;
 	}
 
     %parse-param {Document** datDoc}
@@ -57,6 +58,7 @@
 
 	%type <abstrAttr> attributs
 	%type <attrString> attribut
+	%type <nomCan> nomCanonique
 
     %expect 2
 
@@ -104,36 +106,27 @@
     ;
 
 	pi
-	:INFSPECIAL NOM attributs SUPSPECIAL {$$ = new ElementPI(new string($2), $3);}
+	:INFSPECIAL nomCanonique attributs SUPSPECIAL {$$ = new ElementPI($2, $3);}
 	;
 
 	element
-	: INF NOM attributs SUP content INF SLASH NOM SUP 
+	: INF nomCanonique attributs SUP content INF SLASH nomCanonique SUP 
 	{
-		$$ = new ElementNoeud(new string($2), $3, $5, new string("")); 
-		if(strcmp($2,$8) != 0) 
+		$$ = new ElementNoeud($2, $3, $5); 
+		if(strcmp($2->getNamespace().c_str(),$8->getNamespace().c_str()) != 0) 
 		{
-			fprintf(stderr, "Non matching element names %s and %s\n", $2, $8);
+			fprintf(stderr, "Non matching element namespaces %s and %s\n", $2->getNamespace().c_str(), $8->getNamespace().c_str());
 		}
-	}
-	| INF NOM COLON NOM attributs SUP content INF SLASH NOM COLON NOM SUP 
-	{
-		$$ = new ElementNoeud(new string($4), $5, $7, new string($2)); 
-		if(strcmp($2,$10) != 0) 
+		if(strcmp($2->getNom().c_str(),$8->getNom().c_str()) != 0) 
 		{
-			fprintf(stderr, "Non matching element namespaces %s and %s\n", $2, $10);
-		}
-		if(strcmp($4,$12) != 0) 
-		{
-			fprintf(stderr, "Non matching element names %s and %s\n", $4, $12);
+			fprintf(stderr, "Non matching element names %s and %s\n", $2->getNom().c_str(), $8->getNom().c_str());
 		}
 	}
 	| emptytag
 	;
 
 	emptytag
-	: INF NOM attributs SLASH SUP {$$ = new ElementNoeud(new string($2), $3, 0, new string(""));}
-	| INF NOM COLON NOM attributs SLASH SUP {$$ = new ElementNoeud(new string($4), $5, 0, new string($2));}
+	: INF nomCanonique attributs SLASH SUP {$$ = new ElementNoeud($2, $3, 0);}
 	;
 
 	content
@@ -150,8 +143,12 @@
 	;
 
 	attribut
-	: NOM EGAL VALEUR {$$ = new AttributString(new string($1), new string($3));}
-	| NOM COLON NOM EGAL VALEUR {$$ = new AttributString(new string($3), new string($5), new string($1));}
+	: nomCanonique EGAL VALEUR {$$ = new AttributString($1, new string($3));}
+	;
+
+	nomCanonique
+	: NOM COLON NOM {$$ = new NomCanonique(new string($3), new string($1));}
+	| NOM {$$ = new NomCanonique(new string($1));}
 	;
 
 	commentaire
