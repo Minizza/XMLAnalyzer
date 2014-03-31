@@ -31,5 +31,6 @@ commun
 *.log
 *.out
 *.toc
+*.vrb
 main.pdf
 
