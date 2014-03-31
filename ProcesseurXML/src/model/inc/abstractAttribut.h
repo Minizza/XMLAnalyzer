@@ -40,7 +40,8 @@ public:
     virtual void valeurVersFlux(ostream& os) const=0;
     virtual ~AbstractAttribut();
 
-    string getNom() const { return nom; }
+    const string& getNom() const { return nom.getNom(); }
+    const string& getNamespace() const { return nom.getNamespace(); }
 
 protected:
     NomCanonique nom;

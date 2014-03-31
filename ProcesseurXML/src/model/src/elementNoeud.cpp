@@ -83,8 +83,8 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 {
 	string regex = "";
 	
-	if (nom != "") {
-		regex += '<' + nom + '>';
+	if (nom.getNom() != "") {
+		regex += '<' + nom.getNamespace() + ":" + nom.getNom() + '>';
 	}
 
 	if (!enfants.empty()) 
@@ -99,7 +99,7 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 			regex += elt->creationRegex(mapRegex);
 		}
 	}
-	else if (nom == "complexType") 
+	else if (nom.getNom() == "complexType") 
 	{
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
@@ -135,7 +135,7 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 		}
 		regex = oss.str();
 	}
-	else if (nom == "sequence") 
+	else if (nom.getNom() == "sequence") 
 	{
 		regex += "(";
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
@@ -145,7 +145,7 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 		}
 		regex += ")";
 	} 
-	else if (nom == "choice") 
+	else if (nom.getNom() == "choice") 
 	{
 		regex += "(";
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)

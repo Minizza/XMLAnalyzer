@@ -46,6 +46,7 @@ public:
      */
     ElementBurne(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts);
 
+    AbstractAttribut* getAttribut(std::string attrNom) const;
 
 protected:
     deque<AbstractAttribut*> atts;
