@@ -31,3 +31,9 @@ void ElementCData::versFluxIndent(std::ostream& os, int indent) const
 	indenter(os, indent);
 	os << "<![CDATA[" << texte << "]]>";
 }
+
+
+void ElementCData::filsDirectsVersFlux(std::ostream& os, bool recursiver) const
+{
+    os << "<![CDATA[" << texte << "]]>";
+}

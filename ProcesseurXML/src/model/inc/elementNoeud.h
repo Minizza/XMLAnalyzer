@@ -10,6 +10,7 @@
  #include <string>
  #include <deque>
  #include <map>
+ #include <regex>
 
  #include "abstractElement.h"
  #include "elementBurne.h"
@@ -63,6 +64,7 @@ public:
 	
     virtual bool ValiderXML(map<string,string>& mapRegex) const;
 
+    void filsDirectsVersFlux(std::ostream& os, bool recursiver=true) const;
 
 protected:
 

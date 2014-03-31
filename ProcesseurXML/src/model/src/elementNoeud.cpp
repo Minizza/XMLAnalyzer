@@ -6,6 +6,7 @@
 #include "elementNoeud.h"
 #include <iostream>
 #include <sstream>
+#include <regex>
 
 //Methodes par defaut de la classe ElementNoeud
  ElementNoeud::ElementNoeud() : ElementBurne() 
@@ -17,12 +18,12 @@
  	nom = orig->nom;
  	estXSD = orig->estXSD;
  	enfants = orig->enfants;
-	//regexFils = new ConstructeurRegex(orig->regexFils);
+	//regFils = new Constructeurreg(orig->regFils);
  }
 
  ElementNoeud::~ElementNoeud() 
  {
-	//delete(regexFils);
+	//delete(regFils);
  }
 
 
@@ -34,8 +35,8 @@
 	#endif
  }
 
-/*ConstructeurRegex* ElementNoeud::getRegex() {
-	return regexFils;
+/*Constructeurreg* ElementNoeud::getreg() {
+	return regFils;
 }*/
 
 void ElementNoeud::ajouterFils(AbstractElement* aFils) {
@@ -70,13 +71,13 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, std::ostream& os
 // todo
 }
 
-string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
+string ElementNoeud::creationRegex(map<string,string>& mapreg) const
 {
-	string regex = "";
+	string reg = "";
 	if (AbstractAttribut* att = getAttribut("name")) {
 		ostringstream oss;
 		att->valeurVersFlux(oss);
-		regex += "<"  + oss.str() + ">";
+		reg += "<"  + oss.str() + ">";
 
 		cout << oss.str() << endl;
 	}
@@ -88,7 +89,7 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
 			AbstractElement* elt = *it;
-			regex += elt->creationRegex(mapRegex);
+			reg += elt->creationRegex(mapreg);
 		}
 	} 
 	else
@@ -100,7 +101,7 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 			{
 				AbstractElement* elt = *it;
-				regex += elt->creationRegex(mapRegex);
+				reg += elt->creationRegex(mapreg);
 			}
 		}
 		else if (getAttribut("ref")) 
@@ -135,38 +136,38 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 				max->valeurVersFlux(oss);
 				oss << "}";
 			}
-			regex = oss.str();
+			reg = oss.str();
 		}
 		else if (nom.getNom() == "sequence") 
 		{
-			regex += "(";
+			reg += "(";
 				for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 				{
 					AbstractElement* elt = *it;
-					regex += elt->creationRegex(mapRegex);
+					reg += elt->creationRegex(mapreg);
 				}
-				regex += ")";
+				reg += ")";
 		} 
 		else if (nom.getNom() == "choice") 
 		{
 				cout << "toupoutou" << endl;
-		regex += "(";
+		reg += "(";
 			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 			{
 				AbstractElement* elt = *it;
-				regex += elt->creationRegex(mapRegex);
-				regex += "|";
+				reg += elt->creationRegex(mapreg);
+				reg += "|";
 			}
-			regex.erase(regex.end());
-			regex += ")";
+			reg.erase(reg.end());
+			reg += ")";
 		}
 		else
 		{
-			regex += ".*";
+			reg += ".*";
 			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 			{
 				AbstractElement* elt = *it;
-				regex += elt->creationRegex(mapRegex);
+				reg += elt->creationRegex(mapreg);
 			}
 		}
 
@@ -176,16 +177,36 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 			ostringstream oss;
 			att->valeurVersFlux(oss);
 			string name = oss.str();
-			regex += "</"  + name + ">";
+			reg += "</"  + name + ">";
 
-			mapRegex[name] = regex;
+			mapreg[name] = reg;
 	}
 
-	return regex;
+	return reg;
 }
 
-bool ElementNoeud::ValiderXML(map<string,string>& mapRegex) const
+bool ElementNoeud::ValiderXML(map<string,string>& mapreg) const
 {
+    ostringstream os;
+    this->filsDirectsVersFlux(os);
+
 	return true;
 	// todo
+}
+
+void ElementNoeud::filsDirectsVersFlux(std::ostream& os, bool recursiver) const
+{
+    os << "<" << nom;
+    for(deque<AbstractAttribut*>::const_iterator it = atts.begin(); it != atts.end(); it++)
+    {
+        AbstractAttribut* att = *it;
+        att->versFlux(os);
+    }
+    os << ">";
+    for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+    {
+        AbstractElement* elt = *it;
+        elt->filsDirectsVersFlux(os, false);
+    }
+    os << "</" << nom << ">";
 }

@@ -61,9 +61,7 @@
  	{
  		pair<string, string> p = *it;
  		std::string noeud = p.first;
- 		//RemplacerRefs(noeud, mapRegex);
-
- 		cout << p.first << ':' << p.second << endl ;
+ 		RemplacerRefs(noeud, mapRegex);
  	}
 
 	//Match regex/noeuds du document XML
@@ -76,12 +74,13 @@
  {
  	string::size_type posBegin = mapRegex[nom].find_first_of("@");
  	if (posBegin != string::npos) {
+
  		string regex = "";
  		vector<string> ref;
 		//On split la chaine selon "@"
- 		string::size_type posEnd = mapRegex[nom].find("@", posBegin+1);
+ 		string::size_type posEnd = mapRegex[nom].find("@", posBegin);
  		while(posEnd != string::npos) {
- 			string refCourante = mapRegex[nom].substr(posBegin, posEnd);
+ 			string refCourante = mapRegex[nom].substr(posBegin+1, posEnd-posBegin-1);
  			ref.push_back(refCourante);
  			posBegin = posEnd;
  			posEnd = mapRegex[nom].find("@", posBegin+1);
@@ -90,10 +89,9 @@
  		for(int i = 0 ; i < ref.size() ; i++) {
  			if (mapRegex.count(ref[i]) > 0) {
  				regex = RemplacerRefs(ref[i], mapRegex);
- 				mapRegex[nom].replace(mapRegex[nom].find_first_of("@"), ref[i].size(), regex);
+ 				mapRegex[nom].replace(mapRegex[nom].find_first_of("@"), ref[i].size()+2, "("+regex+")");
  			} else {
-				// TODO : dire que c'est caca.
- 				cout << "c'est caca !";
+ 				cout << "c'est caca !"<<endl;;
  			}
  		}
  	}

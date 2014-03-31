@@ -31,3 +31,7 @@ void ElementComz::versFluxIndent(std::ostream& os, int indent) const
 	os << "<!--" << texte << "-->" << endl << endl;
 }
 
+void ElementComz::filsDirectsVersFlux(std::ostream& os, bool recursiver) const
+{
+    os << "<!--" << texte << "-->";
+}
