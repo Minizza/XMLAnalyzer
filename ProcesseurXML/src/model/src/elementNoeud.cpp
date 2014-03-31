@@ -8,37 +8,40 @@
 #include <sstream>
 
 //Methodes par defaut de la classe ElementNoeud
-ElementNoeud::ElementNoeud() : ElementBurne() {
-}
+ ElementNoeud::ElementNoeud() : ElementBurne() 
+ {
+ }
 
-ElementNoeud::ElementNoeud(ElementNoeud* orig) {
-	nom = orig->nom;
-	estXSD = orig->estXSD;
-	enfants = orig->enfants;
+ ElementNoeud::ElementNoeud(ElementNoeud* orig) 
+ {
+ 	nom = orig->nom;
+ 	estXSD = orig->estXSD;
+ 	enfants = orig->enfants;
 	//regexFils = new ConstructeurRegex(orig->regexFils);
-}
+ }
 
-ElementNoeud::~ElementNoeud() {
+ ElementNoeud::~ElementNoeud() 
+ {
 	//delete(regexFils);
-}
+ }
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants): ElementBurne(aNom, aAtts), enfants(*aEnfants)
-{
+ ElementNoeud::ElementNoeud(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants): ElementBurne(aNom, aAtts), enfants(*aEnfants)
+ {
 	#ifdef DEBUG
-		std::cout << "Construction de <ElementNoeud>" << std::endl;
+ 	std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif
-}
+ }
 
 /*ConstructeurRegex* ElementNoeud::getRegex() {
 	return regexFils;
 }*/
 
 void ElementNoeud::ajouterFils(AbstractElement* aFils) {
-	#ifdef DEBUG
-			std::cout << "Ajout d'un fils" << std::endl;
-	#endif
+#ifdef DEBUG
+	std::cout << "Ajout d'un fils" << std::endl;
+#endif
 	enfants.push_back(aFils);
 }
 
@@ -64,7 +67,7 @@ void ElementNoeud::versFluxIndent(std::ostream& os, int indent) const
 void ElementNoeud::transformationXSL(AbstractElement* noeudXML, std::ostream& os) const
 {
 	return;
-	// todo
+// todo
 }
 
 string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
@@ -74,11 +77,13 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 		ostringstream oss;
 		att->valeurVersFlux(oss);
 		regex += "<"  + oss.str() + ">";
+
+		cout << oss.str() << endl;
 	}
 
 	if (!enfants.empty()) 
 	{
-		
+
 
 		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
 		{
@@ -86,83 +91,96 @@ string ElementNoeud::creationRegex(map<string,string>& mapRegex) const
 			regex += elt->creationRegex(mapRegex);
 		}
 	} 
-	else if (enfants.empty()) 
+	else
 	{
-		regex += ".*";
-		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+
+
+		if (nom.getNom() == "complexType") 
 		{
-			AbstractElement* elt = *it;
-			regex += elt->creationRegex(mapRegex);
+			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+			{
+				AbstractElement* elt = *it;
+				regex += elt->creationRegex(mapRegex);
+			}
 		}
-	}
-	else if (nom.getNom() == "complexType") 
-	{
-		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+		else if (getAttribut("ref")) 
 		{
-			AbstractElement* elt = *it;
-			regex += elt->creationRegex(mapRegex);
+			AbstractAttribut* ref = getAttribut("ref");
+			AbstractAttribut* min = getAttribut("minOccurs");
+			AbstractAttribut* max = getAttribut("maxOccurs");
+			ostringstream oss;
+
+
+			oss << "@";
+			ref->valeurVersFlux(oss);
+			oss << "@";
+
+			if (min && max) 
+			{		
+				oss << "{";
+				min->valeurVersFlux(oss);
+				oss << ", ";
+				max->valeurVersFlux(oss);
+				oss << "}";
+			} 
+			else if (min) 
+			{
+				oss << "{";
+				min->valeurVersFlux(oss);
+				oss << ",}";
+			} 
+			else if (max) 
+			{
+				oss << "{1, ";
+				max->valeurVersFlux(oss);
+				oss << "}";
+			}
+			regex = oss.str();
 		}
-	} 
-	else if (getAttribut("ref")) 
-	{
-		AbstractAttribut* min = getAttribut("minOccurs");
-		AbstractAttribut* max = getAttribut("minOccurs");
-		ostringstream oss;
-		if (min && max) 
-		{		
-			oss << "{";
-			min->valeurVersFlux(oss);
-			oss << ", ";
-			max->valeurVersFlux(oss);
-			oss << "}";
+		else if (nom.getNom() == "sequence") 
+		{
+			regex += "(";
+				for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+				{
+					AbstractElement* elt = *it;
+					regex += elt->creationRegex(mapRegex);
+				}
+				regex += ")";
 		} 
-		else if (min) 
+		else if (nom.getNom() == "choice") 
 		{
-			oss << "{";
-			min->valeurVersFlux(oss);
-			oss << ",}";
-		} 
-		else if (max) 
-		{
-			oss << "{1, ";
-			max->valeurVersFlux(oss);
-			oss << "}";
-		}
-		regex = oss.str();
-	}
-	else if (nom.getNom() == "sequence") 
-	{
+				cout << "toupoutou" << endl;
 		regex += "(";
-		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
-		{
-			AbstractElement* elt = *it;
-			regex += elt->creationRegex(mapRegex);
+			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+			{
+				AbstractElement* elt = *it;
+				regex += elt->creationRegex(mapRegex);
+				regex += "|";
+			}
+			regex.erase(regex.end());
+			regex += ")";
 		}
-		regex += ")";
-	} 
-	else if (nom.getNom() == "choice") 
-	{
-		regex += "(";
-		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+		else
 		{
-			AbstractElement* elt = *it;
-			regex += elt->creationRegex(mapRegex);
-			regex += "|";
+			regex += ".*";
+			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+			{
+				AbstractElement* elt = *it;
+				regex += elt->creationRegex(mapRegex);
+			}
 		}
-		regex.erase(regex.end());
-		regex += ")";
+
 	}
 
 	if (AbstractAttribut* att = getAttribut("name")) {
-		ostringstream oss;
-		att->valeurVersFlux(oss);
-		string name = oss.str();
-		regex += "</"  + name + ">";
-		
-		//map<string, string>::iterator it = mapRegex.find(name); 
-		mapRegex[name] = regex;
+			ostringstream oss;
+			att->valeurVersFlux(oss);
+			string name = oss.str();
+			regex += "</"  + name + ">";
+
+			mapRegex[name] = regex;
 	}
-	
+
 	return regex;
 }
 

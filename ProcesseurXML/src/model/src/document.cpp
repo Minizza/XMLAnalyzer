@@ -61,7 +61,7 @@
  	{
  		pair<string, string> p = *it;
  		std::string noeud = p.first;
- 		RemplacerRefs(noeud, mapRegex);
+ 		//RemplacerRefs(noeud, mapRegex);
 
  		cout << p.first << ':' << p.second << endl ;
  	}
