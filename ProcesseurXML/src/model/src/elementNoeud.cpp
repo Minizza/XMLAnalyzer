@@ -9,8 +9,9 @@
 #include <regex>
 
 //Methodes par defaut de la classe ElementNoeud
-ElementNoeud::ElementNoeud() : ElementBurne() {
-}
+ ElementNoeud::ElementNoeud() : ElementBurne() 
+ {
+ }
 
 ElementNoeud::ElementNoeud(ElementNoeud* orig) {
 	nom = orig->nom;
@@ -19,27 +20,28 @@ ElementNoeud::ElementNoeud(ElementNoeud* orig) {
 	//regexFils = new ConstructeurRegex(orig->regexFils);
 }
 
-ElementNoeud::~ElementNoeud() {
-	//delete(regexFils);
-}
+ ElementNoeud::~ElementNoeud() 
+ {
+	//delete(regFils);
+ }
 
 
 ///// Redéfinition du contructeur /////
-ElementNoeud::ElementNoeud(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants): ElementBurne(aNom, aAtts), enfants(*aEnfants)
-{
+ ElementNoeud::ElementNoeud(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants): ElementBurne(aNom, aAtts), enfants(*aEnfants)
+ {
 	#ifdef DEBUG
-		std::cout << "Construction de <ElementNoeud>" << std::endl;
+ 	std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif
-}
+ }
 
 /*ConstructeurRegex* ElementNoeud::getRegex() {
 	return regexFils;
 }*/
 
 void ElementNoeud::ajouterFils(AbstractElement* aFils) {
-	#ifdef DEBUG
-			std::cout << "Ajout d'un fils" << std::endl;
-	#endif
+#ifdef DEBUG
+	std::cout << "Ajout d'un fils" << std::endl;
+#endif
 	enfants.push_back(aFils);
 }
 
@@ -276,29 +278,29 @@ string ElementNoeud::creationRegex(map<string,string>& mapreg) const
 					reg += elt->creationRegex(mapreg);
 				}
 				reg += ")";
-		} 
-		else if (nom.getNom() == "choice") 
-		{
-				cout << "toupoutou" << endl;
-		reg += "(";
-			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
-			{
-				AbstractElement* elt = *it;
-				reg += elt->creationRegex(mapreg);
-				reg += "|";
-			}
-			reg.erase(reg.end());
-			reg += ")";
-		}
-		else
-		{
-			reg += ".*";
-			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
-			{
-				AbstractElement* elt = *it;
-				reg += elt->creationRegex(mapreg);
-			}
-		}
+} 
+else if (nom.getNom() == "choice") 
+{
+    // cout << "toupoutou" << endl;
+    reg += "(";
+     for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+     {
+        AbstractElement* elt = *it;
+        reg += elt->creationRegex(mapreg);
+        reg += "|";
+    }
+    reg.erase(reg.end());
+    reg += ")";
+}
+else
+{
+ reg += ".*";
+ for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+ {
+    AbstractElement* elt = *it;
+    reg += elt->creationRegex(mapreg);
+}
+}
 
 	}
 
@@ -318,8 +320,35 @@ bool ElementNoeud::ValiderXML(map<string,string>& mapreg) const
 {
     ostringstream os;
     this->filsDirectsVersFlux(os);
-
-	return true;
+    string stringTest = os.str();
+    //trouver si le noeud à une regex associée dans mapreg
+    map<string,string>::iterator it;
+    it=mapreg.find(nom.getNom());
+    if (it==mapreg.end())
+    {
+        // cout << nom.getNom() << " pas trouvé !!" << endl;
+        return false;
+    }
+    else
+    {
+        string reg = mapreg[nom.getNom()];
+        regex myRegex(reg);
+        //cout << nom.getNom() << " : " << reg << endl;
+        //cout << "veut matcher avec : " << stringTest << endl << endl;
+        if(regex_match(stringTest, myRegex))
+        {
+            //Traitement sur les fils
+            for(deque<AbstractElement*>::const_iterator it = enfants.begin() ; it != enfants.end(); it++)
+            {
+                AbstractElement* fils = *it;
+                fils->ValiderXML(mapreg);
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
 	// todo
 }
 

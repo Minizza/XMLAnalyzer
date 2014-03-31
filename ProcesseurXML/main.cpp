@@ -70,7 +70,7 @@ int validateOption(int argc, char** argv)
     char * nomFichierXSD =argv[3];
     fidXSD=fopen(nomFichierXSD ,"r");
 
-    if(fidXML!=NULL&&fidXSD!=NULL)
+    if(fidXML && fidXSD)
     {
         Document* docXML = parseFile(fidXML);
         Document* docXSD = parseFile(fidXSD);
@@ -78,16 +78,23 @@ int validateOption(int argc, char** argv)
         {
             return 3;
         }
-        //bool valid = docXML->validationXSD(*docXSD);
-        //cout << *docXML << endl;
-        //cout << *docXSD << endl;
-    return 0;
+        bool valid = docXML->validationXSD(*docXSD);
+        if(valid)
+        {
+            cout << "The file " << nomFichierXML << " is valid wrt " << nomFichierXSD << endl;
+
+        }
+        else
+        {
+            cout << "The file " << nomFichierXML << " is not valid wrt " << nomFichierXSD << endl;
+        }
+	return 0;
     }
-    else if (fidXML==NULL)
+    else if (!fidXML)
     {
         return 1;
     }
-    else if (fidXSD==NULL)
+    else if (!fidXSD)
     {
         return 2;
     }
