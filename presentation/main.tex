@@ -172,46 +172,66 @@ sinon
 \subsection{Algorithme de transformation}
 \begin{frame}[fragile]{Algorithme de transformation}
  2) fore-each
-enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
+ \scriptsize
+ \begin{verbatim}
+  enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
 pour enfantXML de enfantsXML faire
     sortie += noeud\_foreach.TransformationXSL(enfantXML, sortie)
+ \end{verbatim}
+\normalsize
 \end{frame}
 
 \subsection{Algorithme de transformation}
-\begin{frame}{Algorithme de transformation}
+\begin{frame}[fragile]{Algorithme de transformation}
  3) Rien (pas de balises xsl spéciale)
-sortie += "<" + noeudXSL.nom
+ \scriptsize
+ \begin{verbatim}
+  sortie += "<" + noeudXSL.nom
 pour attribut de noeudXSL.attributs faire
     sortie += " " + attribut.nom + "=" + attribut.valeur
 sortie += ">"
 pour filsXSL de noeudXSL faire
     sortie += filsXSL.TransformationXSL(noeudXML, sortie)    
 sortie += "</" + noeudXSL.nom + ">"
+ \end{verbatim}
+\normalsize
 \end{frame}
 
 \subsection{Algorithme de transformation}
-\begin{frame}{Algorithme de transformation}
+\begin{frame}[fragile]{Algorithme de transformation}
  4) apply-templates select="something"
-templateXSL = noeudXSL template tel que noeudXSL.match = select
+ \scriptsize
+ \begin{verbatim}
+  templateXSL = noeudXSL template tel que noeudXSL.match = select
 enfantsXML = tous les filsXML de noeudXML tels que filsXML.nom = select
 pour enfantXML de enfantsXML faire
     sortie += templateXSL.TransformationXSL(enfantXML, sortie)
+ \end{verbatim}
+\normalsize
 \end{frame}
 
 \subsection{Algorithme de transformation}
-\begin{frame}{Algorithme de transformation}
+\begin{frame}[fragile]{Algorithme de transformation}
  5) apply-templates sans attribut
-enfantsXML = tous les filsXML de noeudXML
+ \scriptsize
+ \begin{verbatim}
+  enfantsXML = tous les filsXML de noeudXML
 pour enfantXML de enfantsXML faire
     templateXSL = noeudXSL tel que noeudXSL.match = enfantXML.nom
     sortie += templateXSL.TransformationXSL(enfantXML, sortie)
+ \end{verbatim}
+\normalsize
 \end{frame}
 
 \subsection{Algorithme de transformation}
-\begin{frame}{Algorithme de transformation}
+\begin{frame}[fragile]{Algorithme de transformation}
  6) template match="something"
-pour filsXSL de noeudXSL faire
+ \scriptsize
+ \begin{verbatim}
+  pour filsXSL de noeudXSL faire
     sortie += filsXSL.TransformationXSL(noeudXML, sortie)
+ \end{verbatim}
+\normalsize
 \end{frame}
 
 \section{Bilan du projet}
@@ -238,23 +258,27 @@ pour filsXSL de noeudXSL faire
 
 \subsection{Bilan qualitatif}
 \begin{frame}{Bilan qualitatif}
- 
+Montées en compétence :
+\begin{itemize}
+ \item Modélisation pas évidente
+ \item Développer la syntaxe
+ \item Retoucher au C++
+ \item Implémentation difficile
+ \item Analyse des langages XML, XSD, XSL
+\end{itemize}
 \end{frame}
 
 \subsection{Bilan qualitatif}
 \begin{frame}{Bilan qualitatif}
- 
+Ressenti vis à vis du projet :
+ \begin{itemize}
+  \item Framework de test génial, très agréable
+  \item Aucun souci avec ce qui nous a été donné
+  \item Un projet bien dimensionné
+  \item Un projet intéressant
+ \end{itemize}
 \end{frame}
 
-\subsection{Bilan qualitatif}
-\begin{frame}{Bilan qualitatif}
- 
-\end{frame}
-
-\subsection{Bilan qualitatif}
-\begin{frame}{Bilan qualitatif}
- 
-\end{frame}
 
 
 \end{document}
