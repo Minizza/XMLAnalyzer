@@ -245,91 +245,77 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement*
 
 string ElementNoeud::creationRegex(map<string,string>& mapreg) const
 {
-	string reg = "";
-	if (AbstractAttribut* att = getAttribut("name")) 
+    string reg = "";
+    if (AbstractAttribut* att = getAttribut("name")) 
     {
-		ostringstream oss;
-		att->valeurVersFlux(oss);
-		reg += "<"  + oss.str() + ">";
+        ostringstream oss;
+        att->valeurVersFlux(oss);
+        reg += "<"  + oss.str() + ">";
 #ifdef DEBUG
-		cout << reg << endl;
+        cout << reg << endl;
 #endif
-	}
+    }
 
-	if (!enfants.empty()) 
-	{
-
-
-		for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
-		{
-			AbstractElement* elt = *it;
-			reg += elt->creationRegex(mapreg);
-		}
-	} 
-	else
-	{
-
-
-		if (nom.getNom() == "complexType") 
-		{
+        if (nom.getNom() == "complexType") 
+        {
             #ifdef DEBUG
             cout << "un complexType !!!!!!!!!!!!" << endl;
             #endif
-			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
-			{
-				AbstractElement* elt = *it;
-				reg += elt->creationRegex(mapreg);
-			}
-		}
-		else if (getAttribut("ref")) 
-		{
+            for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+            {
+                AbstractElement* elt = *it;
+                reg += elt->creationRegex(mapreg);
+            }
+        }
+        else if (getAttribut("ref")) 
+        {
             #ifdef DEBUG
             cout << "une réf !!!!!!!!!!!!" << endl;
             #endif
-			AbstractAttribut* ref = getAttribut("ref");
-			AbstractAttribut* min = getAttribut("minOccurs");
-			AbstractAttribut* max = getAttribut("maxOccurs");
-			ostringstream oss;
+            AbstractAttribut* ref = getAttribut("ref");
+            AbstractAttribut* min = getAttribut("minOccurs");
+            AbstractAttribut* max = getAttribut("maxOccurs");
+            ostringstream oss;
 
 
-			oss << "@";
-			ref->valeurVersFlux(oss);
-			oss << "@";
+            oss << "@";
+            ref->valeurVersFlux(oss);
+            oss << "@";
 
-			if (min && max) 
-			{		
-				oss << "{";
-				min->valeurVersFlux(oss);
-				oss << ",";
-				max->valeurVersFlux(oss);
-				oss << "}";
-			} 
-			else if (min) 
-			{
-				oss << "{";
-				min->valeurVersFlux(oss);
-				oss << ",}";
-			} 
-			else if (max) 
-			{
-				oss << "{1,";
-				max->valeurVersFlux(oss);
-				oss << "}";
-			}
-			reg = oss.str();
-		}
-		else if (nom.getNom() == "sequence") 
-		{
+            if (min && max) 
+            {       
+                oss << "{";
+                min->valeurVersFlux(oss);
+                oss << ",";
+                max->valeurVersFlux(oss);
+                oss << "}";
+            } 
+            else if (min) 
+            {
+                oss << "{";
+                min->valeurVersFlux(oss);
+                oss << ",}";
+            } 
+            else if (max) 
+            {
+                oss << "{1,";
+                max->valeurVersFlux(oss);
+                oss << "}";
+            }
+            reg = oss.str();
+        }
+        else if (nom.getNom() == "sequence") 
+        {
             #ifdef DEBUG
             cout << "une séquence !!!!!!!!!!!!" << endl;
             #endif
-			reg += "(";
-			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
-			{
-				AbstractElement* elt = *it;
-				reg += elt->creationRegex(mapreg);
-			}
-			reg += ")";
+            reg += "(";
+            for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+            {
+                AbstractElement* elt = *it;
+                reg += elt->creationRegex(mapreg);
+            }
+            reg += ")";
         } 
         else if (nom.getNom() == "choice") 
         {
@@ -357,18 +343,18 @@ string ElementNoeud::creationRegex(map<string,string>& mapreg) const
             }
         }  
 
-}
 
-if (AbstractAttribut* att = getAttribut("name")) {
- ostringstream oss;
- att->valeurVersFlux(oss);
- string name = oss.str();
- reg += "</"  + name + ">";
 
- mapreg[name] = reg;
-}
+    if (AbstractAttribut* att = getAttribut("name")) {
+     ostringstream oss;
+     att->valeurVersFlux(oss);
+     string name = oss.str();
+     reg += "</"  + name + ">";
 
-return reg;
+     mapreg[name] = reg;
+    }
+
+    return reg;
 }
 
 bool ElementNoeud::ValiderXML(map<string,string>& mapreg) const
@@ -407,7 +393,6 @@ bool ElementNoeud::ValiderXML(map<string,string>& mapreg) const
             return false;
         }
     }
-	// todo
 }
 
 void ElementNoeud::filsDirectsVersFlux(std::ostream& os, bool recursiver) const
