@@ -6,7 +6,33 @@
 #include "elementNoeud.h"
 #include <iostream>
 #include <sstream>
-#include <regex>
+
+#include <regex.h>  
+
+static bool regex_match(string reg, string stringTest)
+{
+    regex_t regex;
+    int reti;
+    char msgbuf[100];
+
+    /* Compile regular expression */
+    reti = regcomp(&regex, reg.c_str(), REG_EXTENDED);
+    if( reti ){ fprintf(stderr, "Could not compile regex\n"); exit(1); }
+    /* Execute regular expression */
+    reti = regexec(&regex, stringTest.c_str(), 0, NULL, 0);
+    if( !reti ){
+            return true;
+    }
+    else if( reti == REG_NOMATCH ){
+            return false;
+    }
+    else{
+            regerror(reti, &regex, msgbuf, sizeof(msgbuf));
+            fprintf(stderr, "Regex match failed: %s\n", msgbuf);
+            exit(1);
+    }
+}   
+
 //Methodes par defaut de la classe ElementNoeud
  ElementNoeud::ElementNoeud() : ElementBurne() 
  {
@@ -23,6 +49,7 @@
  ElementNoeud::~ElementNoeud() 
  {
 	//delete(regFils);
+    //free(regex) dans le map regfree(&regex);
  }
 
 
@@ -73,7 +100,8 @@
 string ElementNoeud::creationRegex(map<string,string>& mapreg) const
 {
 	string reg = "";
-	if (AbstractAttribut* att = getAttribut("name")) {
+	if (AbstractAttribut* att = getAttribut("name")) 
+    {
 		ostringstream oss;
 		att->valeurVersFlux(oss);
 		reg += "<"  + oss.str() + ">";
@@ -139,49 +167,55 @@ string ElementNoeud::creationRegex(map<string,string>& mapreg) const
 		}
 		else if (nom.getNom() == "sequence") 
 		{
+            #ifdef DEBUG
+            cout << "une séquence !!!!!!!!!!!!" << endl;
+            #endif
 			reg += "(";
-				for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
-				{
-					AbstractElement* elt = *it;
-					reg += elt->creationRegex(mapreg);
-				}
-				reg += ")";
-} 
-else if (nom.getNom() == "choice") 
-{
-    // cout << "toupoutou" << endl;
-    reg += "(";
-     for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
-     {
-        AbstractElement* elt = *it;
-        reg += elt->creationRegex(mapreg);
-        reg += "|";
+			for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+			{
+				AbstractElement* elt = *it;
+				reg += elt->creationRegex(mapreg);
+			}
+			reg += ")";
+        } 
+        else if (nom.getNom() == "choice") 
+        {
+            // cout << "toupoutou" << endl;
+            #ifdef DEBUG
+            cout << "un choice !!!!!!!!!" << endl;
+            #endif
+            reg += "(";
+             for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+             {
+                AbstractElement* elt = *it;
+                reg += elt->creationRegex(mapreg);
+                reg += "|";
+            }
+            reg.erase(reg.end());
+            reg += ")";
+        }
+        else
+        {
+            reg += "[^<&]*";
+            for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
+            {
+                AbstractElement* elt = *it;
+                reg += elt->creationRegex(mapreg);
+            }
+        }  
+
     }
-    reg.erase(reg.end());
-    reg += ")";
-}
-else
-{
- reg += ".*";
- for(deque<AbstractElement*>::const_iterator it = enfants.begin(); it != enfants.end(); it++)
- {
-    AbstractElement* elt = *it;
-    reg += elt->creationRegex(mapreg);
-}
-}
 
-}
+    if (AbstractAttribut* att = getAttribut("name")) {
+     ostringstream oss;
+     att->valeurVersFlux(oss);
+     string name = oss.str();
+     reg += "</"  + name + ">";
 
-if (AbstractAttribut* att = getAttribut("name")) {
- ostringstream oss;
- att->valeurVersFlux(oss);
- string name = oss.str();
- reg += "</"  + name + ">";
+     mapreg[name] = reg;
+    }
 
- mapreg[name] = reg;
-}
-
-return reg;
+    return reg;
 }
 
 bool ElementNoeud::ValiderXML(map<string,string>& mapreg) const
@@ -194,16 +228,19 @@ bool ElementNoeud::ValiderXML(map<string,string>& mapreg) const
     it=mapreg.find(nom.getNom());
     if (it==mapreg.end())
     {
-        // cout << nom.getNom() << " pas trouvé !!" << endl;
+#ifdef DEBUG
+        cout << nom.getNom() << " pas trouvé !!" << endl;
+#endif
         return false;
     }
     else
     {
         string reg = mapreg[nom.getNom()];
-        regex myRegex(reg);
-        //cout << nom.getNom() << " : " << reg << endl;
-        //cout << "veut matcher avec : " << stringTest << endl << endl;
-        if(regex_match(stringTest, myRegex))
+#ifdef DEBUG
+        cout << nom.getNom() << " : " << reg << endl;
+        cout << "veut matcher avec : " << stringTest << endl << endl;
+#endif
+        if(regex_match(reg, stringTest))
         {
             //Traitement sur les fils
             for(deque<AbstractElement*>::const_iterator it = enfants.begin() ; it != enfants.end(); it++)
