@@ -46,6 +46,9 @@ public:
      */
     ElementBurne(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts);
 
+    const NomCanonique& getNom() const {
+        return nom;
+    }
 
 protected:
     deque<AbstractAttribut*> atts;
