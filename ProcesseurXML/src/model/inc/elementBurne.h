@@ -44,7 +44,7 @@ public:
      *                  les textures et les modèles
      * 
      */
-    ElementBurne(string* aNom, deque<AbstractAttribut*>* aAtts);
+    ElementBurne(string* aNom, deque<AbstractAttribut*>* aAtts, string* aNamespace);
 
     AbstractAttribut* getAttribut(std::string attrNom) const;
 
