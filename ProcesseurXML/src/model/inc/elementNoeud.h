@@ -19,28 +19,31 @@
 
 
 /*
- *      La classe ElementNoeud blablabla.
+ *      La classe ElementNoeud représente tout élément étant un noeud d'un document XML.
  * 
- *      Cette classe appartient à la partie bloblo de notre application.
+ *      Cette classe hérite de la classe ElementBurne.
  *
  */
  class ElementNoeud : public ElementBurne{
     
 public:
     
-    //Methodes de base de la classe ElementNoeud
+    //Constructeur par défaut
     ElementNoeud();
     
+    //Constructeur par copie
     ElementNoeud(ElementNoeud* orig);
     
+    //Destructeur par défaut
     virtual ~ElementNoeud();
 
     /*
      *  Redéfinition du constructeur
      *          
      *    Paramètres : 
-     *          -EnTete aEnTete : passage de l'entete du document xml
-     *          -ElementNoeud aElementNoeud : passage de l'element racine du document xml
+     *          -NomCanonique* aNom : le pointeur vers le nom canonique de l'objet.
+     *          -deque<AbstractAttribut*>* aAtts : la deque des attributs de l'élément
+     *          -deque<AbstractElement*>* aEnfants : la deque des enfants du noeud.
      * 
      */
      ElementNoeud(NomCanonique* nom, deque<AbstractAttribut*>* aAtts, deque<AbstractElement*>* aEnfants);
@@ -56,12 +59,29 @@ public:
 
     void ajouterFils(AbstractElement* aFils);
 
+  /*
+   *  Méthode virtuelle transformationXSL
+   *    méthode permettant de transformer l'élément XML en élément XSL
+   *
+   *    Paramètres : 
+   *      -AbstractElement* noeudXML : le noeud XML supérieur à l'élément présent
+   *      -ostream& os : passage par référence du flux de sortie
+   */
     virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
 
 
 protected:
 
     //void construireRegex(ConstructeurRegex& regex);
+
+    /*
+     *  Méthode versFluxIndent
+     *      méthode analogue à versFlux, mais dans laquelle on spécifie une indentation
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie
+     *      -int ident : entier spécifiant l'indentation à utiliser
+     */
     virtual void versFluxIndent(std::ostream& os, int indent) const;
 
 private:

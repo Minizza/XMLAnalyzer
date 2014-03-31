@@ -17,30 +17,22 @@ using namespace std;
 /*
  *      La classe ElementCastre blablabla.
  * 
- *      Cette classe appartient à la partie bloblo de notre application.
+ *      Cette classe hérite de AbstractElement.
  *
  */
 class ElementCastre : public AbstractElement{
 	
 public:
 	
-	//Methodes de base de la classe ElementCastre
+	//Constructeur par défaut
 	ElementCastre();
 	
+	//Constructeur par copie
 	ElementCastre(ElementCastre* orig);
 	
+	//Destructeur par défaut
 	virtual ~ElementCastre();
 
-	/*
-	 *  Redéfinition du constructeur
-	 *          
-	 *    Paramètres : 
-	 *          -Golum* pouet : passage du device servant à gérer
-	 *                  l'affichage de la fenêtre
-	 *          -Prout* crottin : passage du driver servant à importer 
-	 *                  les textures et les modèles
-	 * 
-	 */
 
 };
 

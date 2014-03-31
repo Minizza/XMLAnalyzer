@@ -16,9 +16,9 @@
 
 
 /*
- *      La classe Document blablabla.
+ *      La classe Document représente un document XML, composé donc d'une en-tête et d'un corps.
  * 
- *      Cette classe appartient à la partie bloblo de notre application.
+ *      Cette classe implémente l'interface IAffichable.
  *
  */
  class Document : IAffichable {
@@ -42,7 +42,18 @@
 	 */
 	 Document(EnTete* aEnTete, ElementNoeud* aElementNoeud);
 
-
+	 /*
+     *  Méthode virtuelle versFlux
+     *      écrit dans le flux passé en paramètre tel que l'objet est censé être
+     *      dans un document XML
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie
+     *      
+     *      Retour :
+     *          -ostream& : retourne le flux dans lequel l'affichage de l'objet
+     *              a été écrit.    
+     */
      virtual std::ostream& versFlux(std::ostream& os) const;
 
      std::string transformationXSL(AbstractElement* noeudXSL, AbstractElement* noeudXML, std::string& sortie);

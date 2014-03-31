@@ -17,16 +17,16 @@
 
 
 /*
- *      La classe ElementDonnees blablabla.
+ *      La classe ElementDonnees représente un élément de donnée d'un document XML pour le parsing.
  * 
- *      Cette classe appartient à la partie bloblo de notre application.
+ *      Cette classe hérite de ElementCastre.
  *
  */
 class ElementDonnees : public ElementCastre{
 	
 public:
 	
-	//Methodes de base de la classe ElementDonnees
+	//Constructeur par défaut
 	ElementDonnees();
 	
 	// Méthodes héritées
@@ -40,18 +40,32 @@ public:
 	 *  Redéfinition du constructeur
 	 *          
 	 *    Paramètres : 
-	 *          -Golum* pouet : passage du device servant à gérer
-	 *                  l'affichage de la fenêtre
-	 *          -Prout* crottin : passage du driver servant à importer 
-	 *                  les textures et les modèles
+	 *          -string* aTexte : pointeur vers le texte contenu dans une donnée
 	 * 
 	 */
 	ElementDonnees(string* aTexte);
 
+	/*
+	 *	Méthode virtuelle transformationXSL
+	 *		méthode permettant de transformer l'élément XML en élément XSL
+	 *
+	 *		Paramètres : 
+	 *			-AbstractElement* noeudXML : le noeud XML supérieur à l'élément présent
+	 *			-ostream& os : passage par référence du flux de sortie
+	 */
 	virtual void transformationXSL(AbstractElement* noeudXML, std::ostream& os) const;
 
 	
 protected:
+
+	/*
+     *  Méthode versFluxIndent
+     *      méthode analogue à versFlux, mais dans laquelle on spécifie une indentation
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie
+     *			-int ident : entier spécifiant l'indentation à utiliser
+     */
 	virtual void versFluxIndent(std::ostream& os, int indent) const;
 	virtual void obtenirDonnees(std::ostream& os) const;
 

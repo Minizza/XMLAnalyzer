@@ -17,34 +17,40 @@
 
 
 /*
- *      La classe AttributString blablabla.
+ *      La classe AttributString représente un attribut chaine de caractères pour le parsing XML.
  * 
- *      Cette classe appartient à la partie bloblo de notre application.
- *
+ *      Cette classe hérite de AbstractAttribut.
  */
 class AttributString: public AbstractAttribut{
     
 public:
     
-    //Methodes de base de la classe AttributString
+    //Constructeur par défaut
     AttributString();
     
+    //Constructeur par copie
     AttributString(AttributString* orig);
     
+    //Destructeur par défaut
     virtual ~AttributString();
 
     /*
      *  Redéfinition du constructeur
      *          
      *    Paramètres : 
-     *          -Golum* pouet : passage du device servant à gérer
-     *                  l'affichage de la fenêtre
-     *          -Prout* crottin : passage du driver servant à importer 
-     *                  les textures et les modèles
+     *          -NomCanonique* aNom : le pointeur vers le nom canonique de l'objet.
+     *          -string* aValue : pointeur vers la valeur donnée à l'attribut
      * 
      */
     AttributString(NomCanonique* aNom, string* aValue);
 
+    /*
+     *  Méthode valeurVersFlux
+     *      n'écrit dans le flux passé en paramètre uniquement la valeur de l'objet.
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie    
+     */
     void valeurVersFlux(ostream& os) const;
 
 private:

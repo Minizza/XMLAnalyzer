@@ -20,7 +20,7 @@
 /*
  *      La classe ElementPI blablabla.
  * 
- *      Cette classe appartient à la partie bloblo de notre application.
+ *      Cette classe hérite de la classe ElementBurne.
  *
  */
 class ElementPI: public ElementBurne{
@@ -34,10 +34,8 @@ public:
      *  Redéfinition du constructeur
      *          
      *    Paramètres : 
-     *          -Golum* pouet : passage du device servant à gérer
-     *                  l'affichage de la fenêtre
-     *          -Prout* crottin : passage du driver servant à importer 
-     *                  les textures et les modèles
+     *          -NomCanonique* aNom : le pointeur vers le nom canonique de l'objet.
+     *          -deque<AbstractAttribut*>* aAttributs : la deque des attributs de l'élément
      * 
      */
     ElementPI(NomCanonique* nom, deque<AbstractAttribut*>* aAttributs);
@@ -48,6 +46,14 @@ public:
 		iterator end() { return AbstractElement::iterator(deque<AbstractElement*>()); }
 
 protected:
+    /*
+     *  Méthode versFluxIndent
+     *      méthode analogue à versFlux, mais dans laquelle on spécifie une indentation
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie
+     *          -int ident : entier spécifiant l'indentation à utiliser
+     */
     virtual void versFluxIndent(std::ostream& os, int indent) const;
     
 private:

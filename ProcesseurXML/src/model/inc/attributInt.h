@@ -14,34 +14,40 @@
 
 
 /*
- *      La classe AttributInt blablabla.
+ *      La classe AttributInt représente un attribut entier pour le parsing XML.
  * 
- *      Cette classe appartient à la partie bloblo de notre application.
+ *      Cette classe hérite de AbstractAttribut.
  *
  */
 class AttributInt: public AbstractAttribut{
     
 public:
     
-    //Methodes de base de la classe AttributInt
+    //Constructeur par défaut
     AttributInt(){};
     
+    //Constructeur par copie
     AttributInt(const AttributInt& orig);
     
+    //Destructeur par défaut
     virtual ~AttributInt();
 
     /*
      *  Redéfinition du constructeur
      *          
      *    Paramètres : 
-     *          -Golum* pouet : passage du device servant à gérer
-     *                  l'affichage de la fenêtre
-     *          -Prout* crottin : passage du driver servant à importer 
-     *                  les textures et les modèles
+     *          -int aValue : la valeur donnée à l'attribut
      * 
      */
     AttributInt(int aValue){value = aValue;};
 
+    /*
+     *  Méthode valeurVersFlux
+     *      n'écrit dans le flux passé en paramètre uniquement la valeur de l'objet.
+     *
+     *      Paramètres : 
+     *          -ostream& os : passage par référence du flux de sortie    
+     */
     void valeurVersFlux(ostream& os) const;
 
 private:
