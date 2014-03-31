@@ -12,7 +12,7 @@
 
 #include "abstractElement.h"
 #include "abstractAttribut.h"
-
+#include "nomCanonique.h"
 
 //Liste des espaces de noms utilises 
 using namespace std;
@@ -44,11 +44,12 @@ public:
      *                  les textures et les modèles
      * 
      */
-    ElementBurne(string* aNom, deque<AbstractAttribut*>* aAtts);
+    ElementBurne(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts);
 
 
 protected:
     deque<AbstractAttribut*> atts;
+    NomCanonique nom; 
 };
 
 

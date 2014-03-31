@@ -18,7 +18,7 @@ ElementCData::~ElementCData() {
 
 
 ///// Redéfinition du contructeur /////
-ElementCData::ElementCData(string* aTexte) : ElementCastre(new string("")) {
+ElementCData::ElementCData(string* aTexte) : ElementCastre() {
 #ifdef DEBUG
 		std::cout << "Construction de <ElementCData>" << std::endl;
 #endif
