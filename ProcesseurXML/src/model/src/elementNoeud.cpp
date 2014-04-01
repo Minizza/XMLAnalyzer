@@ -126,9 +126,13 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement*
 					AbstractElement* eltXml = *it;
 					const NomCanonique* nom = eltXml->getNom();
 					if(nom && nom->getNom() == select) {
-                        indenter(os, indent);
-						eltXml->donneesVersFlux(os);
-                        os << endl;
+                        for(AbstractElement::iterator it2 = eltXml->begin(); it2 != eltXml->end(); it2++)
+                        {
+                            AbstractElement* eltXmlFils = *it2;
+                            indenter(os, indent);
+                            eltXmlFils->donneesVersFlux(os);
+                            os << endl;     
+                        }
 					}
 				}
 			}

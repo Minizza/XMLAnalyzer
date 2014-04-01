@@ -126,7 +126,7 @@ int templateOption(int argc, char** argv)
         std::string html = docXML->transformationXSL(*docXSL);
         // docXML->versFlux(cout);
         // docXSL->versFlux(cout);
-        // cout << html << endl;
+        cout << html << endl;
         return 0;
     }
     else if (fidXML==NULL)

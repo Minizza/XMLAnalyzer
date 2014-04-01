@@ -42,7 +42,7 @@ void AbstractElement::indenter(std::ostream& os, int indent) const
 
 void AbstractElement::donneesVersFlux(std::ostream& os) const
 {
-	cout << "Je suis dans Abstract" << endl;
+	// cout << "Je suis dans Abstract" << endl;
     return;
 }
 
