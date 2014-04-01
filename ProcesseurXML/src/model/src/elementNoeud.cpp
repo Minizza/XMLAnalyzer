@@ -125,13 +125,14 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement*
 				{
 					AbstractElement* eltXml = *it;
 					const NomCanonique* nom = eltXml->getNom();
+                    // cout << nom->getNom() << ", " << select << endl;
 					if(nom && nom->getNom() == select) {
                         for(AbstractElement::iterator it2 = eltXml->begin(); it2 != eltXml->end(); it2++)
                         {
                             AbstractElement* eltXmlFils = *it2;
                             indenter(os, indent);
                             eltXmlFils->donneesVersFlux(os);
-                            os << endl;     
+                            os << endl;
                         }
 					}
 				}
@@ -147,11 +148,16 @@ void ElementNoeud::transformationXSL(AbstractElement* noeudXML, AbstractElement*
 			{
 				AbstractElement* eltXml = *itXml;
 				const NomCanonique* nom = eltXml->getNom();
+                if(select.find("/") != string::npos)
+                {
+                    int begin = select.find_last_of("/")+1;
+                    select = select.substr(begin, select.size()-begin);
+                }
 				if(nom && nom->getNom() == select) {
 					for(deque<AbstractElement*>::const_iterator itXsl = enfants.begin(); itXsl != enfants.end(); itXsl++)
 					{
 						AbstractElement* filsXsl = *itXsl;
-						filsXsl->transformationXSL(filsXsl, racineXSL, indent, os);
+						filsXsl->transformationXSL(eltXml, racineXSL, indent, os);
 					}
 				}
 			}
