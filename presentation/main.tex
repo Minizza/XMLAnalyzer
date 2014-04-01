@@ -7,9 +7,9 @@
 %
 \mode<presentation>
 %{https://writelatex.s3.amazonaws.com/vpzdvfpgmtcs/page/20577db5fb5206cebb645db53626924bd7e5686f.jpeg}
-  \usetheme{Frankfurt}      % or try Darmstadt, Madrid, Warsaw, ...
+  \usetheme{Frankfurt} % or try Darmstadt, Madrid, Warsaw, ...
   \usecolortheme{beaver} % or try albatross, beaver, crane, ...
-  \usefonttheme{default}  % or try serif, structurebold, ...
+  \usefonttheme{default} % or try serif, structurebold, ...
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]{}
 \setbeamertemplate{footline}[frame number]
@@ -33,7 +33,7 @@
 
 % Plan proposé :
 %
-% 1. 
+% 1.
 
 
 \section{Structures de données}
@@ -86,46 +86,61 @@
 \end{center}
 \end{frame}
 
+\subsection{Diagramme de classes}
+\begin{frame}{Diagramme de classes}
+\begin{center}
+ \includegraphics[scale=0.17]{diagdcla}
+\end{center}
+\end{frame}
 
-\section{Algorithme de  validation}
-\subsection{Algorithme de  validation}
+\section{Algorithme de validation}
+\subsection{Algorithme de validation}
 \begin{frame}[fragile]{Algorithme de validation}
-	\textbf{Objectif :}
-	Cet algorithme permet de valider un document XML par rapport à un schéma XSD. \\
-	\textbf{Principe :} algorithme en trois étapes :
-	\begin{itemize}
-		\item création d'un dictionnaire noeud/regex
-		\item passage dans le dictionnaire pour traduire les références
-		\item comparaison des regex avec la structure du document XML
-	\end{itemize}
+\textbf{Objectif :}
+Cet algorithme permet de valider un document XML par rapport à un schéma XSD. \\
+\textbf{Principe :} algorithme en trois étapes :
+\begin{itemize}
+\item création d'un dictionnaire noeud/regex
+\item passage dans le dictionnaire pour traduire les références
+\item comparaison des regex avec la structure du document XML
+\end{itemize}
 \end{frame}
 
 \section{Algorithme de transformation}
 
 \subsection{Algorithme de transformation}
-\begin{frame}[fragile]{Algorithme de transformation - Fonctions Utiles }
-	\textbf{Objectif :}
-	Cet algorithme permet de transformer un document XML par rapport à une feuille de style XSL. \\
-	\textbf{Principe :} 
-	\begin{itemize}
-		\item passage récursif dans chaque noeud du document XSL
-		\item traitement en fonction du type de noeud
-		\item sortie du résultat
+\begin{frame}[fragile]{Algorithme de transformation}
+\textbf{Objectif :}
+Cet algorithme permet de transformer un document XML par rapport à une feuille de style XSL. \\
+\textbf{Principe :}
+\begin{itemize}
+\item passage récursif dans chaque noeud du document XSL
+\item traitement en fonction du type de noeud
+\item sortie du résultat
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Algorithme de transformation}
+\textbf{Fonction :}
+Selon le type du noeud, l'algorithme sera différent. \\
+\textbf{Algorithme pour un élément noeud  :}\\
+String Transformation(noeudXMLassocié, sortie)\\
+  1) si noeudCourant est value-of\\
+  2) si noeudCourant est fore-each\\
+  3) si noeudCourant est apply-template avec attributs\\
+  4) si noeudCourant est apply-template sans attributs\\
+  5) si noeudCourant est template\\
+  6) sinon\\
+retourner sortie
 \end{frame}
 
 \section{Bilan du projet}
-\subsection{Bilan quatitatif}
-\begin{frame}{Bilan quantitatif}
-\begin{center}
- \includegraphics[scale=0.5]{chargetot}
-\end{center}
-\end{frame}
 
 \subsection{Bilan quatitatif}
 \begin{frame}{Bilan quantitatif}
 \begin{center}
  \includegraphics[scale=0.5]{chargeseance}
-\end{center} 
+\end{center}
 \end{frame}
 
 \subsection{Bilan quatitatif}
@@ -139,10 +154,10 @@
 \begin{frame}{Bilan qualitatif}
 Montées en compétence :
 \begin{itemize}
- \item Modélisation pas évidente
- \item Développer la syntaxe
- \item Retoucher au C++
- \item Implémentation difficile
+ \item Modélisation non triviale
+ \item Découverte de la syntax \textit{Bison}
+ \item (Re)découverte du C++
+ \item Implémentation peu aisée
  \item Analyse des langages XML, XSD, XSL
 \end{itemize}
 \end{frame}
@@ -151,7 +166,7 @@ Montées en compétence :
 \begin{frame}{Bilan qualitatif}
 Ressenti vis à vis du projet :
  \begin{itemize}
-  \item Framework de test génial, très agréable
+  \item Framework de test génial, très agréable !
   \item Aucun souci avec ce qui nous a été donné
   \item Un projet bien dimensionné
   \item Un projet intéressant
