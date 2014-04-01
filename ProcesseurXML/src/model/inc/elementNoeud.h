@@ -15,7 +15,6 @@
  #include "abstractElement.h"
  #include "elementBurne.h"
  #include "enTete.h"
- #include "constructeurRegex.h"
 
 //Liste des espaces de noms utilises 
 
@@ -95,7 +94,6 @@ private:
 
    bool estXSD;
    deque<AbstractElement*> enfants;
-   ConstructeurRegex* regexFils;
    string namespaceName;
 
    void nomVersFlux(ostream& os) const;

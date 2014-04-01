@@ -49,6 +49,7 @@ ElementNoeud::ElementNoeud(ElementNoeud* orig) {
  {
 	//delete(regFils);
     //free(regex) dans le map regfree(&regex);
+    for(deque<AbstractElement*>::iterator it=enfants.begin(); it != enfants.end(); delete *(it++));
  }
 
 
@@ -58,6 +59,7 @@ ElementNoeud::ElementNoeud(ElementNoeud* orig) {
 	#ifdef DEBUG
  	std::cout << "Construction de <ElementNoeud>" << std::endl;
 	#endif
+    //delete aEnfants;
  }
 
 /*ConstructeurRegex* ElementNoeud::getRegex() {

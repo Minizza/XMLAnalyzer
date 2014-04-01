@@ -16,11 +16,17 @@ NomCanonique::~NomCanonique()
 
 }
 
-NomCanonique::NomCanonique(string* aNom, string* aNamespace) : nom(*aNom), namespaceNom(*aNamespace)
+NomCanonique::NomCanonique(string* aNom, string* aNamespace) : nom(*aNom)
 {
 #ifdef DEBUG
 	cout << "Construction de <NomCanonique>" << endl;
 #endif
+	delete aNom;
+	if(aNamespace) 
+	{
+		namespaceNom = *aNamespace;
+	}
+	delete aNamespace;
 }
 
 

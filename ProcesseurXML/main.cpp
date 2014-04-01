@@ -46,6 +46,7 @@ int parseOption(int argc, char** argv)
         {
             rootDoc->versFlux(std::cout);
             fclose(fid);
+            delete rootDoc;
             return 0;
         }
         else
@@ -88,7 +89,9 @@ int validateOption(int argc, char** argv)
         {
             cout << "The file " << nomFichierXML << " is not valid wrt " << nomFichierXSD << endl;
         }
-	return 0;
+        delete docXML;
+        delete docXSD;
+	    return 0;
     }
     else if (!fidXML)
     {
@@ -127,6 +130,8 @@ int templateOption(int argc, char** argv)
         // docXML->versFlux(cout);
         // docXSL->versFlux(cout);
         cout << html << endl;
+        delete docXML;
+        delete docXSL;
         return 0;
     }
     else if (fidXML==NULL)

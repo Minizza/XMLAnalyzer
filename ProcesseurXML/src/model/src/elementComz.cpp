@@ -24,6 +24,7 @@ ElementComz::ElementComz(string* aTexte) : ElementCastre() {
 #endif
 
 	texte = *aTexte;
+	delete aTexte;
 }
 
 void ElementComz::versFluxIndent(std::ostream& os, int indent) const

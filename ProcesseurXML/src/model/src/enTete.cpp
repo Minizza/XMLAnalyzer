@@ -7,7 +7,10 @@
 #include <iostream>
 
 
-EnTete::~EnTete(){}
+EnTete::~EnTete()
+{
+    delete doctype;
+}
 
 EnTete::EnTete(Doctype* aDoctype, deque<AbstractElement*>* aHeaderpart,int aIndexOfDT)
 {

@@ -24,6 +24,7 @@ ElementCData::ElementCData(string* aTexte) : ElementCastre() {
 #endif
 
 	texte = *aTexte;
+	delete aTexte;
 }
 
 void ElementCData::versFluxIndent(std::ostream& os, int indent) const

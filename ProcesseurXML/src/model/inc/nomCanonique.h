@@ -36,7 +36,7 @@ public:
 	 *          -String name : le nom de l'élément
 	 * 
 	 */
-	NomCanonique(string* aNom, string* aNamespace=new string(""));
+	NomCanonique(string* aNom, string* aNamespace=NULL);
 
 	virtual ~NomCanonique();
 

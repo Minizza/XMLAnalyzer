@@ -16,6 +16,7 @@ AttributString::AttributString(NomCanonique* aNom, string* aValue) : 	AbstractAt
 		std::cout << "Construction de <AttributString>" << std::endl;
 	#endif
 	value = *aValue;
+	delete aValue;
 }
 
 AttributString::~AttributString(){}

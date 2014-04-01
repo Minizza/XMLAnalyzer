@@ -20,6 +20,8 @@
  }
 
  Document::~Document() {
+    delete enTete;
+    delete racine;
  }
 
 

@@ -15,6 +15,7 @@ ElementBurne::ElementBurne(ElementBurne* orig) {
 }
 
 ElementBurne::~ElementBurne(){
+    for(deque<AbstractAttribut*>::iterator it=atts.begin(); it != atts.end(); delete *(it++));
 }
 
 
@@ -23,6 +24,8 @@ ElementBurne::ElementBurne(NomCanonique* aNom, deque<AbstractAttribut*>* aAtts) 
 #ifdef DEBUG
 		std::cout << "Construction de <ElementBurne>" << std::endl;
 #endif
+        delete aAtts;
+        delete aNom;
 }
 
 /*ConstructeurRegex* ElementBurne::getRegex() {

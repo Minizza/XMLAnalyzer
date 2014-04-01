@@ -15,6 +15,7 @@ AbstractAttribut::AbstractAttribut(NomCanonique* aNom) : nom(*aNom)
     #ifdef DEBUG
         std::cout << "Construction de <AbstractAttribut>" << std::endl;
     #endif
+    delete aNom;
 }
 
 AbstractAttribut::~AbstractAttribut(){}

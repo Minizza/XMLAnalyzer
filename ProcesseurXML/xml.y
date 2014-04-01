@@ -82,7 +82,8 @@
 
 	headerparts //il faut vérifier qu'on a bien la version du xml
 	: headerparts headerpart {$$ = $1; $$->push_back($2);}
-    | /*vide*/{$$=new deque<AbstractElement*>();}
+    | /*vide*/{$$=new deque<AbstractElement*>();
+    }
 	;
 
     headerpart
