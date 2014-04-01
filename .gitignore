@@ -35,9 +35,12 @@ commun
 *.log
 *.out
 *.toc
+<<<<<<< HEAD
 *.tex~
 *.nav
 *.snm
 *.tex.backup
 *.vrb
+=======
+>>>>>>> parent of f98d162... Added *.vrb to gitignore
 main.pdf
